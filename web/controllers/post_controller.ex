@@ -3,6 +3,7 @@ defmodule Watchnature.PostController do
 
   alias Watchnature.Post
 
+  plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "post" when action in [:create, :update]
 
   def index(conn, _params) do
