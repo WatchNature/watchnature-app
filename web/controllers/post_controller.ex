@@ -12,6 +12,8 @@ defmodule Watchnature.PostController do
   end
 
   def create(conn, %{"post" => post_params}) do
+    {:ok, user_id} = Map.fetch(conn.assigns[:current_user], :id)
+    post_params = Map.put_new(post_params, "user_id", user_id)
     changeset = Post.changeset(%Post{}, post_params)
 
     case Repo.insert(changeset) do

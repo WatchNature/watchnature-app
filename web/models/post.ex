@@ -8,12 +8,10 @@ defmodule Watchnature.Post do
     timestamps()
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:description])
+    |> cast(params, [:description, :user_id])
     |> validate_required([:description])
+    |> foreign_key_constraint(:user_id)
   end
 end
