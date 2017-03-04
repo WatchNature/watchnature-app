@@ -1,4 +1,4 @@
-defmodule WatchnatureApp.AuthController do
+defmodule Watchnature.AuthController do
   use Watchnature.Web, :controller
 
   alias Watchnature.{ErrorView, UserView, User, AuthController}
@@ -7,7 +7,6 @@ defmodule WatchnatureApp.AuthController do
   plug Guardian.Plug.EnsureAuthenticated, [handler: AuthController] when action in [:delete, :me]
 
   def indentity_callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    # https://elixirschool.com/lessons/basics/control-structures/
     result = with {:ok, user} <- user_from_auth(auth),
                   :ok <- validate_pass(user.password_hash, auth.credentials.other.password),
                   do: signin_user(conn, user)
@@ -16,11 +15,11 @@ defmodule WatchnatureApp.AuthController do
       {:ok, user, token} ->
         conn
         |> put_status(:created)
-        |> render(UserView, "show.json-api", data: user, opts: [meta: %{token: token}])
+        |> render(UserView, "authenticated.json", user: user, token: token)
       {:error, reason} ->
         conn
         |> put_status(:bad_request)
-        |> render(ErrorView, "error.json-api", data: reason)
+        |> render(ErrorView, "error.json", data: reason)
     end
   end
 

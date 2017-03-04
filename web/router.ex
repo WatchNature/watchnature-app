@@ -13,6 +13,12 @@ defmodule Watchnature.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_auth do
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    plug Guardian.Plug.LoadResource
+    plug Watchnature.Plug.CurrentUser
+  end
+
   scope "/", Watchnature do
     pipe_through :browser
 
@@ -20,9 +26,15 @@ defmodule Watchnature.Router do
   end
 
   scope "/api", Watchnature do
-    pipe_through :api
+    pipe_through [:api, :api_auth]
 
     resources "/users", UserController, except: [:new, :edit]
     resources "/posts", PostController, except: [:new, :edit]
+  end
+
+  scope "/auth", Watchnature do
+    pipe_through [:api, :api_auth]
+
+    post "/identity/callback", AuthController, :indentity_callback
   end
 end

@@ -26,7 +26,7 @@ config :ueberauth, Ueberauth,
   providers: [
     identity: {
       Ueberauth.Strategy.Identity,
-      [callback_methods: ["POST"], param_nesting: "data"]
+      [callback_methods: ["POST"]]
     }
   ]
 
@@ -34,7 +34,7 @@ config :guardian, Guardian,
   issuer: "Watchnature",
   ttl: {30, :days},
   secret_key: "uw/27wdrIquPn2fktwfJg9tg8qOl5ysTPCFjISw1TCCaLlfWgRUAea1SuWcfERzX",
-  serializer: WatchnatureApp.GuardianSerializer,
+  serializer: Watchnature.GuardianSerializer,
   permissions: %{default: [:read, :write]}
 
 # Import environment specific config. This must remain at the bottom
