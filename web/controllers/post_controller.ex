@@ -3,6 +3,8 @@ defmodule Watchnature.PostController do
 
   alias Watchnature.Post
 
+  plug :scrub_params, "post" when action in [:create, :update]
+
   def index(conn, _params) do
     posts = Repo.all(Post)
     render(conn, "index.json", posts: posts)

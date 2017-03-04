@@ -2,7 +2,7 @@ defmodule Watchnature.UserControllerTest do
   use Watchnature.ConnCase
 
   alias Watchnature.User
-  @valid_attrs %{email: "some content", password_hash: "some content"}
+  @valid_attrs %{email: "some content", password: "some content"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
@@ -18,9 +18,7 @@ defmodule Watchnature.UserControllerTest do
   test "shows chosen resource", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :show, user)
-    assert json_response(conn, 200)["data"] == %{"id" => user.id,
-      "email" => user.email,
-      "password_hash" => user.password_hash}
+    assert json_response(conn, 200)["data"] == %{"id" => user.id, "email" => user.email}
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -32,7 +30,7 @@ defmodule Watchnature.UserControllerTest do
   test "creates and renders resource when data is valid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @valid_attrs
     assert json_response(conn, 201)["data"]["id"]
-    assert Repo.get_by(User, @valid_attrs)
+    assert Repo.get_by(User, %{email: @valid_attrs[:email]})
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -44,7 +42,7 @@ defmodule Watchnature.UserControllerTest do
     user = Repo.insert! %User{}
     conn = put conn, user_path(conn, :update, user), user: @valid_attrs
     assert json_response(conn, 200)["data"]["id"]
-    assert Repo.get_by(User, @valid_attrs)
+    assert Repo.get_by(User, %{email: @valid_attrs[:email]})
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
