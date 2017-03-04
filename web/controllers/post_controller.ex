@@ -1,22 +1,22 @@
-defmodule Watchnature.PostsController do
+defmodule Watchnature.PostController do
   use Watchnature.Web, :controller
 
-  alias Watchnature.Posts
+  alias Watchnature.Post
 
   def index(conn, _params) do
-    posts = Repo.all(Posts)
+    posts = Repo.all(Post)
     render(conn, "index.json", posts: posts)
   end
 
-  def create(conn, %{"posts" => posts_params}) do
-    changeset = Posts.changeset(%Posts{}, posts_params)
+  def create(conn, %{"post" => post_params}) do
+    changeset = Post.changeset(%Post{}, post_params)
 
     case Repo.insert(changeset) do
-      {:ok, posts} ->
+      {:ok, post} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", posts_path(conn, :show, posts))
-        |> render("show.json", posts: posts)
+        |> put_resp_header("location", post_path(conn, :show, post))
+        |> render("show.json", post: post)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -25,17 +25,17 @@ defmodule Watchnature.PostsController do
   end
 
   def show(conn, %{"id" => id}) do
-    posts = Repo.get!(Posts, id)
-    render(conn, "show.json", posts: posts)
+    post = Repo.get!(Post, id)
+    render(conn, "show.json", post: post)
   end
 
-  def update(conn, %{"id" => id, "posts" => posts_params}) do
-    posts = Repo.get!(Posts, id)
-    changeset = Posts.changeset(posts, posts_params)
+  def update(conn, %{"id" => id, "post" => post_params}) do
+    post = Repo.get!(Post, id)
+    changeset = Post.changeset(post, post_params)
 
     case Repo.update(changeset) do
-      {:ok, posts} ->
-        render(conn, "show.json", posts: posts)
+      {:ok, post} ->
+        render(conn, "show.json", post: post)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -44,11 +44,11 @@ defmodule Watchnature.PostsController do
   end
 
   def delete(conn, %{"id" => id}) do
-    posts = Repo.get!(Posts, id)
+    post = Repo.get!(Post, id)
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(posts)
+    Repo.delete!(post)
 
     send_resp(conn, :no_content, "")
   end

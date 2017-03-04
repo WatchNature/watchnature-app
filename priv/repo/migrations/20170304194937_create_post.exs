@@ -1,4 +1,4 @@
-defmodule Watchnature.Repo.Migrations.CreatePosts do
+defmodule Watchnature.Repo.Migrations.CreatePost do
   use Ecto.Migration
 
   def change do

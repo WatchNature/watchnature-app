@@ -1,4 +1,4 @@
-defmodule Watchnature.Posts do
+defmodule Watchnature.Post do
   use Watchnature.Web, :model
 
   schema "posts" do
