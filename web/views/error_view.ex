@@ -9,6 +9,14 @@ defmodule Watchnature.ErrorView do
     "Internal server error"
   end
 
+
+  def render("error.json", %{title: title, message: message}) do
+    %{errors: %{title: title, message: message}}
+  end
+  def render("error.json", %{title: title}) do
+    %{errors: %{title: title}}
+  end
+
   # In case no render clause matches or no
   # template is found, let's render it as 500
   def template_not_found(_template, assigns) do

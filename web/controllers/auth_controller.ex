@@ -19,7 +19,7 @@ defmodule Watchnature.AuthController do
       {:error, reason} ->
         conn
         |> put_status(:bad_request)
-        |> render(ErrorView, "error.json", data: reason)
+        |> render(ErrorView, "error.json", title: reason[:title])
     end
   end
 
@@ -31,33 +31,33 @@ defmodule Watchnature.AuthController do
   def unauthenticated(conn, _params) do
     conn
     |> put_status(:unauthorized)
-    |> render(ErrorView, "error.json-api", data: %{error: %{title: "Authentication Required", status: 401}})
+    |> render(ErrorView, "error.json", title: "Authentication Required")
   end
 
   def unauthorized(conn, _params) do
     conn
     |> put_status(:unauthorized)
-    |> render(ErrorView, "error.json-api", data: %{error: %{title: "Unauthorized", status: 401}})
+    |> render(ErrorView, "error.json", title: "Unauthorized")
   end
 
   defp user_from_auth(auth) do
     result = Repo.get_by(User, email: auth.info.email)
 
     case result do
-      nil -> {:error, %{error: %{title: "Invalid email or password", status: 422}}}
+      nil -> {:error, title: "Invalid email or password"}
       user -> {:ok, user}
     end
   end
 
   defp validate_pass(_encrypted, password) when password in [nil, ""] do
-    {:error, %{error: %{title: "Password is required", status: 422}}}
+    {:error, title: "Password is required"}
   end
 
   defp validate_pass(encrypted, password) do
     if Comeonin.Bcrypt.checkpw(password, encrypted) do
       :ok
     else
-      {:error, %{error: %{title: "Invalid email or password", status: 422}}}
+      {:error, title: "Invalid email or password"}
     end
   end
 
