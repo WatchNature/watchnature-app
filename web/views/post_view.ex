@@ -12,6 +12,6 @@ defmodule Watchnature.PostView do
   def render("post.json", %{post: post}) do
     %{id: post.id,
       description: post.description,
-      user_id: post.user_id}
+      user: render_one(post.user, Watchnature.UserView, "user.json")}
   end
 end

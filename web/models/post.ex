@@ -14,4 +14,9 @@ defmodule Watchnature.Post do
     |> validate_required([:description])
     |> foreign_key_constraint(:user_id)
   end
+
+  def sorted(query \\ __MODULE__) do
+    from p in query,
+    order_by: [desc: p.inserted_at]
+  end
 end
