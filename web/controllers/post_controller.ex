@@ -22,6 +22,8 @@ defmodule Watchnature.PostController do
 
     case Repo.insert(changeset) do
       {:ok, post} ->
+        post = Repo.preload(post, :user)
+
         conn
         |> put_status(:created)
         |> put_resp_header("location", post_path(conn, :show, post))
