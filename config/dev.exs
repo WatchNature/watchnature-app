@@ -40,4 +40,5 @@ config :watchnature, Watchnature.Repo,
   password: "postgres",
   database: "watchnature_dev",
   hostname: "localhost",
+  types: Watchnature.PostgresTypes,
   pool_size: 10
