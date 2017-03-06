@@ -36,7 +36,7 @@ defmodule Watchnature.PostController do
   end
 
   def show(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id)
+    post = Repo.get!(Post, id) |> Repo.preload(:user)
     render(conn, "show.json", post: post)
   end
 
