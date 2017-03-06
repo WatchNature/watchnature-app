@@ -1,8 +1,12 @@
 defmodule Watchnature.Post do
   use Watchnature.Web, :model
 
+  require IEx
+
   schema "posts" do
     field :description, :string
+    field :location, Geo.Point
+
     belongs_to :user, Watchnature.User
 
     timestamps()
@@ -10,7 +14,7 @@ defmodule Watchnature.Post do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:description, :user_id])
+    |> cast(params, [:description, :location, :user_id])
     |> validate_required([:description])
     |> foreign_key_constraint(:user_id)
   end
