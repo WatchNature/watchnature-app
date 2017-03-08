@@ -3,7 +3,7 @@ defmodule Watchnature.Repo.Migrations.AddLocationDataToPosts do
 
   def change do
     alter table(:posts) do
-      add :location_common_name, :string
+      add :location_name, :string
       add :location, :geometry
     end
   end

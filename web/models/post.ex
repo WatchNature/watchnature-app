@@ -6,6 +6,7 @@ defmodule Watchnature.Post do
   schema "posts" do
     field :description, :string
     field :location, Geo.Point
+    field :location_name, :string
 
     belongs_to :user, Watchnature.User
 
@@ -14,7 +15,7 @@ defmodule Watchnature.Post do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:description, :location, :user_id])
+    |> cast(params, [:description, :location, :location_name, :user_id])
     |> validate_required([:description])
     |> foreign_key_constraint(:user_id)
   end

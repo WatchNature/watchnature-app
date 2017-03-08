@@ -18,6 +18,7 @@ defmodule Watchnature.PostView do
 
     %{id: post.id,
       description: post.description,
+      location_name: post.location_name,
       location: location,
       user: render_one(post.user, Watchnature.UserView, "user.json")}
   end
