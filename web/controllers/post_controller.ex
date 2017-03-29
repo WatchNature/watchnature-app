@@ -46,6 +46,7 @@ defmodule Watchnature.PostController do
 
     case Repo.update(changeset) do
       {:ok, post} ->
+        post = Repo.preload(post, :user)
         render(conn, "show.json", post: post)
       {:error, changeset} ->
         conn
