@@ -16,4 +16,5 @@ config :watchnature, Watchnature.Repo,
   password: "postgres",
   database: "watchnature_test",
   hostname: "localhost",
+  types: Watchnature.PostgresTypes,
   pool: Ecto.Adapters.SQL.Sandbox
