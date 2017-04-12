@@ -2,17 +2,24 @@ defmodule Watchnature.UserControllerTest do
   use Watchnature.ConnCase
 
   alias Watchnature.User
-  @valid_attrs %{email: "some content", password: "some content"}
+  @valid_attrs %{email: "user@watchnature.co", password: "secretsecret"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    user = Repo.insert! %User{}
+    {:ok, jwt, full_claims} = Guardian.encode_and_sign(user)
+
+    {:ok, %{
+      conn: put_req_header(conn, "accept", "application/json"),
+      user: user,
+      jwt: jwt,
+      claims: full_claims
+    }}
   end
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, user_path(conn, :index)
-    assert json_response(conn, 200)["data"] == []
-
+    assert json_response(conn, 200)
   end
 
   test "shows chosen resource", %{conn: conn} do
@@ -38,22 +45,34 @@ defmodule Watchnature.UserControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "updates and renders chosen resource when data is valid", %{conn: conn} do
+  test "updates and renders chosen resource when data is valid", %{conn: conn, jwt: jwt} do
     user = Repo.insert! %User{}
-    conn = put conn, user_path(conn, :update, user), user: @valid_attrs
+
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> put(user_path(conn, :update, user), user: @valid_attrs)
+
     assert json_response(conn, 200)["data"]["id"]
     assert Repo.get_by(User, %{email: @valid_attrs[:email]})
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, jwt: jwt} do
     user = Repo.insert! %User{}
-    conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
+
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> put(user_path(conn, :update, user), user: @invalid_attrs)
+
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "deletes chosen resource", %{conn: conn} do
+  test "deletes chosen resource", %{conn: conn, jwt: jwt} do
     user = Repo.insert! %User{}
-    conn = delete conn, user_path(conn, :delete, user)
+
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> delete(user_path(conn, :delete, user))
+
     assert response(conn, 204)
     refute Repo.get(User, user.id)
   end

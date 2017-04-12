@@ -1,12 +1,20 @@
 defmodule Watchnature.PostControllerTest do
   use Watchnature.ConnCase
 
-  alias Watchnature.Post
+  alias Watchnature.{Post, User}
   @valid_attrs %{description: "some content"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    user = Repo.insert! %User{}
+    {:ok, jwt, full_claims} = Guardian.encode_and_sign(user)
+
+    {:ok, %{
+      conn: put_req_header(conn, "accept", "application/json"),
+      user: user,
+      jwt: jwt,
+      claims: full_claims
+    }}
   end
 
   test "lists all entries on index", %{conn: conn} do
@@ -17,9 +25,12 @@ defmodule Watchnature.PostControllerTest do
   test "shows chosen resource", %{conn: conn} do
     post = Repo.insert! %Post{}
     conn = get conn, post_path(conn, :show, post)
+
     assert json_response(conn, 200)["data"] == %{"id" => post.id,
       "description" => post.description,
-      "user_id" => post.user_id}
+      "location" => %{"lat" => nil, "lng" => nil},
+      "location_name" => nil,
+      "user" => post.user_id}
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -28,33 +39,52 @@ defmodule Watchnature.PostControllerTest do
     end
   end
 
-  test "creates and renders resource when data is valid", %{conn: conn} do
-    conn = post conn, post_path(conn, :create), post: @valid_attrs
+  test "creates and renders resource when data is valid", %{conn: conn, jwt: jwt} do
+
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> post(post_path(conn, :create), post: @valid_attrs)
+
     assert json_response(conn, 201)["data"]["id"]
     assert Repo.get_by(Post, @valid_attrs)
   end
 
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, post_path(conn, :create), post: @invalid_attrs
+  test "does not create resource and renders errors when data is invalid", %{conn: conn, jwt: jwt} do
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> post(post_path(conn, :create), post: @invalid_attrs)
+
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "updates and renders chosen resource when data is valid", %{conn: conn} do
+  test "updates and renders chosen resource when data is valid", %{conn: conn, jwt: jwt} do
     post = Repo.insert! %Post{}
-    conn = put conn, post_path(conn, :update, post), post: @valid_attrs
+
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> put(post_path(conn, :update, post), post: @valid_attrs)
+
     assert json_response(conn, 200)["data"]["id"]
     assert Repo.get_by(Post, @valid_attrs)
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, jwt: jwt} do
     post = Repo.insert! %Post{}
-    conn = put conn, post_path(conn, :update, post), post: @invalid_attrs
+
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> put(post_path(conn, :update, post), post: @invalid_attrs)
+
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "deletes chosen resource", %{conn: conn} do
-    post = Repo.insert! %Post{}
-    conn = delete conn, post_path(conn, :delete, post)
+  test "deletes chosen resource", %{conn: conn, jwt: jwt} do
+    post = Repo.insert! struct(%Post{}, @valid_attrs)
+
+    conn = build_conn()
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> delete(post_path(conn, :delete, post))
+
     assert response(conn, 204)
     refute Repo.get(Post, post.id)
   end
