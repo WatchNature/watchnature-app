@@ -6,8 +6,9 @@ defmodule Watchnature.CommentController do
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "comment" when action in [:create, :update]
 
-  def index(conn, _params) do
-    comments = Repo.all(Comment)
+  def index(conn, %{"post_id" => post_id}) do
+    comments = Repo.all(from c in Comment, where: c.post_id == ^post_id)
+
     render(conn, "index.json", comments: comments)
   end
 
