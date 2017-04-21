@@ -30,6 +30,7 @@ defmodule Watchnature.Router do
 
     resources "/users", UserController, except: [:new, :edit]
     resources "/posts", PostController, except: [:new, :edit]
+    resources "/observations", ObservationController, except: [:new, :edit]
   end
 
   scope "/auth", Watchnature do
