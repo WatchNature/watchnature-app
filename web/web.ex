@@ -36,6 +36,7 @@ defmodule Watchnature.Web do
 
       import Watchnature.Router.Helpers
       import Watchnature.Gettext
+      import Bodyguard.Controller
     end
   end
 
@@ -52,6 +53,7 @@ defmodule Watchnature.Web do
       import Watchnature.Router.Helpers
       import Watchnature.ErrorHelpers
       import Watchnature.Gettext
+      import Bodyguard.Controller
     end
   end
 

@@ -53,7 +53,7 @@ defmodule Watchnature.Mixfile do
      {:ueberauth, "~> 0.2"},
      {:ueberauth_identity, "~> 0.2"},
      {:guardian, "~> 0.10"},
-     {:bodyguard, "~> 0.6.1"},
+     {:bodyguard, "~> 1.0.0"},
      {:geo, "~> 1.4"},
      {:cowboy, "~> 1.0"}]
   end

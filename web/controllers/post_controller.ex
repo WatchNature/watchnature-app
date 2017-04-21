@@ -1,18 +1,23 @@
 defmodule Watchnature.PostController do
   use Watchnature.Web, :controller
 
-  alias Watchnature.Post
+  alias Watchnature.{Post, ErrorView}
 
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "post" when action in [:create, :update]
 
   def index(conn, _params) do
-    posts = Post
-    |> Post.sorted
-    |> Repo.all
-    |> Repo.preload(:user)
+    case authorize(conn, Post) do
+      {:ok, conn} ->
+        posts = Post
+        |> Post.sorted
+        |> Repo.all
+        |> Repo.preload(:user)
 
-    render(conn, "index.json", posts: posts)
+        render(conn, "index.json", posts: posts)
+      {:error, _} ->
+        render(conn, ErrorView, "403.json")
+    end
   end
 
   def create(conn, %{"post" => post_params}) do
@@ -37,31 +42,42 @@ defmodule Watchnature.PostController do
 
   def show(conn, %{"id" => id}) do
     post = Repo.get!(Post, id) |> Repo.preload(:user)
-    render(conn, "show.json", post: post)
+
+    case authorize(conn, post) do
+      {:ok, conn} -> render(conn, "show.json", post: post)
+      {:error, _} -> render(conn, ErrorView, "403.json")
+    end
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
     post = Repo.get!(Post, id)
     changeset = Post.changeset(post, post_params)
 
-    case Repo.update(changeset) do
-      {:ok, post} ->
-        post = Repo.preload(post, :user)
-        render(conn, "show.json", post: post)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+    case authorize(conn, post) do
+      {:ok, conn} ->
+        case Repo.update(changeset) do
+          {:ok, post} ->
+            post = Repo.preload(post, :user)
+            render(conn, "show.json", post: post)
+          {:error, changeset} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        end
+      {:error, _} ->
+        render(conn, ErrorView, "403.json")
     end
   end
 
   def delete(conn, %{"id" => id}) do
     post = Repo.get!(Post, id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(post)
-
-    send_resp(conn, :no_content, "")
+    case authorize(conn, post) do
+      {:ok, conn} ->
+        Repo.delete!(post)
+        send_resp(conn, :no_content, "")
+      {:error, _} ->
+        render(conn, ErrorView, "403.json")
+    end
   end
 end

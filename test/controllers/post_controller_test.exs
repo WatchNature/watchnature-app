@@ -57,8 +57,8 @@ defmodule Watchnature.PostControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "updates and renders chosen resource when data is valid", %{conn: conn, jwt: jwt} do
-    post = Repo.insert! %Post{}
+  test "updates and renders chosen resource when data is valid", %{conn: conn, user: user, jwt: jwt} do
+    post = Repo.insert! %Post{user_id: user.id}
 
     conn = build_conn()
       |> put_req_header("authorization", "Bearer #{jwt}")
@@ -68,8 +68,8 @@ defmodule Watchnature.PostControllerTest do
     assert Repo.get_by(Post, @valid_attrs)
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, jwt: jwt} do
-    post = Repo.insert! %Post{}
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, user: user, jwt: jwt} do
+    post = Repo.insert! %Post{user_id: user.id}
 
     conn = build_conn()
       |> put_req_header("authorization", "Bearer #{jwt}")
@@ -78,8 +78,9 @@ defmodule Watchnature.PostControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "deletes chosen resource", %{conn: conn, jwt: jwt} do
-    post = Repo.insert! struct(%Post{}, @valid_attrs)
+  test "deletes chosen resource", %{conn: conn, user: user, jwt: jwt} do
+    attrs = Map.merge(@valid_attrs, %{user_id: user.id})
+    post = Repo.insert! struct(%Post{}, attrs)
 
     conn = build_conn()
       |> put_req_header("authorization", "Bearer #{jwt}")

@@ -9,6 +9,17 @@ defmodule Watchnature.ErrorView do
     "Internal server error"
   end
 
+  def render("403.json", _assigns) do
+    %{errors: %{message: "Forbidden"}}
+  end
+
+  def render("404.json", _assigns) do
+    %{errors: %{message: "Not Found"}}
+  end
+
+  def render("500.json", _assigns) do
+    %{errors: %{message: "Server Error"}}
+  end
 
   def render("error.json", %{title: title, message: message}) do
     %{errors: %{title: title, message: message}}
