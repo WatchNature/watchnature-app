@@ -1,7 +1,7 @@
 defmodule Watchnature.Post do
   use Watchnature.Web, :model
 
-  alias Watchnature.{User, Observation}
+  alias Watchnature.{User, Observation, Comment}
 
   schema "posts" do
     field :description, :string
@@ -11,6 +11,7 @@ defmodule Watchnature.Post do
     belongs_to :user, User
 
     has_many :observations, Observation
+    has_many :comments, Comment
 
     timestamps()
   end

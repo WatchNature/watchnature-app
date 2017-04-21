@@ -1,10 +1,15 @@
 defmodule Watchnature.User do
   use Watchnature.Web, :model
 
+  alias Watchnature.{User, Post, Comment}
+
   schema "users" do
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+
+    has_many :posts, Post
+    has_many :comments, Comment
 
     timestamps()
   end
