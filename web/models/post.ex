@@ -1,12 +1,16 @@
 defmodule Watchnature.Post do
   use Watchnature.Web, :model
 
+  alias Watchnature.{User, Observation}
+
   schema "posts" do
     field :description, :string
     field :location, Geo.Point
     field :location_name, :string
 
-    belongs_to :user, Watchnature.User
+    belongs_to :user, User
+
+    has_many :observations, Observation
 
     timestamps()
   end

@@ -1,5 +1,6 @@
 defmodule Watchnature.PostControllerTest do
   use Watchnature.ConnCase
+
   alias Watchnature.{Post, User}
 
   @valid_attrs %{description: "some content"}

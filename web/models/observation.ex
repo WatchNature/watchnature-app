@@ -16,6 +16,8 @@ defmodule Watchnature.Observation do
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
+    params = remove_location_if_empty(params)
+
     struct
     |> cast(params, [:description, :location_name, :location, :user_id, :post_id])
     |> validate_required([:description, :user_id, :post_id])

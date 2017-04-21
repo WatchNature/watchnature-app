@@ -29,8 +29,10 @@ defmodule Watchnature.Router do
     pipe_through [:api, :api_auth]
 
     resources "/users", UserController, except: [:new, :edit]
-    resources "/posts", PostController, except: [:new, :edit]
-    resources "/observations", ObservationController, except: [:new, :edit]
+
+    resources "/posts", PostController, except: [:new, :edit] do
+      resources "/observations", ObservationController, except: [:new, :edit]
+    end
   end
 
   scope "/auth", Watchnature do

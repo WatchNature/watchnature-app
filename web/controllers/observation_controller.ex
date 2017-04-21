@@ -6,19 +6,24 @@ defmodule Watchnature.ObservationController do
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "observation" when action in [:create, :update]
 
-  def index(conn, _params) do
-    observations = Repo.all(Observation)
+  def index(conn, %{"post_id" => post_id}) do
+    observations = Repo.all(from o in Observation, where: o.post_id == ^post_id)
     render(conn, "index.json", observations: observations)
   end
 
-  def create(conn, %{"observation" => observation_params}) do
+  def create(conn, %{"post_id" => post_id, "observation" => observation_params}) do
+    {:ok, user_id} = Map.fetch(conn.assigns[:current_user], :id)
+    observation_params = observation_params
+    |> Map.put_new("user_id", user_id)
+    |> Map.put_new("post_id", post_id)
+
     changeset = Observation.changeset(%Observation{}, observation_params)
 
     case Repo.insert(changeset) do
       {:ok, observation} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", observation_path(conn, :show, observation))
+        |> put_resp_header("location", post_observation_path(conn, :show, post_id, observation))
         |> render("show.json", observation: observation)
       {:error, changeset} ->
         conn
