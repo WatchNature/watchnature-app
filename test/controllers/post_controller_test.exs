@@ -1,7 +1,7 @@
 defmodule Watchnature.PostControllerTest do
   use Watchnature.ConnCase
-
   alias Watchnature.{Post, User}
+
   @valid_attrs %{description: "some content"}
   @invalid_attrs %{}
 
@@ -40,7 +40,6 @@ defmodule Watchnature.PostControllerTest do
   end
 
   test "creates and renders resource when data is valid", %{conn: conn, jwt: jwt} do
-
     conn = build_conn()
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> post(post_path(conn, :create), post: @valid_attrs)
