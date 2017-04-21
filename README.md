@@ -19,6 +19,8 @@ To start your Phoenix app:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+To run the tests and watcher, simply use `mix test.watch`.
+
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
 ## Learn more
@@ -29,15 +31,8 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
 
-## Tools
-
-* Uberauth (Registration)
-* Guardian (Authentication / JWT handling)
-* Bodyguard (Authorization)
-
 ## Roadmap
 
-* [ ] Passing tests for jsonapi rewrite
 * [x] User registration & Authentication
     * [x] Utilize Bodyguard policy scope to return 404 for not found users
     * [x] Authorization - Users should only be able to edit their own details

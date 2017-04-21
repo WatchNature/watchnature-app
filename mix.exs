@@ -46,6 +46,7 @@ defmodule Watchnature.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
      {:gettext, "~> 0.11"},
      {:comeonin, "~> 2.3"},
      {:corsica, "~> 0.5"},
