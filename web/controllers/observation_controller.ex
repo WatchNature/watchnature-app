@@ -1,10 +1,11 @@
 defmodule Watchnature.ObservationController do
   use Watchnature.Web, :controller
 
-  alias Watchnature.Observation
+  alias Watchnature.{Observation, Post, ErrorView}
 
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "observation" when action in [:create, :update]
+  # plug :authorize_post!
 
   def index(conn, %{"post_id" => post_id}) do
     observations = Repo.all(from o in Observation, where: o.post_id == ^post_id)
@@ -59,5 +60,10 @@ defmodule Watchnature.ObservationController do
     Repo.delete!(observation)
 
     send_resp(conn, :no_content, "")
+  end
+
+  defp authorize_post!(%{params: %{"post_id" => post_id}} = conn, _) do
+    post = Repo.get!(Post, post_id)
+    authorize!(conn, post, action: :update)
   end
 end
