@@ -1,1 +1,6 @@
 /* This file is for your main application css. */
+.hero-img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}

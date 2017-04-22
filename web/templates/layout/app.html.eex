@@ -7,29 +7,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Watchnature!</title>
+    <link rel="shortcut icon" type="image/x-icon" href="<%= static_path(@conn, "/favicon.ico") %>">
+
+    <title>Explore • Learn • Share | Watch Nature</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+    <a href="https://watchnature.co">
+      <img
+        class="hero-img"
+        src="<%= static_path(@conn, "/images/wn.png") %>"
+        alt="Watch Nature"
+      />
+    </a>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <main role="main">
+      <%= render @view_module, @view_template, assigns %>
+    </main>
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-
-    </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
