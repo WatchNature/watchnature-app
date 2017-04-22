@@ -20,9 +20,14 @@ defmodule Watchnature.CommentControllerTest do
     }}
   end
 
-  test "lists all entries on index", %{conn: conn, post: post} do
+  test "lists all entries on index scoped to a post", %{conn: conn, post: post, user: user} do
+    comment = Repo.insert! %Comment{post: post, user: user}
     conn = get conn, post_comment_path(conn, :index, post)
-    assert json_response(conn, 200)["data"] == []
+    assert json_response(conn, 200)["data"] == [%{"id" => comment.id,
+      "body" => comment.body,
+      "post_id" => post.id,
+      "user_id" => user.id,
+      "flagged" => comment.flagged}]
   end
 
   test "shows chosen resource", %{conn: conn, post: post} do
@@ -69,8 +74,8 @@ defmodule Watchnature.CommentControllerTest do
     assert Repo.get_by(Comment, @valid_attrs)
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, post: post, jwt: jwt} do
-    comment = Repo.insert! %Comment{}
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, post: post, user: user, jwt: jwt} do
+    comment = Repo.insert! %Comment{user: user}
 
     conn = build_conn()
     |> put_req_header("authorization", "Bearer #{jwt}")
@@ -79,8 +84,8 @@ defmodule Watchnature.CommentControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "deletes chosen resource", %{conn: conn, post: post, jwt: jwt} do
-    comment = Repo.insert! %Comment{}
+  test "deletes chosen resource", %{conn: conn, post: post, user: user, jwt: jwt} do
+    comment = Repo.insert! %Comment{user: user}
 
     conn = build_conn()
     |> put_req_header("authorization", "Bearer #{jwt}")

@@ -1,7 +1,7 @@
 defmodule Watchnature.CommentController do
   use Watchnature.Web, :controller
 
-  alias Watchnature.Comment
+  alias Watchnature.{Comment, ErrorView}
 
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "comment" when action in [:create, :update]
@@ -42,23 +42,36 @@ defmodule Watchnature.CommentController do
     comment = Repo.get!(Comment, id)
     changeset = Comment.body_changeset(comment, comment_params)
 
-    case Repo.update(changeset) do
-      {:ok, comment} ->
-        render(conn, "show.json", comment: comment)
-      {:error, changeset} ->
+    case authorize(conn, comment) do
+      {:ok, conn} ->
+        case Repo.update(changeset) do
+          {:ok, comment} ->
+            render(conn, "show.json", comment: comment)
+          {:error, changeset} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        end
+      {:error, _} ->
         conn
-        |> put_status(:unprocessable_entity)
-        |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
     end
   end
 
   def delete(conn, %{"id" => id}) do
     comment = Repo.get!(Comment, id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(comment)
-
-    send_resp(conn, :no_content, "")
+    case authorize(conn, comment) do
+      {:ok, conn} ->
+        # Here we use delete! (with a bang) because we expect
+        # it to always work (and if it does not, it will raise).
+        Repo.delete!(comment)
+        send_resp(conn, :no_content, "")
+      {:error, _} ->
+        conn
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
+    end
   end
 end
