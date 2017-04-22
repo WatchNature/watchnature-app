@@ -47,9 +47,10 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
         * [x] show
         * [x] update
         * [x] destroy
-* [ ] Observation CRUD
-    * [ ] Authorization - Limit UD actions to users who own the resource
-* [ ] Observation Stream
+* [x] Observation CRUD
+    * [x] Authorization - Limit UD actions to users who own the resource
+* [ ] Image Uploads
+* [ ] Post Stream
 
 ## Team
 
