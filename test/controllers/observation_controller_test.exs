@@ -20,14 +20,9 @@ defmodule Watchnature.ObservationControllerTest do
     }}
   end
 
-  test "lists all entries on index", %{conn: conn, post: post} do
-    conn = get conn, post_observation_path(conn, :index, post.id)
-
-    assert json_response(conn, 200)["data"] == []
-  end
   test "entries listed on index belong to post_id", %{conn: conn, user: user, post: post} do
-    observation = Repo.insert! %Observation{post_id: post.id, user_id: user.id}
-    conn = get conn, post_observation_path(conn, :index, post.id)
+    observation = Repo.insert! %Observation{post: post, user: user}
+    conn = get conn, post_observation_path(conn, :index, post)
 
     assert json_response(conn, 200)["data"] == [%{"id" => observation.id,
       "description" => observation.description,

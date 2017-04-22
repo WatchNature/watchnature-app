@@ -5,7 +5,7 @@ defmodule Watchnature.ObservationController do
 
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "observation" when action in [:create, :update]
-  # plug :authorize_post!
+  plug :authorize_post! when action in [:create, :update]
 
   def index(conn, %{"post_id" => post_id}) do
     observations = Repo.all(from o in Observation, where: o.post_id == ^post_id)
@@ -42,28 +42,49 @@ defmodule Watchnature.ObservationController do
     observation = Repo.get!(Observation, id)
     changeset = Observation.changeset(observation, observation_params)
 
-    case Repo.update(changeset) do
-      {:ok, observation} ->
-        render(conn, "show.json", observation: observation)
-      {:error, changeset} ->
+    case authorize(conn, observation) do
+      {:ok, conn} ->
+        case Repo.update(changeset) do
+          {:ok, observation} ->
+            render(conn, "show.json", observation: observation)
+          {:error, changeset} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        end
+      {:error, _} ->
         conn
-        |> put_status(:unprocessable_entity)
-        |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
     end
   end
 
   def delete(conn, %{"id" => id}) do
     observation = Repo.get!(Observation, id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(observation)
-
-    send_resp(conn, :no_content, "")
+    case authorize(conn, observation) do
+      {:ok, conn} ->
+        # Here we use delete! (with a bang) because we expect
+        # it to always work (and if it does not, it will raise).
+        Repo.delete!(observation)
+        send_resp(conn, :no_content, "")
+      {:error, _} ->
+        conn
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
+    end
   end
 
   defp authorize_post!(%{params: %{"post_id" => post_id}} = conn, _) do
     post = Repo.get!(Post, post_id)
-    authorize!(conn, post, action: :update)
+
+    case authorize(conn, post) do
+      {:ok, conn} -> conn
+      {:error, _} ->
+        conn
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
+        |> halt()
+    end
   end
 end
