@@ -16,7 +16,9 @@ defmodule Watchnature.PostController do
 
         render(conn, "index.json", posts: posts)
       {:error, _} ->
-        render(conn, ErrorView, "403.json")
+        conn
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
     end
   end
 
@@ -45,7 +47,10 @@ defmodule Watchnature.PostController do
 
     case authorize(conn, post) do
       {:ok, conn} -> render(conn, "show.json", post: post)
-      {:error, _} -> render(conn, ErrorView, "403.json")
+      {:error, _} ->
+        conn
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
     end
   end
 
@@ -65,7 +70,9 @@ defmodule Watchnature.PostController do
             |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
         end
       {:error, _} ->
-        render(conn, ErrorView, "403.json")
+        conn
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
     end
   end
 
@@ -77,7 +84,9 @@ defmodule Watchnature.PostController do
         Repo.delete!(post)
         send_resp(conn, :no_content, "")
       {:error, _} ->
-        render(conn, ErrorView, "403.json")
+        conn
+        |> put_status(:forbidden)
+        |> render(ErrorView, "403.json")
     end
   end
 end
