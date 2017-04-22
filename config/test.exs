@@ -12,9 +12,10 @@ config :logger, level: :warn
 # Configure your database
 config :watchnature, Watchnature.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
   database: "watchnature_test",
-  hostname: "localhost",
+  username: System.get_env("POSTGRES_USER") || "postgres",
+  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
+  port:     System.get_env("POSTGRES_PORT") || "32770",
   types: Watchnature.PostgresTypes,
   pool: Ecto.Adapters.SQL.Sandbox
