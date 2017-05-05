@@ -2,10 +2,15 @@ import React from 'react'
 import Header from './global/header'
 import Stream from '../pages/stream'
 
-export default () => (
-  <div>
-    <Header />
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Stream />
+      </div>
+    )
+  }
+}
 
-    <Stream />
-  </div>
-)
+export default App

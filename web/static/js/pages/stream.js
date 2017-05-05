@@ -1,34 +1,41 @@
 import React from 'react'
+import PostSummarCard from '../components/post/summary-card'
 
-const Post = () => (
+const PostList = (props) => (
   <div>
-    Post
+    {props.posts.map((post) => (
+      <PostSummarCard key={post.id} post={post} />
+    ))}
   </div>
 )
 
-// const PostList = () => (
-
-// )
-
 class Stream extends React.Component {
-  componentDidMount () {
+  constructor(props) {
+    super(props)
+    this.state = {
+      posts: []
+    }
+  }
+
+  componentDidMount() {
     fetch('/api/posts')
       .then(response => {
-        let posts = response.posts
-
-        this.setState({
-          posts: posts
-        })
+        return response.json()
+      })
+      .then(response => {
+        console.log(response.data)
+        let posts = response.data
+        this.setState({ posts: posts })
       })
       .catch(err => {
         console.error(err)
       })
   }
 
-  render () {
+  render() {
     return (
-      <div>
-        The Stream
+      <div className="container">
+        <PostList posts={this.state.posts} />
       </div>
     )
   }

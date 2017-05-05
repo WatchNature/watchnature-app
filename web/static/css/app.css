@@ -1,4 +1,5 @@
 body {
+  background-color: #efefef;
   margin: 0;
   padding: 0;
 }
@@ -11,4 +12,43 @@ body {
 
 .header img {
   max-width: 200px;
+}
+
+.container {
+  padding: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: white;
+}
+
+.card + .card {
+  margin-top: 1rem;
+}
+
+.card__header {
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.card__header__speciesname {
+  float: left;
+}
+
+.card__header__location {
+  float: right;
+}
+
+.card__image {
+  max-width: 100%;
+}
+
+.card .content {
+  padding: 1rem;
+}
+
+.card .content p {
+  margin: 0;
 }
