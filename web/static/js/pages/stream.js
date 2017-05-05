@@ -23,7 +23,6 @@ class Stream extends React.Component {
         return response.json()
       })
       .then(response => {
-        console.log(response.data)
         let posts = response.data
         this.setState({ posts: posts })
       })
