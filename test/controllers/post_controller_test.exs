@@ -7,6 +7,8 @@ defmodule Watchnature.PostControllerTest do
   @invalid_attrs %{}
 
   setup %{conn: conn} do
+    Repo.delete_all(Post)
+
     user = Repo.insert! %User{}
     {:ok, jwt, full_claims} = Guardian.encode_and_sign(user)
 
