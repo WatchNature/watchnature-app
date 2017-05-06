@@ -26,12 +26,7 @@ defmodule Watchnature.PostControllerTest do
   test "shows chosen resource", %{conn: conn} do
     post = Repo.insert! %Post{}
     conn = get conn, post_path(conn, :show, post)
-
-    assert json_response(conn, 200)["data"] == %{"id" => post.id,
-      "description" => post.description,
-      "location" => %{"lat" => nil, "lng" => nil},
-      "location_name" => nil,
-      "user" => post.user_id}
+    assert json_response(conn, 200)["data"]["id"] == post.id
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
