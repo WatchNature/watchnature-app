@@ -27,7 +27,7 @@ defmodule Watchnature.UserControllerTest do
   test "shows chosen resource", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :show, user)
-    assert json_response(conn, 200)["data"] == %{"id" => user.id, "email" => user.email}
+    assert json_response(conn, 200)["data"]["id"] == user.id
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

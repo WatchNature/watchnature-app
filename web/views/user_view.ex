@@ -15,6 +15,7 @@ defmodule Watchnature.UserView do
 
   def render("user.json", %{user: user}) do
     %{id: user.id,
-      email: user.email}
+      email: user.email,
+      full_name: "#{user.first_name} #{user.last_name}"}
   end
 end

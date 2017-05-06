@@ -5,7 +5,7 @@ const Metabar = ({ post }) => (
   <div className="pa3 pb0 dt">
     <div className="dtc" style={{background: '#efefef', height: '50px', width: '50px', borderRadius: '100%'}}></div>
     <div className="pl3 dtc v-mid">
-      <span className="db">{post.user.email}</span>
+      <span className="db">{post.user.full_name}</span>
       <span className="db">{distanceInWordsToNow(post.inserted_at)} ago</span>
     </div>
   </div>
