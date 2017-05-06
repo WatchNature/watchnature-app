@@ -16,6 +16,8 @@ config :watchnature, Watchnature.Repo,
   username: System.get_env("POSTGRES_USER") || "postgres",
   password: System.get_env("POSTGRES_PASSWORD") || "postgres",
   hostname: System.get_env("POSTGRES_HOST") || "localhost",
-  port:     System.get_env("POSTGRES_PORT") || "32770",
+  port:     System.get_env("POSTGRES_PORT") || "5432",
   types: Watchnature.PostgresTypes,
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :hound, driver: "phantomjs"
