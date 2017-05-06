@@ -9,7 +9,14 @@
     "phantomjs-prebuilt": "^2.1.14",
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.4.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

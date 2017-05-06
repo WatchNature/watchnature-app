@@ -66,6 +66,6 @@ exports.config = {
 
   npm: {
     enabled: true,
-    whitelist: ["react", "react-dom", "whatwg-fetch"]
+    whitelist: ["react", "react-dom", "whatwg-fetch", "react-router", "react-router-dom", "redux", "react-redux", "redux-thunk"]
   }
 };

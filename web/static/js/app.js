@@ -22,9 +22,34 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components/app'
+
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { Route, Router } from 'react-router'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory'
+import thunk from 'redux-thunk'
+
+import reducers from './reducers'
+import Header from './components/global/header'
+import Stream from './containers/stream'
+
+const history = createHistory()
+const middleware = [thunk, routerMiddleware(history)]
+const store = createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(...middleware))
+)
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('app')
+  <Provider store={store}>
+    <Router store={store} history={history}>
+      <div>
+        <Header />
+        <Route exact path="/" component={Stream} />
+      </div>
+    </Router>
+  </Provider>
+  , document.getElementById('app')
 )
