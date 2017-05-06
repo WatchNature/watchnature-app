@@ -66,6 +66,7 @@ exports.config = {
 
   npm: {
     enabled: true,
-    whitelist: ["react", "react-dom", "whatwg-fetch", "react-router", "react-router-dom", "redux", "react-redux", "redux-thunk"]
+    styles: {tachyons: ['css/tachyons.css']},
+    whitelist: ["react", "react-dom", "whatwg-fetch", "react-router", "react-router-dom", "redux", "react-redux", "redux-thunk", "date-fns"]
   }
 };

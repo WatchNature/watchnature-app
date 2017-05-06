@@ -17,6 +17,7 @@ defmodule Watchnature.PostView do
     end
 
     %{id: post.id,
+      inserted_at: post.inserted_at,
       description: post.description,
       location_name: post.location_name,
       location: location,

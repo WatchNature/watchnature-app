@@ -1,16 +1,29 @@
 import React from 'react'
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
+
+const Metabar = ({ post }) => (
+  <div className="pa3 pb0 dt">
+    <div className="dtc" style={{background: '#efefef', height: '50px', width: '50px', borderRadius: '100%'}}></div>
+    <div className="pl3 dtc v-mid">
+      <span className="db">{post.user.email}</span>
+      <span className="db">{distanceInWordsToNow(post.inserted_at)} ago</span>
+    </div>
+  </div>
+)
 
 const SummaryCard = ({ post }) => (
-  <div className="card summary">
-    <header className="card__header">
-      <span className="card__header__speciesname">Species Common name</span>
-      <span className="card__header__location">Location</span>
+  <div className="bg-white mb3">
+    <header className="cf pa3">
+      <span className="fl">Species Common name</span>
+      <span className="fr">Location</span>
     </header>
 
-    <img className="card__image" src={`https://placem.at/places?w=750&h=750&random=${post.id}`} />
+    <div style={{height: '436px', width: '436px', background: '#000'}}></div>
 
-    <div className="content">
-      <p>{post.description}</p>
+    <Metabar post={post} />
+
+    <div className="pa3">
+      <p className="ma0">{post.description}</p>
     </div>
   </div>
 )
