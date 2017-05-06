@@ -20,7 +20,7 @@ defmodule Watchnature.IntegrationCase do
 
       @moduletag :integration
 
-      hound_session
+      hound_session()
     end
   end
 
@@ -31,7 +31,7 @@ defmodule Watchnature.IntegrationCase do
 
   setup do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Watchnature.Repo)
-    Ecto.Adapters.SQL.Sandbox.mode(Watchnature.Repo, {:shared, self})
+    Ecto.Adapters.SQL.Sandbox.mode(Watchnature.Repo, {:shared, self()})
     :ok
   end
 end

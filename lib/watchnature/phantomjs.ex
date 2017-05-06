@@ -4,7 +4,7 @@ defmodule Watchnature.PhantomJS do
   and then close it when the tests have completed.
   """
 
-  @executable "./node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs"
+  @executable "./node_modules/phantomjs-prebuilt/bin/phantomjs"
 
   def start do
     swallow_cmd("killall phantomjs")
