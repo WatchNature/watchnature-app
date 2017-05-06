@@ -3,7 +3,7 @@ defmodule Watchnature.UserTest do
 
   alias Watchnature.User
 
-  @valid_attrs %{email: "some content", password_hash: "some content"}
+  @valid_attrs %{email: "some content", first_name: "sean", last_name: "washington", password_hash: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

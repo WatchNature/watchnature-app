@@ -2,10 +2,12 @@ defmodule Watchnature.UserControllerTest do
   use Watchnature.ConnCase
 
   alias Watchnature.User
-  @valid_attrs %{email: "user@watchnature.co", password: "secretsecret"}
+  @valid_attrs %{email: "sean@watchnature.co", first_name: "sean", last_name: "washington", password: "secretsecret"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
+    Repo.delete_all(User)
+
     user = Repo.insert! %User{}
     {:ok, jwt, full_claims} = Guardian.encode_and_sign(user)
 

@@ -5,6 +5,8 @@ defmodule Watchnature.User do
 
   schema "users" do
     field :email, :string
+    field :first_name, :string
+    field :last_name, :string
     field :password_hash, :string
     field :password, :string, virtual: true
 
@@ -16,8 +18,8 @@ defmodule Watchnature.User do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:email])
-    |> validate_required([:email])
+    |> cast(params, [:email, :first_name, :last_name])
+    |> validate_required([:email, :first_name, :last_name])
     |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email)
   end
@@ -25,7 +27,8 @@ defmodule Watchnature.User do
   def registration_changeset(struct, params \\ %{}) do
     struct
     |> changeset(params)
-    |> cast(params, [:password])
+    |> cast(params, [:password, :first_name, :last_name])
+    |> validate_required([:email, :first_name, :last_name])
     |> validate_length(:password, min: 6, max: 200)
     |> put_password_hash
   end

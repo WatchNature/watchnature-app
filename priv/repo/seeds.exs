@@ -12,5 +12,6 @@
 
 alias Watchnature.{Repo, User}
 
-Repo.insert!(User.registration_changeset(%User{}, %{email: "sean@watchnature.co", password: "secret"}))
-Repo.insert!(User.registration_changeset(%User{}, %{email: "brady@watchnature.co", password: "secret"}))
+Repo.insert!(User.registration_changeset(%User{}, %{email: "sean@watchnature.co", first_name: "Sean", last_name: "Washington", password: "secret"}))
+Repo.insert!(User.registration_changeset(%User{}, %{email: "brady@watchnature.co", first_name: "Brady", last_name: "Swenson", password: "secret"}))
+Repo.insert!(User.registration_changeset(%User{}, %{email: "nicholas@watchnature.co", first_name: "Nicholas", last_name: "Stahl", password: "secret"}))
