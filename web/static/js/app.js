@@ -33,7 +33,11 @@ import thunk from 'redux-thunk'
 
 import reducers from './reducers'
 import Header from './components/global/header'
+import TabBar from './components/global/tab-bar'
+
 import Stream from './containers/stream'
+import Signin from './containers/sessions/signin'
+import Signup from './containers/sessions/signup'
 
 const history = createHistory()
 const middleware = [thunk, routerMiddleware(history)]
@@ -47,7 +51,12 @@ ReactDOM.render(
     <Router store={store} history={history}>
       <div>
         <Header />
+
         <Route exact path="/" component={Stream} />
+        <Route exact path="/sessions/signin" component={Signin} />
+        <Route exact path="/sessions/signup" component={Signup} />
+
+        <TabBar />
       </div>
     </Router>
   </Provider>

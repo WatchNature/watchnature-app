@@ -4,9 +4,7 @@ body {
   padding: 0;
 }
 
-.c-globalheader {
-  background-color: #2E68B2;
-}
+/* Component Custom Styles */
 
 .c-globalheader img {
   max-width: 200px;
@@ -16,3 +14,8 @@ body {
   max-width: 500px;
   margin: 67px auto 0;
 }
+
+/* Helpers */
+
+.c-blue { color: #2E68B2; }
+.bc-blue { background-color: #2E68B2; }

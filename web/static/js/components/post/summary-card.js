@@ -18,7 +18,7 @@ const SummaryCard = ({ post }) => (
       <span className="fr">Location</span>
     </header>
 
-    <div style={{height: '436px', width: '436px', background: '#000'}}></div>
+    <div style={{height: '336px', width: '100%', background: '#000'}}></div>
 
     <Metabar post={post} />
 
