@@ -21,10 +21,10 @@ export function signin(credentials) {
   }
 }
 
-export function signinSuccess(message) {
+export function signinSuccess(response) {
   return {
     type: types.SESSION_SIGNIN_SUCCESS,
-    message: message
+    response: response
   }
 }
 
@@ -32,5 +32,11 @@ export function signinError(message) {
   return {
     type: types.SESSION_SIGNIN_ERROR,
     message: message
+  }
+}
+
+export function signout() {
+  return {
+    type: type.SESSION_SIGNOUT
   }
 }
