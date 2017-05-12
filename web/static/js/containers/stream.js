@@ -18,7 +18,7 @@ class Stream extends React.Component {
 
   render() {
     return (
-      <div className="c-container pa3">
+      <div className="c-container pa3 pb5">
         <PostList posts={this.props.posts} />
       </div>
     )

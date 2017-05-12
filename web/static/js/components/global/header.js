@@ -8,15 +8,18 @@ class Header extends React.Component {
     if (this.props.authenticated) {
       return (
         <div>
-          {this.props.currentUser.email}
-          <button onClick={this.props.signout}>Sign Out</button>
+          <span className="white f6">{this.props.currentUser.email}</span>
+          <button
+            className="ml3 f6 button-reset pa0 bg-black-20 white pa2 bw0"
+            onClick={this.props.signout}
+          >Sign Out</button>
         </div>
       )
     } else {
       return (
         <div>
-          <Link to="/sessions/signin">Sign In</Link>
-          <Link to="/sessions/signup">Sign Up</Link>
+          <Link className="f6 pa0 bg-black-20 white pa2 dib no-underline" to="/sessions/signin">Sign In</Link>
+          <Link className="f6 pa0 bg-black-20 white pa2 ml2 dib no-underline" to="/sessions/signup">Sign Up</Link>
         </div>
       )
     }
@@ -24,7 +27,7 @@ class Header extends React.Component {
 
   render () {
     return (
-      <header className="c-globalheader bc-blue fixed top-0 left-0 w-100 pa3 tc">
+      <header className="c-globalheader bc-blue fixed top-0 left-0 w-100 pa3 flex items-center justify-between">
         <Link to="/">
           <img src="/images/wn-logo.png" alt="Watch Nature" />
         </Link>
