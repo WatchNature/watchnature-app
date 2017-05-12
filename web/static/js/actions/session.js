@@ -1,4 +1,3 @@
-import { browserHistory } from 'history'
 import * as types from '../constants/action-types'
 
 export function signin(credentials) {
@@ -15,7 +14,6 @@ export function signin(credentials) {
       })
       .then(response => {
         dispatch(signinSuccess(response))
-        dispatch(push('/'))
       })
       .catch(err => {
         dispatch(signinError(err))

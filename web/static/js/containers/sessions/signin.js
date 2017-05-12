@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signin } from '../../actions/session'
 
@@ -25,6 +26,8 @@ class Signin extends React.Component {
   render() {
     return (
       <div className="c-container pa3">
+        {this.props.authenticated && <Redirect to="/" />}
+
         <form>
           <div className="mb3">
             <label className="db" htmlFor="email">Email</label>
@@ -51,6 +54,12 @@ class Signin extends React.Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    authenticated: state.session.authenticated
+  }
+}
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     signin: (credentials) => {
@@ -59,4 +68,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Signin)
+export default connect(mapStateToProps, mapDispatchToProps)(Signin)
