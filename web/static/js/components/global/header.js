@@ -18,8 +18,14 @@ class Header extends React.Component {
     } else {
       return (
         <div>
-          <Link className="f6 pa0 bg-black-20 white pa2 dib no-underline" to="/sessions/signin">Sign In</Link>
-          <Link className="f6 pa0 bg-black-20 white pa2 ml2 dib no-underline" to="/sessions/signup">Sign Up</Link>
+          <Link
+            className="f6 pa0 bg-black-20 white pa2 dib no-underline"
+            to="/sessions/signin"
+          >Sign In</Link>
+          <Link
+            className="f6 pa0 bg-black-20 white pa2 ml2 dib no-underline"
+            to="/sessions/signup"
+          >Sign Up</Link>
         </div>
       )
     }

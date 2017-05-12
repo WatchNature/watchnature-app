@@ -4,7 +4,8 @@ import Cookie from 'js-cookie'
 const initialState = {
   currentUser: Cookie.getJSON('currentUser') || {},
   authToken: Cookie.get('authToken') || null,
-  authenticated: Cookie.get('authToken') ? true : false
+  authenticated: Cookie.get('authToken') ? true : false,
+  errors: []
 }
 
 const session = (state = initialState, action) => {
@@ -22,8 +23,9 @@ const session = (state = initialState, action) => {
       })
 
     case types.SESSION_SIGNIN_ERROR:
-      console.log(action.message)
-      return state
+      return Object.assign({}, state, {
+        errors: [action.message]
+      })
 
     case types.SESSION_SIGNOUT:
       Cookie.remove('currentUser')
@@ -33,6 +35,18 @@ const session = (state = initialState, action) => {
         currentUser: {},
         authToken: null,
         authenticated: false
+      })
+
+    case types.SESSION_SIGNUP_SUCCESS:
+      Cookie.set('currentUser', action.user)
+
+      return Object.assign({}, state, {
+        currentUser: action.user
+      })
+
+    case types.SESSION_SIGNUP_ERROR:
+      return Object.assign({}, state, {
+        errors: [action.message]
       })
 
     default:
