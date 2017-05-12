@@ -7,6 +7,10 @@ const Metabar = ({ post }) => (
     <div className="pl3 dtc v-mid">
       <span className="db">{post.user.full_name}</span>
       <span className="db">{distanceInWordsToNow(post.inserted_at)} ago</span>
+
+      {
+
+      }
     </div>
   </div>
 )

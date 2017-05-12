@@ -1,3 +1,4 @@
+import { browserHistory } from 'history'
 import * as types from '../constants/action-types'
 
 export function signin(credentials) {
@@ -14,6 +15,7 @@ export function signin(credentials) {
       })
       .then(response => {
         dispatch(signinSuccess(response))
+        dispatch(push('/'))
       })
       .catch(err => {
         dispatch(signinError(err))
@@ -37,6 +39,6 @@ export function signinError(message) {
 
 export function signout() {
   return {
-    type: type.SESSION_SIGNOUT
+    type: types.SESSION_SIGNOUT
   }
 }

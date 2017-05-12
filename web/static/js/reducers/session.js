@@ -3,7 +3,8 @@ import Cookie from 'js-cookie'
 
 const initialState = {
   currentUser: Cookie.getJSON('currentUser') || {},
-  authToken: Cookie.get('authToken') || null
+  authToken: Cookie.get('authToken') || null,
+  authenticated: Cookie.get('authToken') ? true : false
 }
 
 const session = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const session = (state = initialState, action) => {
 
       return Object.assign({}, state, {
         currentUser: response.data,
-        authToken: response.meta.token
+        authToken: response.meta.token,
+        authenticated: true
       })
 
     case types.SESSION_SIGNIN_ERROR:
@@ -29,7 +31,8 @@ const session = (state = initialState, action) => {
 
       return Object.assign({}, state, {
         currentUser: {},
-        authToken: null
+        authToken: null,
+        authenticated: false
       })
 
     default:

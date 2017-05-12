@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchAllPosts } from '../actions'
+import { fetchAllPosts } from '../actions/posts'
 import PostSummarCard from '../components/post/summary-card'
 
 const PostList = (props) => (
@@ -28,7 +28,7 @@ class Stream extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts.all,
-    fetching: state.fetching
+    fetching: state.posts.fetching
   }
 }
 
