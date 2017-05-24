@@ -3,11 +3,9 @@ import { connect } from 'react-redux'
 import { fetchAllPosts } from '../actions/posts'
 import PostSummarCard from '../components/post/summary-card'
 
-const PostList = (props) => (
+const PostList = props => (
   <div>
-    {props.posts.map((post) => (
-      <PostSummarCard key={post.id} post={post} />
-    ))}
+    {props.posts.map(post => <PostSummarCard key={post.id} post={post} />)}
   </div>
 )
 
@@ -16,7 +14,7 @@ class Stream extends React.Component {
     this.props.fetchAllPosts()
   }
 
-  render() {
+  render () {
     return (
       <div className="c-container pa3 pb5">
         <PostList posts={this.props.posts} />

@@ -7,7 +7,7 @@ class NotificationDrawer extends React.Component {
   render () {
     return (
       <div>
-        {this.props.notifications.map((notification) => (
+        {this.props.notifications.map(notification => (
           <Notification
             key={notification.id}
             notification={notification}
@@ -19,15 +19,15 @@ class NotificationDrawer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     notifications: state.notifications.all
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
-    dismissNotification: (notification) => {
+    dismissNotification: notification => {
       dispatch(dismissNotification(notification))
     }
   }

@@ -12,7 +12,9 @@ class Header extends React.Component {
           <button
             className="ml3 f6 button-reset pa0 bg-black-20 white pa2 bw0"
             onClick={this.props.signout}
-          >Sign Out</button>
+          >
+            Sign Out
+          </button>
         </div>
       )
     } else {
@@ -21,11 +23,15 @@ class Header extends React.Component {
           <Link
             className="f6 pa0 bg-black-20 white pa2 dib no-underline"
             to="/sessions/signin"
-          >Sign In</Link>
+          >
+            Sign In
+          </Link>
           <Link
             className="f6 pa0 bg-black-20 white pa2 ml2 dib no-underline"
             to="/sessions/signup"
-          >Sign Up</Link>
+          >
+            Sign Up
+          </Link>
         </div>
       )
     }

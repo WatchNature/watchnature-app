@@ -3,14 +3,20 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 
 const Metabar = ({ post }) => (
   <div className="pa3 pb0 dt">
-    <div className="dtc" style={{background: '#efefef', height: '50px', width: '50px', borderRadius: '100%'}}></div>
+    <div
+      className="dtc"
+      style={{
+        background: '#efefef',
+        height: '50px',
+        width: '50px',
+        borderRadius: '100%'
+      }}
+    />
     <div className="pl3 dtc v-mid">
       <span className="db">{post.user.full_name}</span>
       <span className="db">{distanceInWordsToNow(post.inserted_at)} ago</span>
 
-      {
-
-      }
+      {}
     </div>
   </div>
 )
@@ -22,7 +28,7 @@ const SummaryCard = ({ post }) => (
       <span className="fr">Location</span>
     </header>
 
-    <div style={{height: '336px', width: '100%', background: '#000'}}></div>
+    <div style={{ height: '336px', width: '100%', background: '#000' }} />
 
     <Metabar post={post} />
 

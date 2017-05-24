@@ -25,9 +25,13 @@ import ReactDOM from 'react-dom'
 
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { Route, Router } from 'react-router'
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware
+} from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import thunk from 'redux-thunk'
 
@@ -61,6 +65,6 @@ ReactDOM.render(
         <TabBar />
       </div>
     </Router>
-  </Provider>
-  , document.getElementById('app')
+  </Provider>,
+  document.getElementById('app')
 )
