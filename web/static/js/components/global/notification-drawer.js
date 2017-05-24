@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { dismissNotification } from '../../actions/notifications'
 import Notification from './notification'
 
-
 class NotificationDrawer extends React.Component {
   render () {
     return (
