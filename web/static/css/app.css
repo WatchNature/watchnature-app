@@ -20,3 +20,8 @@ body {
 
 .c-blue { color: #2E68B2; }
 .bc-blue { background-color: #2E68B2; }
+
+.bc-info,
+.bc-success { background-color: #03b99a; }
+
+.bc-error { background-color: #f55043; }

@@ -25,15 +25,20 @@ import ReactDOM from 'react-dom'
 
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { Route, Router } from 'react-router'
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware
+} from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import thunk from 'redux-thunk'
 
 import reducers from './reducers'
 import Header from './components/global/header'
 import TabBar from './components/global/tab-bar'
+import NotificationDrawer from './components/global/notification-drawer'
 
 import Stream from './containers/stream'
 import Signin from './containers/sessions/signin'
@@ -50,6 +55,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router store={store} history={history}>
       <div>
+        <NotificationDrawer />
         <Header />
 
         <Route exact path="/" component={Stream} />
@@ -59,6 +65,6 @@ ReactDOM.render(
         <TabBar />
       </div>
     </Router>
-  </Provider>
-  , document.getElementById('app')
+  </Provider>,
+  document.getElementById('app')
 )
