@@ -10,14 +10,19 @@ class Notification extends React.Component {
     this.props.onClick(this.props.notification)
   }
 
+  componentDidMount () {
+    const dismissAfter = this.props.notification.dismissAfter
+
+    if (dismissAfter !== undefined) {
+      setTimeout(this._dismissNotification, dismissAfter)
+    }
+  }
+
   render () {
     return (
       <div
         className={
-          'fixed top-0 right-0 z-999 bg-green white pa3 ma2 ' +
-            this.props.notification.id +
-            ' ' +
-            this.props.notification.type
+          `fixed top-0 right-0 z-999 white pa3 ma2 bc-${this.props.notification.type} ${this.props.notification.id}`
         }
         onClick={this._dismissNotification}
       >

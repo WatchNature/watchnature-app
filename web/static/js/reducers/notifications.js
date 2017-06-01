@@ -12,7 +12,7 @@ const initialState = {
 }
 
 const notifications = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.ADD_NOTIFICATION:
       let notifications = state.all.slice()
       notifications.splice(0, 0, action.notification)
@@ -22,7 +22,9 @@ const notifications = (state = initialState, action) => {
       })
 
     case types.DISMISS_NOTIFICATION:
-      let remainingNotifications = state.all.filter((item) => item.id !== action.id)
+      let remainingNotifications = state.all.filter(
+        item => item.id !== action.id
+      )
 
       return Object.assign({}, state, {
         all: remainingNotifications
