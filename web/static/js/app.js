@@ -33,7 +33,7 @@ import App from './components/App.vue'
 // Vue.config.silent = ENV === 'production'
 Vue.prototype.$http = axios
 
-axios.defaults.baseURL = 'http://localhost:4000/api'
+axios.defaults.baseURL = API_BASE_URL
 axios.defaults.headers['Content-Type'] = 'application/json'
 axios.defaults.headers['Accept'] = 'application/json'
 

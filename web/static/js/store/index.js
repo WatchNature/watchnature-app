@@ -62,7 +62,7 @@ const store = new Vuex.Store({
   actions: {
     signIn (context, payload) {
       return new Promise((resolve, reject) => {
-        axios.post(`http://localhost:4000/auth/identity/callback`, payload)
+        axios.post(`${APP_BASE_URL}/auth/identity/callback`, payload)
           .then((response) => {
             context.commit('setCurrentUser', response.data.data)
             context.commit('setAuthToken', response.data.meta.token)
