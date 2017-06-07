@@ -20,7 +20,7 @@
 
 // import socket from "./socket"
 
-// import 'tachyons/css/tachyons.css'
+import 'tachyons/css/tachyons.css'
 
 import Vue from 'vue'
 import axios from 'axios'
