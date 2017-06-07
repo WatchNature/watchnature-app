@@ -20,51 +20,30 @@
 
 // import socket from "./socket"
 
-import React from 'react'
-import ReactDOM from 'react-dom'
+// import 'tachyons/css/tachyons.css'
 
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import { Provider } from 'react-redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { Route, Router } from 'react-router'
-import {
-  ConnectedRouter,
-  routerReducer,
-  routerMiddleware
-} from 'react-router-redux'
-import createHistory from 'history/createBrowserHistory'
-import thunk from 'redux-thunk'
+import Vue from 'vue'
+import axios from 'axios'
+import router from './lib/router'
+import store from './store/index'
+import _ from 'lodash'
+import App from './components/App.vue'
 
-import reducers from './reducers'
-import Header from './components/global/header'
-import TabBar from './components/global/tab-bar'
-import NotificationDrawer from './components/global/notification-drawer'
+// Vue.config.devtools = ENV !== 'production'
+// Vue.config.silent = ENV === 'production'
+Vue.prototype.$http = axios
 
-import Stream from './containers/stream'
-import Signin from './containers/sessions/signin'
-import Signup from './containers/sessions/signup'
+axios.defaults.baseURL = 'http://localhost:4000/api'
+axios.defaults.headers['Content-Type'] = 'application/json'
+axios.defaults.headers['Accept'] = 'application/json'
 
-const history = createHistory()
-const middleware = [thunk, routerMiddleware(history)]
-const store = createStore(
-  reducers,
-  composeWithDevTools(applyMiddleware(...middleware))
-)
+if (!_.isEmpty(store.state.authToken)) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.authToken}`
+}
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router store={store} history={history}>
-      <div>
-        <NotificationDrawer />
-        <Header />
+new Vue({
+  router: router,
+  store: store,
+  render: h => h(App)
+}).$mount('#app')
 
-        <Route exact path="/" component={Stream} />
-        <Route exact path="/sessions/signin" component={Signin} />
-        <Route exact path="/sessions/signup" component={Signup} />
-
-        <TabBar />
-      </div>
-    </Router>
-  </Provider>,
-  document.getElementById('app')
-)

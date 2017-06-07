@@ -21,5 +21,6 @@
     </main>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVahUUvHx_ir4b0NE9_TiENsnJ4P8Ncz8&libraries=places"></script>
   </body>
 </html>
