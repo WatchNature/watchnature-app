@@ -41,3 +41,17 @@ textarea {
 .form-actions {
   margin-top: 1rem;
 }
+
+// Transitions
+
+.slide-fade-enter-active {
+  transition: all 240ms ease-out;
+}
+.slide-fade-leave-active {
+  transition: all 800ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateY(-10px);
+  opacity: 0;
+}
