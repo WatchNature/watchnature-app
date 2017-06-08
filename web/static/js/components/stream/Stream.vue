@@ -1,8 +1,6 @@
 <template>
   <section class="container">
     <header>
-      <h1>The Stream</h1>
-      <router-link :to="{ name: 'newpost' }">Add Post</router-link>
     </header>
 
     <post-list></post-list>
