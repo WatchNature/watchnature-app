@@ -4,12 +4,7 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'BlankLayout'
 }
 </script>
 
-<style>
-  body {
-    margin: 0;
-  }
-</style>

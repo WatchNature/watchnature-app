@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <header>
     <h1>
       <router-link to="/">
@@ -50,6 +50,10 @@ export default {
     display: flex;
     align-items: center;
     padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
   }
 
   img {
