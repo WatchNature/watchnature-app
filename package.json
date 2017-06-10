@@ -1,4 +1,6 @@
 {
+  "name": "watchnature",
+  "version": "1.0",
   "repository": {},
   "license": "MIT",
   "scripts": {

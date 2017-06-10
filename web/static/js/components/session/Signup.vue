@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <h1>Sign Up</h1>
-  
+
     <form @submit.prevent="signup">
       <div>
         <label for="email">Email</label>
@@ -42,6 +42,7 @@ export default {
         }
       }
 
+      // eslint-disable-next-line no-undef
       Axios.post(`${API_BASE_URL}/users`, payload)
         .then((response) => {
           this.$store.commit('setCurrentUser', response.data.data)

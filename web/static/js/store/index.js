@@ -3,11 +3,11 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import cookies from 'js-cookie'
 
-Vue.use(Vuex)
-
 import notifications from './modules/notifications'
 import posts from './modules/posts'
 import postWizard from './modules/post-wizard'
+
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
@@ -66,6 +66,7 @@ const store = new Vuex.Store({
   actions: {
     signIn (context, payload) {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line no-undef
         axios.post(`${APP_BASE_URL}/auth/identity/callback`, payload)
           .then((response) => {
             context.commit('setCurrentUser', response.data.data)

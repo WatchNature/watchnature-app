@@ -43,7 +43,6 @@ export default {
         .catch(response => {
           alert(response.response.data.errors[0].detail)
         })
-
     }
   }
 }
