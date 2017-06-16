@@ -1,8 +1,4 @@
 {
-  "name": "watchnature",
-  "version": "1.0",
-  "repository": {},
-  "license": "MIT",
   "scripts": {
     "deploy": "webpack -p",
     "watch": "webpack --watch-stdin --progress --color"
