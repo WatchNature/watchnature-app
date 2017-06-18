@@ -1,15 +1,14 @@
 <template>
-  <div class="container">
-    <h1>Add Post</h1>
+  <div>
+    <step-header
+      title="Add Description"
+      prevUrl="/posts/new"
+    ></step-header>
 
     <form @submit.prevent="create">
       <div class="input-group">
         <label for="post_description">Description</label>
         <textarea id="post_description" name="post[description]" v-model="post.description" rows="8" cols="80"></textarea>
-      </div>
-
-      <div class="input-group">
-        <location-form></location-form>
       </div>
 
       <div class="action-group">
@@ -20,12 +19,14 @@
 </template>
 
 <script>
+import StepHeader from './StepHeader.vue'
 import LocationForm from '../location/LocationForm.vue'
 
 export default {
   name: 'PostForm',
 
   components: {
+    StepHeader,
     LocationForm
   },
 

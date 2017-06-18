@@ -2,12 +2,13 @@ export default [
   {
     path: '/posts/new',
     component: require('../layouts/PostWizard.vue'),
+    name: 'postwizard',
+    meta: { requiresAuth: true },
     children: [
       {
-        path: '/',
-        component: require('../components/post/PostForm.vue'),
-        name: 'postwizard',
-        meta: { requiresAuth: true }
+        path: 'description',
+        component: require('../components/post-wizard/PostForm.vue'),
+        name: 'postwizard-description'
       }
     ]
   },
