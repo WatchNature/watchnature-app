@@ -23,11 +23,14 @@
 import 'tachyons/css/tachyons.css'
 
 import Vue from 'vue'
-import axios from 'axios'
+import { sync } from 'vuex-router-sync'
 import router from './lib/router'
 import store from './store/index'
+import axios from 'axios'
 import _ from 'lodash'
 import App from './components/App.vue'
+
+sync(store, router)
 
 // Vue.config.devtools = ENV !== 'production'
 // Vue.config.silent = ENV === 'production'
