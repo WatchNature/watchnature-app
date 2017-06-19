@@ -7,8 +7,13 @@ export default [
     children: [
       {
         path: 'description',
-        component: require('../components/post-wizard/PostForm.vue'),
+        component: require('../components/post-wizard/DescriptionForm.vue'),
         name: 'postwizard-description'
+      },
+      {
+        path: 'location',
+        component: require('../components/post-wizard/LocationForm.vue'),
+        name: 'postwizard-location'
       }
     ]
   },

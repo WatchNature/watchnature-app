@@ -24,6 +24,7 @@ import 'tachyons/css/tachyons.css'
 
 import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
+import * as VueGoogleMaps from 'vue2-google-maps'
 import router from './lib/router'
 import store from './store/index'
 import axios from 'axios'
@@ -31,6 +32,13 @@ import _ from 'lodash'
 import App from './components/App.vue'
 
 sync(store, router)
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: GOOGLE_MAPS_API_KEY,
+    libraries: 'places'
+  }
+})
 
 // Vue.config.devtools = ENV !== 'production'
 // Vue.config.silent = ENV === 'production'

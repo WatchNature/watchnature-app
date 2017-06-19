@@ -1,22 +1,34 @@
 <template>
-  <header>
-    <router-link v-if="prevUrl" :to="prevUrl" class="mr2" title="Go Back">
-      <icon-chevron class="v-mid"></icon-chevron>
-    </router-link>
+  <header class="flex flex-row">
+    <div class="flex-auto">
+      <router-link v-if="prevUrl" :to="prevUrl" class="mr2" title="Go Back">
+        <icon-chevron class="v-mid"></icon-chevron>
+      </router-link>
 
-    <span>{{ title }}</span>
+      <span class="v-mid">{{ title }}</span>
+    </div>
+
+    <transition name="slide-fade">
+      <button
+        v-if="showActionButton"
+        @click.prevent="actionCallback"
+        class="input-reset button-reset bg-transparent pointer bn ma0 pa0"
+      >
+        <icon-check class="v-mid"></icon-check>
+      </button>
+    </transition>
   </header>
 </template>
 
 <script>
-import IconClose from '../icons/IconClose.vue'
+import IconCheck from '../icons/IconCheck.vue'
 import IconChevron from '../icons/IconChevron.vue'
 
 export default {
   name: 'StepHeader',
 
   components: {
-    IconClose,
+    IconCheck,
     IconChevron
   },
 
@@ -27,6 +39,13 @@ export default {
     },
     prevUrl: {
       type: String
+    },
+    showActionButton: {
+      type: Boolean,
+      default () { return false }
+    },
+    actionCallback: {
+      type: Function
     }
   }
 }
@@ -38,8 +57,6 @@ export default {
     background: linear-gradient(to bottom, rgba(9,141,193,1) 0%, rgba(49,111,188,1) 100%);
     color: #ffffff;
     overflow: hidden;
-    display: flex;
-    align-items: center;
     padding: 1rem;
     position: fixed;
     top: 0;
