@@ -12,8 +12,20 @@
     </nav>
 
     <nav v-if="userIsAuthenticated">
-      <router-link :to="{ name: 'userprofile', params: { id: currentUser.id }}">{{ currentUser.email }}</router-link>
-      <button @click.prevent="signOut" type="button">Sign Out</button>
+      <router-link
+        class="dn dib-m"
+        :to="{ name: 'userprofile', params: { id: currentUser.id }}"
+      >
+        {{ currentUser.email }}
+      </router-link>
+
+      <button
+        class="input-reset button-reset ma0 pa0 white bg-transparent bn f5"
+        @click.prevent="signOut"
+        type="button"
+      >
+        Sign Out
+      </button>
     </nav>
   </header>
 </template>
@@ -80,5 +92,6 @@ export default {
 
   button {
     margin-left: 1rem;
+    -webkit-appearance: none;
   }
 </style>
