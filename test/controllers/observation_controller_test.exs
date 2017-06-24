@@ -77,7 +77,8 @@ defmodule Watchnature.ObservationControllerTest do
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, jwt: jwt, user: user, post: post} do
-    observation = Repo.insert! %Observation{user: user, post: post}
+    observation =
+      Repo.insert!(%Observation{user: user, post: post})
 
     conn = build_conn()
     |> put_req_header("authorization", "Bearer #{jwt}")
