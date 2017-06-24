@@ -23,6 +23,33 @@ To run the tests and watcher, simply use `mix test.watch`.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+### Environment Vars
+
+Environment variables for the backend are loaded from `.env` located in the project root. The skeleton:
+
+```
+export CLOUDEX_API_KEY="YOUR_KEY"
+export CLOUDEX_SECRET="YOUR_KEY"
+export CLOUDEX_CLOUD_NAME="YOUR_CLOUD_NAME"
+```
+
+Environment variables for the frontend are loading from `config/development.js`. The skeleton:
+
+```
+{
+  URL: JSON.stringify('http://localhost:4000'),
+  ENV: JSON.stringify('development'),
+  API_BASE_URL: JSON.stringify('http://localhost:4000/api'),
+  APP_BASE_URL: JSON.stringify('http://localhost:4000'),
+  GOOGLE_MAPS_API_KEY: JSON.stringify('YOUR_KEY_HERE'),
+  IMGIX_SOURCE: JSON.stringify(''),
+  IMGIX_SOURCE_HOSTNAME: JSON.stringify(''),
+  DOCUMENT_TITLE_BASE: JSON.stringify('[DEV] Watch Nature'),
+  DOCUMENT_TITLE_SEPARATOR: JSON.stringify('»'),
+  GA_ID: JSON.stringify('')
+}
+```
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
@@ -30,27 +57,6 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
-
-## Roadmap
-
-* [x] User registration & Authentication
-    * [x] Utilize Bodyguard policy scope to return 404 for not found users
-    * [x] Authorization - Users should only be able to edit their own details
-        * [x] show
-        * [x] update
-        * [x] destroy
-* [x] Post CRUD
-    * [x] Utilize Bodyguard policy scope to return 404 for not found posts
-    * [x] Authorization - Limit UD actions to users who own the resource
-        * [x] index
-        * [x] create
-        * [x] show
-        * [x] update
-        * [x] destroy
-* [x] Observation CRUD
-    * [x] Authorization - Limit UD actions to users who own the resource
-* [ ] Image Uploads
-* [ ] Post Stream
 
 ## Team
 
