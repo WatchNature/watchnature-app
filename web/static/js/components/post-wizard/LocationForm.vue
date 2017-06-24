@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapActions, mapGetters } from 'vuex'
 import StepHeader from './StepHeader.vue'
 import Spinner from '../global/Spinner.vue'
