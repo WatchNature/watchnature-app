@@ -39,7 +39,7 @@ defmodule Watchnature.ObservationController do
   end
 
   def update(conn, %{"id" => id, "observation" => observation_params}) do
-    observation = Repo.get!(Observation, id)
+    observation = Repo.get!(Observation, id) |> Repo.preload([:tags])
     changeset = Observation.changeset(observation, observation_params)
 
     case authorize(conn, observation) do
