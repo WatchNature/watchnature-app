@@ -45,17 +45,13 @@ export default {
 
   methods: {
     signup () {
-      // eslint-disable-next-line no-undef
-      Axios.post(`${API_BASE_URL}/users`, { user: this.user })
-        .then((response) => {
-          this.$router.push({ path: '/signin' })
-          this.$store.dispatch('notifications/add', {
-            type: 'success',
-            message: 'Welcome! Please sign in.'
-          })
+      this.$store.dispatch('signUp', { user: this.user })
+        .then(response => {
+          this.$router.push('/')
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(response => {
+          // Handle the various error objects that could come through
+          console.log(response.response.data.errors)
         })
     }
   }
