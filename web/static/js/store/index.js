@@ -82,9 +82,8 @@ const store = new Vuex.Store({
         // eslint-disable-next-line no-undef
         axios.post(`${API_BASE_URL}/users`, payload)
           .then((response) => {
-            console.log(response)
-            // context.commit('setCurrentUser', response.data.data)
-            // context.commit('setAuthToken', response.data.meta.token)
+            context.commit('setCurrentUser', response.data.data)
+            context.commit('setAuthToken', response.data.meta.token)
             resolve(response)
           })
           .catch((error) => reject(error))

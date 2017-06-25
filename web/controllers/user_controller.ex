@@ -1,7 +1,7 @@
 defmodule Watchnature.UserController do
   use Watchnature.Web, :controller
 
-  alias Watchnature.User
+  alias Watchnature.{User, UserView}
 
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:update, :delete]
   plug :scrub_params, "user" when action in [:create, :update]
@@ -16,10 +16,14 @@ defmodule Watchnature.UserController do
 
     case Repo.insert(changeset) do
       {:ok, user} ->
+        token = conn
+                |> Guardian.Plug.api_sign_in(user)
+                |> Guardian.Plug.current_token
+
         conn
         |> put_status(:created)
         |> put_resp_header("location", user_path(conn, :show, user))
-        |> render("show.json", user: user)
+        |> render(UserView, "authenticated.json", user: user, token: token)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
