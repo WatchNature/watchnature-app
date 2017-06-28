@@ -105,7 +105,7 @@ export default {
 
 <style scoped>
 .tag {
-  background-color: #3e8ac1;
+  background-color: #cccccc;
   color: white;
   border-radius: 20px;
   border: none;
@@ -116,6 +116,6 @@ export default {
 }
 
 .tag.selected {
-  background-color: #7bb85c;
+  background-color: #3e8ac1;
 }
 </style>
