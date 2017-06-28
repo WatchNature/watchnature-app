@@ -25,30 +25,30 @@ const postWizard = {
     },
 
     description (state) {
-      return state.post.description
+      return state.post.observation.description
     },
 
     location (state) {
-      return state.post.location
+      return state.post.observation.location
     },
 
     locationName (state) {
-      return state.post.location_name
+      return state.post.observation.location_name
     },
 
     tagIds (state) {
-      return state.post.tag_ids
+      return state.post.observation.tag_ids
     }
   },
 
   mutations: {
     addDescription (state, description) {
-      state.post.description = description
+      state.post.observation.description = description
     },
 
     addLocation (state, { location, locationName }) {
-      state.post.location = location
-      state.post.location_name = locationName
+      state.post.observation.location = location
+      state.post.observation.location_name = locationName
     },
 
     addTagIds (state, ids) {
