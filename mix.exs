@@ -56,6 +56,8 @@ defmodule Watchnature.Mixfile do
      {:bodyguard, "~> 1.0.0"},
      {:geo, "~> 1.4"},
      {:hound, "~> 1.0", only: [:dev, :test]},
+     {:ecto_enum, "~> 1.0"},
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
      {:cowboy, "~> 1.0"}]
   end
 

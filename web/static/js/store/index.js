@@ -6,6 +6,7 @@ import cookies from 'js-cookie'
 import notifications from './modules/notifications'
 import posts from './modules/posts'
 import postWizard from './modules/post-wizard'
+import tags from './modules/tags'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
   modules: {
     notifications,
     posts,
-    postWizard
+    postWizard,
+    tags
   },
 
   getters: {

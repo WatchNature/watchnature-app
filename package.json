@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "date-fns": "^1.28.4",
+    "fuse.js": "^3.0.5",
     "js-cookie": "^2.1.4",
     "lodash": "^4.17.4",
     "phantomjs-prebuilt": "^2.1.14",

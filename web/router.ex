@@ -23,6 +23,7 @@ defmodule Watchnature.Router do
     pipe_through [:api, :api_auth]
 
     resources "/users", UserController, except: [:new, :edit]
+    resources "/tags", TagController, except: [:new, :edit, :create, :update, :delete]
 
     resources "/posts", PostController, except: [:new, :edit] do
       resources "/observations", ObservationController, except: [:new, :edit]

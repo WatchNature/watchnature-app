@@ -14,6 +14,11 @@ export default [
         path: 'location',
         component: require('../components/post-wizard/LocationForm.vue'),
         name: 'postwizard-location'
+      },
+      {
+        path: 'tags',
+        component: require('../components/post-wizard/TagForm.vue'),
+        name: 'postwizard-tags'
       }
     ]
   },
