@@ -1,7 +1,10 @@
 import _ from 'lodash'
 
+// Posts can have more than one observation,
+// but for the current version, the UI doesn't allow
+// more than one observation to be created with a post.
 const blankPost = {
-  observation: {
+  observations: [{
     description: '',
     location_name: '',
     location: {
@@ -9,7 +12,7 @@ const blankPost = {
       type: 'Point'
     },
     tag_ids: []
-  }
+  }]
 }
 
 const postWizard = {
@@ -25,34 +28,34 @@ const postWizard = {
     },
 
     description (state) {
-      return state.post.observation.description
+      return state.post.observations[0].description
     },
 
     location (state) {
-      return state.post.observation.location
+      return state.post.observations[0].location
     },
 
     locationName (state) {
-      return state.post.observation.location_name
+      return state.post.observations[0].location_name
     },
 
     tagIds (state) {
-      return state.post.observation.tag_ids
+      return state.post.observations[0].tag_ids
     }
   },
 
   mutations: {
     addDescription (state, description) {
-      state.post.observation.description = description
+      state.post.observations[0].description = description
     },
 
     addLocation (state, { location, locationName }) {
-      state.post.observation.location = location
-      state.post.observation.location_name = locationName
+      state.post.observations[0].location = location
+      state.post.observations[0].location_name = locationName
     },
 
     addTagIds (state, ids) {
-      state.post.observation.tag_ids = ids
+      state.post.observations[0].tag_ids = ids
     },
 
     reset (state) {
