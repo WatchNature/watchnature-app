@@ -12,7 +12,7 @@ defmodule Watchnature.PostController do
         posts = Post
         |> Post.sorted
         |> Repo.all
-        |> Repo.preload(:user)
+        |> Repo.preload([:user, :observations])
 
         render(conn, "index.json", posts: posts)
       {:error, _} ->
@@ -29,7 +29,7 @@ defmodule Watchnature.PostController do
 
     case Repo.insert(changeset) do
       {:ok, post} ->
-        post = Repo.preload(post, :user)
+        post = Repo.preload(post, [:user, :observations])
 
         conn
         |> put_status(:created)
@@ -43,7 +43,7 @@ defmodule Watchnature.PostController do
   end
 
   def show(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id) |> Repo.preload(:user)
+    post = Repo.get!(Post, id) |> Repo.preload([:user, :observations])
 
     case authorize(conn, post) do
       {:ok, conn} -> render(conn, "show.json", post: post)
@@ -62,7 +62,7 @@ defmodule Watchnature.PostController do
       {:ok, conn} ->
         case Repo.update(changeset) do
           {:ok, post} ->
-            post = Repo.preload(post, :user)
+            post = Repo.preload(post, [:user, :observations])
             render(conn, "show.json", post: post)
           {:error, changeset} ->
             conn
