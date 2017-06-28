@@ -21,8 +21,9 @@ defmodule Watchnature.Post do
 
     struct
     |> cast(params, [:description, :location, :location_name, :user_id])
-    |> validate_required([:description])
+    |> validate_required([])
     |> foreign_key_constraint(:user_id)
+    |> cast_assoc(:observations)
   end
 
   def sorted(query \\ __MODULE__) do

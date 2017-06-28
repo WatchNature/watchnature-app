@@ -23,8 +23,8 @@ defmodule Watchnature.Observation do
     params = remove_location_if_empty(params)
 
     struct
-    |> cast(params, [:description, :location_name, :location, :user_id, :post_id])
-    |> validate_required([:description, :user_id, :post_id])
+    |> cast(params, [:description, :location_name, :location])
+    |> validate_required([:description])
     |> put_assoc(:tags, parse_and_get_tags(params))
   end
 
