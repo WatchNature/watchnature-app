@@ -25,14 +25,18 @@ const tags = {
 
   actions: {
     findAll (context) {
-      axios.get('tags')
-        .then(response => {
-          const tags = response.data.data
-          context.commit('replace', tags)
-        })
-        .catch(response => {
-          console.error(response)
-        })
+      return new Promise((resolve, reject) => {
+        axios.get('tags')
+          .then(response => {
+            const tags = response.data.data
+            context.commit('replace', tags)
+            resolve(response.data.data)
+          })
+          .catch(response => {
+            console.error(response)
+            reject(response)
+          })
+      })
     }
   }
 }
