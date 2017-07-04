@@ -1,5 +1,5 @@
 defmodule Watchnature.PostTest do
-  use Watchnature.ModelCase
+  use Watchnature.Web.ModelCase
 
   alias Watchnature.Post
 

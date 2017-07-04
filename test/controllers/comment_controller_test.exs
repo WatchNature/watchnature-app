@@ -1,5 +1,5 @@
 defmodule Watchnature.CommentControllerTest do
-  use Watchnature.ConnCase
+  use Watchnature.Web.ConnCase
 
   alias Watchnature.{Comment, User, Post}
 

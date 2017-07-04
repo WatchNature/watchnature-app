@@ -1,4 +1,4 @@
-defmodule Watchnature.ConnCase do
+defmodule Watchnature.Web.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule Watchnature.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Watchnature.Router.Helpers
+      import Watchnature.Web.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Watchnature.Endpoint
+      @endpoint Watchnature.Web.Endpoint
     end
   end
 

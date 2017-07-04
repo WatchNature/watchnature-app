@@ -1,5 +1,5 @@
 defmodule Watchnature.PostControllerTest do
-  use Watchnature.ConnCase
+  use Watchnature.Web.ConnCase
 
   alias Watchnature.{Post, Observation, User}
 

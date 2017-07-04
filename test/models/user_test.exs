@@ -1,5 +1,5 @@
 defmodule Watchnature.UserTest do
-  use Watchnature.ModelCase
+  use Watchnature.Web.ModelCase
 
   alias Watchnature.User
 
