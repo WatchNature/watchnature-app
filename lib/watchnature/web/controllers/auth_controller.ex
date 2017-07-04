@@ -19,7 +19,7 @@ defmodule Watchnature.Web.AuthController do
       {:error, reason} ->
         conn
         |> put_status(:bad_request)
-        |> render(ErrorView, "error.json", title: reason[:title])
+        |> render(Watchnature.Web.ErrorView, "error.json", title: reason[:title])
     end
   end
 
@@ -31,13 +31,13 @@ defmodule Watchnature.Web.AuthController do
   def unauthenticated(conn, _params) do
     conn
     |> put_status(:unauthorized)
-    |> render(ErrorView, "error.json", title: "Authentication Required")
+    |> render(Watchnature.Web.ErrorView, "error.json", title: "Authentication Required")
   end
 
   def unauthorized(conn, _params) do
     conn
     |> put_status(:unauthorized)
-    |> render(ErrorView, "error.json", title: "Unauthorized")
+    |> render(Watchnature.Web.ErrorView, "error.json", title: "Unauthorized")
   end
 
   defp user_from_auth(auth) do

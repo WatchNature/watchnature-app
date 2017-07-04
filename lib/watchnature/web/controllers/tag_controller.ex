@@ -20,7 +20,7 @@ defmodule Watchnature.Web.TagController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        |> render(Watchnature.Web.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -39,7 +39,7 @@ defmodule Watchnature.Web.TagController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        |> render(Watchnature.Web.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

@@ -29,7 +29,7 @@ defmodule Watchnature.Web.ObservationController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+        |> render(Watchnature.Web.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -50,12 +50,12 @@ defmodule Watchnature.Web.ObservationController do
           {:error, changeset} ->
             conn
             |> put_status(:unprocessable_entity)
-            |> render(Watchnature.ChangesetView, "error.json", changeset: changeset)
+            |> render(Watchnature.Web.ChangesetView, "error.json", changeset: changeset)
         end
       {:error, _} ->
         conn
         |> put_status(:forbidden)
-        |> render(ErrorView, "403.json")
+        |> render(Watchnature.Web.ErrorView, "403.json")
     end
   end
 
@@ -71,7 +71,7 @@ defmodule Watchnature.Web.ObservationController do
       {:error, _} ->
         conn
         |> put_status(:forbidden)
-        |> render(ErrorView, "403.json")
+        |> render(Watchnature.Web.ErrorView, "403.json")
     end
   end
 
@@ -83,7 +83,7 @@ defmodule Watchnature.Web.ObservationController do
       {:error, _} ->
         conn
         |> put_status(:forbidden)
-        |> render(ErrorView, "403.json")
+        |> render(Watchnature.Web.ErrorView, "403.json")
         |> halt()
     end
   end

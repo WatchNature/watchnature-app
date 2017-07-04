@@ -1,5 +1,5 @@
 defmodule Watchnature.Plug.CurrentUser do
-  alias Watchnature.GuardianSerializer
+  alias Watchnature.Web.GuardianSerializer
   def init(opts), do: opts
 
   def call(conn, _opts) do

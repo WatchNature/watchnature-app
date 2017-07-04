@@ -32,9 +32,9 @@ defmodule Watchnature.Web.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Watchnature.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(Watchnature.Web.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Watchnature.Gettext, "errors", msg, opts)
+      Gettext.dgettext(Watchnature.Web.Gettext, "errors", msg, opts)
     end
   end
 end
