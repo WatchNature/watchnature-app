@@ -1,5 +1,5 @@
 defmodule Watchnature.ObservationTagTest do
-  use Watchnature.ModelCase
+  use Watchnature.Web.ModelCase
 
   alias Watchnature.ObservationTag
 

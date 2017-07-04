@@ -10,10 +10,10 @@ config :watchnature,
   ecto_repos: [Watchnature.Repo]
 
 # Configures the endpoint
-config :watchnature, Watchnature.Endpoint,
+config :watchnature, Watchnature.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "pleZSV6qhDu0Sv+Reyy2LSaSI5+6RhFe1vrB4mur735GxmTzhJ020lV1mHok1OWp",
-  render_errors: [view: Watchnature.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: Watchnature.Web.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Watchnature.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
@@ -34,7 +34,7 @@ config :guardian, Guardian,
   issuer: "Watchnature",
   ttl: {30, :days},
   secret_key: "uw/27wdrIquPn2fktwfJg9tg8qOl5ysTPCFjISw1TCCaLlfWgRUAea1SuWcfERzX",
-  serializer: Watchnature.GuardianSerializer,
+  serializer: Watchnature.Web.GuardianSerializer,
   permissions: %{default: [:read, :write]}
 
 # Import environment specific config. This must remain at the bottom

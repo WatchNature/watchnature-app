@@ -1,5 +1,5 @@
 defmodule Watchnature.TagControllerTest do
-  use Watchnature.ConnCase
+  use Watchnature.Web.ConnCase
 
   alias Watchnature.Tag
   @valid_attrs %{name: "some content", type: 1}
