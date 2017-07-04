@@ -1,12 +1,11 @@
 defmodule Watchnature.Plug.CurrentUser do
-  alias Watchnature.Web.GuardianSerializer
   def init(opts), do: opts
 
   def call(conn, _opts) do
     current_token = Guardian.Plug.current_token(conn)
     case Guardian.decode_and_verify(current_token) do
       {:ok, claims} ->
-        case GuardianSerializer.from_token(claims["sub"]) do
+        case Watchnature.Web.GuardianSerializer.from_token(claims["sub"]) do
           {:ok, user} ->
             Plug.Conn.assign(conn, :current_user, user)
           {:error, _reason} ->

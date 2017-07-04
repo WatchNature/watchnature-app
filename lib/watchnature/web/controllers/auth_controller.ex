@@ -1,7 +1,7 @@
 defmodule Watchnature.Web.AuthController do
   use Watchnature.Web, :controller
 
-  alias Watchnature.{ErrorView, UserView, User, AuthController}
+  alias Watchnature.{Web.ErrorView, Web.UserView, User, AuthController}
 
   plug Ueberauth
   plug Guardian.Plug.EnsureAuthenticated, [handler: AuthController] when action in [:delete, :me]
@@ -19,7 +19,7 @@ defmodule Watchnature.Web.AuthController do
       {:error, reason} ->
         conn
         |> put_status(:bad_request)
-        |> render(Watchnature.Web.ErrorView, "error.json", title: reason[:title])
+        |> render(ErrorView, "error.json", title: reason[:title])
     end
   end
 
@@ -31,13 +31,13 @@ defmodule Watchnature.Web.AuthController do
   def unauthenticated(conn, _params) do
     conn
     |> put_status(:unauthorized)
-    |> render(Watchnature.Web.ErrorView, "error.json", title: "Authentication Required")
+    |> render(ErrorView, "error.json", title: "Authentication Required")
   end
 
   def unauthorized(conn, _params) do
     conn
     |> put_status(:unauthorized)
-    |> render(Watchnature.Web.ErrorView, "error.json", title: "Unauthorized")
+    |> render(ErrorView, "error.json", title: "Unauthorized")
   end
 
   defp user_from_auth(auth) do
