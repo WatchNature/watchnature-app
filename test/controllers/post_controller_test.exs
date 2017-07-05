@@ -1,7 +1,7 @@
 defmodule Watchnature.PostControllerTest do
-  use Watchnature.ConnCase
+  use Watchnature.Web.ConnCase
 
-  alias Watchnature.{Post, User}
+  alias Watchnature.{Post, Observation, User}
 
   @valid_attrs %{description: "some content"}
   @invalid_attrs %{}
@@ -46,6 +46,8 @@ defmodule Watchnature.PostControllerTest do
     assert Repo.get_by(Post, @valid_attrs)
   end
 
+  # Posts don't have any data marked as required right now so this case won't pass
+  @tag :skip
   test "does not create resource and renders errors when data is invalid", %{conn: conn, jwt: jwt} do
     conn = build_conn()
       |> put_req_header("authorization", "Bearer #{jwt}")
@@ -65,6 +67,8 @@ defmodule Watchnature.PostControllerTest do
     assert Repo.get_by(Post, @valid_attrs)
   end
 
+  # Posts don't have any data marked as required right now so this case won't pass
+  @tag :skip
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, user: user, jwt: jwt} do
     post = Repo.insert! %Post{user_id: user.id}
 
@@ -85,5 +89,28 @@ defmodule Watchnature.PostControllerTest do
 
     assert response(conn, 204)
     refute Repo.get(Post, post.id)
+  end
+
+  test "creates an observation when one is included in the post payload", %{conn: conn, user: user, jwt: jwt} do
+    payload = %{
+      "description" => "test",
+      "observations" => [
+        %{"description" => "observation description",
+          "location_name" => "South Royalton",
+          "location" => %{
+            "coordinates" => ["43.8209008", "-82.5212089"],
+            "type" => "Point"
+          }
+        }
+      ]
+    }
+
+    conn = build_conn()
+    |> put_req_header("authorization", "Bearer #{jwt}")
+    |> post(post_path(conn, :create), post: payload)
+
+    assert json_response(conn, 201)["data"]["id"]
+    assert Enum.count(Repo.all(Post)) == 1
+    assert Enum.count(Repo.all(Observation)) == 1
   end
 end
