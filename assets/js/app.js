@@ -29,6 +29,7 @@ import router from './lib/router'
 import store from './store/index'
 import axios from 'axios'
 import _ from 'lodash'
+import Vuelidate from 'vuelidate'
 import App from './components/App.vue'
 
 sync(store, router)
@@ -39,6 +40,8 @@ Vue.use(VueGoogleMaps, {
     libraries: 'places'
   }
 })
+
+Vue.use(Vuelidate)
 
 // Vue.config.devtools = ENV !== 'production'
 // Vue.config.silent = ENV === 'production'

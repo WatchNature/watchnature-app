@@ -1,7 +1,7 @@
 defmodule Watchnature.Web.UserController do
   use Watchnature.Web, :controller
 
-  alias Watchnature.{User, UserView}
+  alias Watchnature.{User, Web.UserView}
 
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:update, :delete]
   plug :scrub_params, "user" when action in [:create, :update]
