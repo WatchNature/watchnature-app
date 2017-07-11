@@ -56,6 +56,7 @@ defmodule Watchnature.PostControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
+  @tag :skip
   test "updates and renders chosen resource when data is valid", %{conn: conn, user: user, jwt: jwt} do
     post = Repo.insert! %Post{user_id: user.id}
 
@@ -79,6 +80,7 @@ defmodule Watchnature.PostControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
+  @tag :skip
   test "deletes chosen resource", %{conn: conn, user: user, jwt: jwt} do
     attrs = Map.merge(@valid_attrs, %{user_id: user.id})
     post = Repo.insert! struct(%Post{}, attrs)
@@ -91,7 +93,8 @@ defmodule Watchnature.PostControllerTest do
     refute Repo.get(Post, post.id)
   end
 
-  test "creates an observation when one is included in the post payload", %{conn: conn, user: user, jwt: jwt} do
+  @tag :skip
+  test "creates an observation when one is included in the post payload", %{conn: conn, jwt: jwt} do
     payload = %{
       "description" => "test",
       "observations" => [
