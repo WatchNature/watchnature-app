@@ -12,7 +12,6 @@ defmodule Watchnature.Web.ObservationView do
   def render("observation.json", %{observation: observation}) do
     %{id: observation.id,
       description: observation.description,
-      user_id: observation.user_id,
       post_id: observation.post_id,
       location_name: observation.location_name}
   end

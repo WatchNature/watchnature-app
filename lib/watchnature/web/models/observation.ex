@@ -8,7 +8,6 @@ defmodule Watchnature.Observation do
     field :location_name, :string
     field :location, Geo.Point
 
-    belongs_to :user, User
     belongs_to :post, Post
 
     many_to_many :tags, Tag, join_through: ObservationTag,  on_replace: :delete
