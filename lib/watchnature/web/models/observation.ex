@@ -1,7 +1,7 @@
 defmodule Watchnature.Observation do
   use Watchnature.Web, :model
 
-  alias Watchnature.{Observation, Tag, ObservationTag, User, Post, Repo}
+  alias Watchnature.{Observation, Tag, ObservationTag, User, Stream.Post, Repo}
 
   schema "observations" do
     field :description, :string

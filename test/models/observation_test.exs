@@ -1,7 +1,7 @@
 defmodule Watchnature.ObservationTest do
   use Watchnature.Web.ModelCase
 
-  alias Watchnature.{Observation, Post, User}
+  alias Watchnature.{Observation, Stream.Post, User}
 
   @valid_attrs %{description: "some content", location_name: "some content"}
   @invalid_attrs %{}

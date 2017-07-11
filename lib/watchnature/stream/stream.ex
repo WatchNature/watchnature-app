@@ -57,11 +57,16 @@ defmodule Watchnature.Stream do
 
   """
   def create_post(attrs \\ %{}) do
-    %Post{}
+    post = %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
 
-    ## TODO: Preload observations and user for return to client
+    case post do
+      {:ok, post} ->
+        post = post |> Repo.preload([:user, :observations])
+        {:ok, post}
+      {:error, changset} -> {:error, changset}
+    end
   end
 
   @doc """
@@ -77,10 +82,16 @@ defmodule Watchnature.Stream do
 
   """
   def update_post(%Post{} = post, attrs) do
-    post
+    post = post
     |> Post.changeset(attrs)
     |> Repo.update()
-    |> Repo.preload([:user, :observations])
+
+    case post do
+      {:ok, post} ->
+        post = post |> Repo.preload([:user, :observations])
+        {:ok, post}
+      {:error, changset} -> {:error, changset}
+    end
   end
 
   @doc """
@@ -109,6 +120,6 @@ defmodule Watchnature.Stream do
 
   """
   def change_post(%Post{} = post) do
-    post.changeset(post, %{})
+    Post.changeset(post, %{})
   end
 end

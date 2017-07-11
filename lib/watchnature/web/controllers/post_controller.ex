@@ -20,8 +20,11 @@ defmodule Watchnature.Web.PostController do
     post_params = Map.put_new(post_params, "user_id", user_id)
 
     with :ok <- Bodyguard.permit(Stream, :create_post, user_id) do
-      with {:ok, post} <- Stream.create_post(post_params),
-        do: render(conn, "show.json", post: post)
+      with {:ok, post} <- Stream.create_post(post_params) do
+        conn
+        |> put_status(:created)
+        |> render("show.json", post: post)
+      end
     end
   end
 
