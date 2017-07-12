@@ -29,16 +29,14 @@ export default {
 }
 </script>
 
-<style scoped>
-.post_summary {
-  background-color: white;
-}
+<style lang="stylus" scoped>
+@import '../../../../assets/css/_vars'
 
-.post_summary + .post_summary {
-  margin-top: 1rem;
-}
+.post_summary
+  background-color white
+  & + .post_summary
+    margin-top $space-1
 
-.post_summary__meta {
-  padding: 1rem;
-}
+.post_summary__meta
+  padding $space-1
 </style>

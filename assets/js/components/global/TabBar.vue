@@ -10,8 +10,7 @@ export default {
 }
 </script>
 
-<style scoped>
-.tab-bar {
-  background-color: #3070bc;
-}
+<style lang="stylus" scoped>
+.tab-bar
+  background-color #3070bc
 </style>

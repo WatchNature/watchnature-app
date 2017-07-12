@@ -70,9 +70,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
-  padding-top: 68px;
-  padding-bottom: 50px;
-}
+<style lang="stylus" scoped>
+.container
+  padding-top: 68px
+  padding-bottom: 50px
 </style>

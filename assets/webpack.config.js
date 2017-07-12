@@ -16,7 +16,7 @@ try {
 
 module.exports = {
   entry: [
-    path.resolve(__dirname, 'css/app.scss'),
+    path.resolve(__dirname, 'css/app.styl'),
     path.resolve(__dirname, 'js/app.js')
   ],
 
@@ -27,6 +27,7 @@ module.exports = {
 
   resolve: {
     modules: ['node_modules', path.resolve(__dirname) + 'js'],
+    extensions: ['.js', '.styl'],
     alias: {
       vue: 'vue/dist/vue.js'
     }
@@ -50,6 +51,11 @@ module.exports = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({ use: 'css-loader' })
       },
+      {
+        test: /\.styl$/,
+        loader: 'style-loader!css-loader!stylus-loader'
+      },
+
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({

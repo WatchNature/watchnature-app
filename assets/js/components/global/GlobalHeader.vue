@@ -53,45 +53,39 @@ export default {
 }
 </script>
 
-<style scoped>
-  header {
-    background-color: #316fbc;
-    background: linear-gradient(to bottom, rgba(9,141,193,1) 0%, rgba(49,111,188,1) 100%);
-    color: #ffffff;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
+<style lang="stylus" scoped>
+@import '../../../../assets/css/_vars'
 
-  img {
-    max-width: 160px;
-  }
+header
+  background-color #316fbc
+  background linear-gradient(to bottom, rgba(9,141,193,1) 0%, rgba(49,111,188,1) 100%)
+  color #ffffff
+  overflow hidden
+  display flex
+  align-items center
+  padding $space-2
+  position fixed
+  top 0
+  left 0
+  width 100%
 
-  a {
-    color: #ffffff;
-  }
+img
+  max-width 160px
 
-  h1 {
-    float: left;
-    flex: 1 auto;
-    margin: 0;
-  }
+a
+  color #ffffff
 
-  h1 a {
-    text-decoration: none;
-  }
+h1
+  float left
+  flex 1 auto
+  margin 0
+  a
+    text-decoration none
 
-  nav {
-    float: right;
-  }
+nav
+  float right
 
-  button {
-    margin-left: 1rem;
-    -webkit-appearance: none;
-  }
+button
+  margin-left $space-2
+  -webkit-appearance none
 </style>

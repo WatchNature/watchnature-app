@@ -154,26 +154,22 @@ export default {
 }
 </script>
 
-<style>
-.map-container {
-  height: 400px;
-  width: 100%;
-}
+<style lang="stylus" scoped>
+@import '../../../../assets/css/_vars'
 
-/* https://google-developers.appspot.com/maps/documentation/javascript/places-autocomplete#style_autocomplete */
-.pac-container {
-  border-radius: 0;
-  font-family: inherit;
-  box-shadow: none;
-  border: 1px solid #bfbfbf;
-}
+.map-container
+  height 400px
+  width 100%
 
-.pac-container::after {
-  background-position: left 0.5rem center;
-  padding: 0.5rem;
-}
+.pac-container
+  border-radius 0
+  font-family inherit
+  box-shadow none
+  border 1px solid #bfbfbf
+  &::after
+    background-position left $space-1 center
+    padding $space-1
 
-.pac-item {
-  padding: 0.5rem;
-}
+.pac-item
+  padding $space-1
 </style>

@@ -28,12 +28,11 @@ export default {
 }
 </script>
 
-<style scoped>
-.notification-drawer {
-  z-index: 100;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-}
+<style lang="stylus" scoped>
+.notification-drawer
+  z-index 100
+  position fixed
+  top 0
+  right 0
+  width 100%
 </style>

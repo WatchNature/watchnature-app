@@ -26,24 +26,22 @@ export default {
 }
 </script>
 
-<style scoped>
-.observation_summary__image {
-  background-color: black;
-  height: 400px;
-  width: 100%;
-}
+<style lang="stylus" scoped>
+@import '../../../../../assets/css/_vars'
 
-.observation_summary__header {
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-}
+.observation_summary__image
+  background $gray
+  height 400px
+  width 100%
 
-.observation_summary__description {
-  padding: 1rem;
-}
+.observation_summary__header
+  padding $space-2
+  display flex
+  justify-content space-between
 
-.observation_summary__description > p {
-  margin: 0;
-}
+.observation_summary__description
+  padding $space-2
+
+.observation_summary__description > p
+  margin 0
 </style>
