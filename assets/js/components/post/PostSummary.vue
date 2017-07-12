@@ -38,5 +38,5 @@ export default {
     margin-top $space-1
 
 .post_summary__meta
-  padding $space-1
+  padding $space-2
 </style>
