@@ -161,19 +161,16 @@ export default {
 }
 </script>
 
-<style scoped>
-.tag {
-  background-color: #cccccc;
-  color: white;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  transition: background-color 140ms ease-out;
-}
-
-.tag.selected {
-  background-color: #3e8ac1;
-}
+<style lang="stylus" scoped>
+.tag
+  background-color #cccccc
+  color white
+  border-radius 20px
+  border none
+  outline none
+  -webkit-appearance none
+  cursor pointer
+  transition background-color 140ms ease-out
+  &.selected
+    background-color #3e8ac1
 </style>

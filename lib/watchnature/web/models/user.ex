@@ -1,7 +1,7 @@
 defmodule Watchnature.User do
   use Watchnature.Web, :model
 
-  alias Watchnature.{User, Post, Comment}
+  alias Watchnature.{User, Stream.Post, Comment}
 
   schema "users" do
     field :email, :string

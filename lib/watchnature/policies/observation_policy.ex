@@ -1,8 +1,10 @@
 defmodule Watchnature.Observation.Policy do
-  alias Watchnature.{User, Observation}
+  alias Watchnature.{Stream, User, Observation}
 
-  def can?(%User{id: user_id}, _action, %Observation{user_id: observation_user_id}) do
-    case user_id == observation_user_id do
+  def can?(%User{id: user_id}, _action, %Observation{post_id: post_id}) do
+    post = Stream.get_post!(post_id)
+
+    case user_id == post.user_id do
       true -> true
       _    -> false
     end

@@ -27,9 +27,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.Default__container {
-  padding-top: 68px;
-  padding-bottom: 50px;
-}
+<style lang="stylus" scoped>
+.Default__container
+  padding-top 68px
+  padding-bottom 50px
 </style>

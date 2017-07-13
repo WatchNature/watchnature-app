@@ -51,17 +51,18 @@ export default {
 }
 </script>
 
-<style scoped>
-  header {
-    background-color: #316fbc;
-    background: linear-gradient(to bottom, rgba(9,141,193,1) 0%, rgba(49,111,188,1) 100%);
-    color: #ffffff;
-    overflow: hidden;
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100%;
-  }
+<style lang="stylus" scoped>
+@import '../../../../assets/css/_vars'
+
+header
+  background-color #316fbc
+  background linear-gradient(to bottom, rgba(9,141,193,1) 0%, rgba(49,111,188,1) 100%)
+  color #ffffff
+  overflow hidden
+  padding $space-1
+  position fixed
+  top 0
+  left 0
+  z-index 10
+  width 100%
 </style>

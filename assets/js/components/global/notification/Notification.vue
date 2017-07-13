@@ -52,25 +52,21 @@ export default {
 }
 </script>
 
-<style scoped>
-  .notification {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
+<style lang="stylus" scoped>
+.notification
+  display flex
+  align-items center
+  cursor pointer
 
-  .info {
-    background-color: #333333;
-    color: #ffffff;
-  }
+.info
+  background-color #333333
+  color #ffffff
 
-  .success {
-    background-color: #7bb85c;
-    color: #ffffff;
-  }
+.success
+  background-color #7bb85c
+  color #ffffff
 
-  .error {
-    background-color: #db534f;
-    color: #ffffff;
-  }
+.error
+  background-color #db534f
+  color #ffffff
 </style>

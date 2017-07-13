@@ -1,14 +1,13 @@
 defmodule Watchnature.Observation do
   use Watchnature.Web, :model
 
-  alias Watchnature.{Observation, Tag, ObservationTag, User, Post, Repo}
+  alias Watchnature.{Observation, Tag, ObservationTag, User, Stream.Post, Repo}
 
   schema "observations" do
     field :description, :string
     field :location_name, :string
     field :location, Geo.Point
 
-    belongs_to :user, User
     belongs_to :post, Post
 
     many_to_many :tags, Tag, join_through: ObservationTag,  on_replace: :delete

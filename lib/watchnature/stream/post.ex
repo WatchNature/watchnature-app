@@ -1,4 +1,4 @@
-defmodule Watchnature.Post do
+defmodule Watchnature.Stream.Post do
   use Watchnature.Web, :model
 
   alias Watchnature.{User, Observation, Comment}

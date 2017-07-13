@@ -62,12 +62,13 @@ export default {
 }
 </script>
 
-<style scope>
-  .action-group {
-    margin-top: 1rem;
-  }
+<style lang="stylus" scope>
+@import '../../../../assets/css/_vars'
 
-  .input-group + .input-group {
-    margin-top: 1rem;
-  }
+.action-group
+  margin-top $space-2
+
+.input-group
+  & + .input-group
+    margin-top $space-2
 </style>

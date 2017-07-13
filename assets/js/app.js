@@ -20,8 +20,6 @@
 
 // import socket from "./socket"
 
-import 'tachyons/css/tachyons.css'
-
 import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
 import * as VueGoogleMaps from 'vue2-google-maps'
@@ -60,4 +58,3 @@ new Vue({
   store: store,
   render: h => h(App)
 }).$mount('#app')
-

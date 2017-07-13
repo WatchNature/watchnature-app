@@ -10,10 +10,16 @@ defmodule Watchnature.Web.ObservationView do
   end
 
   def render("observation.json", %{observation: observation}) do
+    location = case observation.location do
+      %Geo.Point{coordinates: {lat, lng}} -> %{lat: lat, lng: lng}
+      nil -> %{lat: nil, lng: nil}
+    end
+
     %{id: observation.id,
       description: observation.description,
-      user_id: observation.user_id,
       post_id: observation.post_id,
-      location_name: observation.location_name}
+      location_name: observation.location_name,
+      location: location
+    }
   end
 end
