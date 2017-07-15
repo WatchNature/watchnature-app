@@ -10,6 +10,8 @@ defmodule Watchnature.Observation do
 
     belongs_to :post, Post
 
+    has_many :images, Watchnature.Media.ObservationImage
+
     many_to_many :tags, Tag, join_through: ObservationTag,  on_replace: :delete
 
     timestamps()
