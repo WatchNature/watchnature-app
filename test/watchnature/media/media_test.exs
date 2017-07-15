@@ -15,7 +15,7 @@ defmodule Watchnature.MediaTest do
       |> Enum.into(@valid_attrs)
 
       {:ok, post} = Watchnature.Stream.create_post()
-      {:ok, observation} = Repo.insert(%Watchnature.Observation{post_id: post.id})
+      {:ok, observation} = Repo.insert(%Watchnature.Stream.Observation{post_id: post.id})
       {:ok, observation_image} = Media.create_observation_image(observation.id, image_attrs)
 
       observation_image
@@ -33,7 +33,7 @@ defmodule Watchnature.MediaTest do
 
     test "create_observation_image/1 with valid data creates a observation_image" do
       {:ok, post} = Watchnature.Stream.create_post()
-      {:ok, observation} = Repo.insert(%Watchnature.Observation{post_id: post.id})
+      {:ok, observation} = Repo.insert(%Watchnature.Stream.Observation{post_id: post.id})
       assert {:ok, %ObservationImage{} = observation_image} = Media.create_observation_image(observation.id, @valid_attrs)
       assert observation_image.observation_id == observation.id
       assert observation_image.public_id == "some public_id"

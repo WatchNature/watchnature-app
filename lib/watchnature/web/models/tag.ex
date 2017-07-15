@@ -5,7 +5,7 @@ defmodule Watchnature.Tag do
     field :name, :string
     field :type, TypeEnum
 
-    many_to_many :observations, Watchnature.Observation, join_through: Watchnature.ObservationTag
+    many_to_many :observations, Watchnature.Stream.Observation, join_through: Watchnature.ObservationTag
 
     timestamps()
   end
