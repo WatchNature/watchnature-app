@@ -42,15 +42,15 @@ defmodule Watchnature.Media do
 
   ## Examples
 
-      iex> create_observation_image(%{field: value})
+      iex> create_observation_image(123, %{field: value})
       {:ok, %ObservationImage{}}
 
-      iex> create_observation_image(%{field: bad_value})
+      iex> create_observation_image(123, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_observation_image(attrs \\ %{}) do
-    %ObservationImage{}
+  def create_observation_image(observation_id \\ nil, attrs \\ %{}) do
+    %ObservationImage{observation_id: observation_id}
     |> ObservationImage.changeset(attrs)
     |> Repo.insert()
   end

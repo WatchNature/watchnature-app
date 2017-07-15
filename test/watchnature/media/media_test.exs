@@ -11,10 +11,12 @@ defmodule Watchnature.MediaTest do
     @invalid_attrs %{public_id: nil, secure_url: nil, url: nil}
 
     def observation_image_fixture(attrs \\ %{}) do
-      {:ok, observation_image} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Media.create_observation_image()
+      image_attrs = attrs
+      |> Enum.into(@valid_attrs)
+
+      {:ok, post} = Watchnature.Stream.create_post()
+      {:ok, observation} = Repo.insert(%Watchnature.Observation{post_id: post.id})
+      {:ok, observation_image} = Media.create_observation_image(observation.id, image_attrs)
 
       observation_image
     end
@@ -30,7 +32,10 @@ defmodule Watchnature.MediaTest do
     end
 
     test "create_observation_image/1 with valid data creates a observation_image" do
-      assert {:ok, %ObservationImage{} = observation_image} = Media.create_observation_image(@valid_attrs)
+      {:ok, post} = Watchnature.Stream.create_post()
+      {:ok, observation} = Repo.insert(%Watchnature.Observation{post_id: post.id})
+      assert {:ok, %ObservationImage{} = observation_image} = Media.create_observation_image(observation.id, @valid_attrs)
+      assert observation_image.observation_id == observation.id
       assert observation_image.public_id == "some public_id"
       assert observation_image.secure_url == "some secure_url"
       assert observation_image.url == "some url"
