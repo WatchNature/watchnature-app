@@ -42,10 +42,14 @@ config :guardian, Guardian,
   serializer: Watchnature.Web.GuardianSerializer,
   permissions: %{default: [:read, :write]}
 
-config :cloudex,
-  api_key: System.get_env("CLOUDEX_API_KEY"),
-  secret: System.get_env("CLOUDEX_SECRET_KEY"),
-  cloud_name: System.get_env("CLOUDEX_CLOUD_NAME")
+config :ex_aws,
+  access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
+  secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role],
+  s3: [
+    scheme: "https://",
+    host: "#{System.get_env("AWS_BUCKET_NAME")}.s3.amazonaws.com",
+    region: System.get_env("AWS_REGION")
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

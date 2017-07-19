@@ -1,6 +1,5 @@
 defmodule Watchnature.Web.PostView do
   use Watchnature.Web, :view
-  require IEx
 
   def render("index.json", %{posts: posts}) do
     %{data: render_many(posts, Watchnature.Web.PostView, "post.json")}
@@ -22,6 +21,6 @@ defmodule Watchnature.Web.PostView do
       location_name: post.location_name,
       location: location,
       user: render_one(post.user, Watchnature.Web.UserView, "user.json"),
-      observations: render_many(post.observations, Watchnature.Web.ObservationView, "observation.json")}
+      observations: render_many(post.observations,  Watchnature.Web.ObservationView, "observation.json")}
   end
 end

@@ -17,7 +17,6 @@ defmodule Watchnature.Media.ObservationImage do
   @doc false
   def changeset(%ObservationImage{} = observation_image, attrs) do
     observation_image
-    |> cast(attrs, [:public_id, :url, :secure_url, :observation_id])
-    |> validate_required([:public_id, :url, :secure_url, :observation_id])
+    |> cast(attrs, [:observation_id, :url])
   end
 end

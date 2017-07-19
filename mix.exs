@@ -30,7 +30,9 @@ defmodule Watchnature.Mixfile do
                     :comeonin,
                     :corsica,
                     :postgrex,
-                    :cloudex]]
+                    :ex_aws,
+                    :hackney,
+                    :poison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -59,7 +61,9 @@ defmodule Watchnature.Mixfile do
      {:hound, "~> 1.0", only: [:dev, :test]},
      {:ecto_enum, "~> 1.0"},
      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-     {:cloudex, "~> 0.1.10"},
+     {:ex_aws, "~> 1.0"},
+     {:poison, "~> 2.0"},
+     {:hackney, "~> 1.6"},
      {:cowboy, "~> 1.0"}]
   end
 

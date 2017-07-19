@@ -6,9 +6,7 @@ defmodule Watchnature.MediaTest do
   describe "observation_images" do
     alias Watchnature.Media.ObservationImage
 
-    @valid_attrs %{public_id: "some public_id", secure_url: "some secure_url", url: "some url"}
-    @update_attrs %{public_id: "some updated public_id", secure_url: "some updated secure_url", url: "some updated url"}
-    @invalid_attrs %{public_id: nil, secure_url: nil, url: nil}
+    @valid_attrs %{url: "http://watchnature.co"}
 
     def observation_image_fixture(attrs \\ %{}) do
       image_attrs = attrs
@@ -36,28 +34,7 @@ defmodule Watchnature.MediaTest do
       {:ok, observation} = Repo.insert(%Watchnature.Stream.Observation{post_id: post.id})
       assert {:ok, %ObservationImage{} = observation_image} = Media.create_observation_image(observation.id, @valid_attrs)
       assert observation_image.observation_id == observation.id
-      assert observation_image.public_id == "some public_id"
-      assert observation_image.secure_url == "some secure_url"
-      assert observation_image.url == "some url"
-    end
-
-    test "create_observation_image/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Media.create_observation_image(@invalid_attrs)
-    end
-
-    test "update_observation_image/2 with valid data updates the observation_image" do
-      observation_image = observation_image_fixture()
-      assert {:ok, observation_image} = Media.update_observation_image(observation_image, @update_attrs)
-      assert %ObservationImage{} = observation_image
-      assert observation_image.public_id == "some updated public_id"
-      assert observation_image.secure_url == "some updated secure_url"
-      assert observation_image.url == "some updated url"
-    end
-
-    test "update_observation_image/2 with invalid data returns error changeset" do
-      observation_image = observation_image_fixture()
-      assert {:error, %Ecto.Changeset{}} = Media.update_observation_image(observation_image, @invalid_attrs)
-      assert observation_image == Media.get_observation_image!(observation_image.id)
+      assert observation_image.url == "http://watchnature.co"
     end
 
     test "delete_observation_image/1 deletes the observation_image" do

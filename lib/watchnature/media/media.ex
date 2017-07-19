@@ -4,9 +4,11 @@ defmodule Watchnature.Media do
   """
 
   import Ecto.Query, warn: false
-  alias Watchnature.Repo
 
+  alias Watchnature.Repo
   alias Watchnature.Media.ObservationImage
+
+  @bucket_name System.get_env("AWS_BUCKET_NAME")
 
   @doc """
   Returns the list of observation_images.
@@ -38,7 +40,7 @@ defmodule Watchnature.Media do
   def get_observation_image!(id), do: Repo.get!(ObservationImage, id)
 
   @doc """
-  Creates a observation_image.
+  Creates an Observation Image
 
   ## Examples
 
@@ -56,21 +58,18 @@ defmodule Watchnature.Media do
   end
 
   @doc """
-  Updates a observation_image.
+  Returns a presigned post url to be used by the client for
+  direct upload to S3.
 
   ## Examples
 
-      iex> update_observation_image(observation_image, %{field: new_value})
-      {:ok, %ObservationImage{}}
-
-      iex> update_observation_image(observation_image, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+    iex> create_presigned_post_url
+    {:ok, "url"}
 
   """
-  def update_observation_image(%ObservationImage{} = observation_image, attrs) do
-    observation_image
-    |> ObservationImage.changeset(attrs)
-    |> Repo.update()
+  def create_presigned_post_url do
+    ExAws.Config.new(:s3)
+    |> ExAws.S3.presigned_url(:post, @bucket_name, "/")
   end
 
   @doc """

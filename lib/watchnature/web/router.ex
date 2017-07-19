@@ -26,9 +26,13 @@ defmodule Watchnature.Web.Router do
     resources "/tags", TagController, except: [:new, :edit, :create, :update, :delete]
 
     resources "/posts", PostController, except: [:new, :edit] do
-      resources "/observations", ObservationController, except: [:new, :edit]
+      resources "/observations", ObservationController, except: [:new, :edit] do
+        resources "/images", Observation.ObservationImageController, only: [:index, :create, :delete]
+      end
       resources "/comments", CommentController, except: [:new, :edit]
     end
+
+    post "/presigned_post", PresignedPostController, :presign, as: :presign_post
   end
 
   scope "/auth", Watchnature.Web do

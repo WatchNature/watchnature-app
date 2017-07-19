@@ -11,7 +11,8 @@ const blankPost = {
       coordinates: [0, 0],
       type: 'Point'
     },
-    tag_ids: []
+    tag_ids: [],
+    images: []
   }]
 }
 
