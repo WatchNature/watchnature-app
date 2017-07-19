@@ -5,6 +5,8 @@ defmodule Watchnature.Web.PresignedPostController do
 
   action_fallback Watchnature.Web.FallbackController
 
+  plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:presign]
+
   def presign(conn, _) do
     {:ok, url} = Media.create_presigned_post_url()
     render(conn, "presign.json", url: url)
