@@ -60,7 +60,7 @@ Environment variables for the frontend are loading from `config/development.js`.
 
 ## Team
 
-- [Brady Swenson](https://github.com/orgs/WatchNature/people/bradyswenson) - Cofounder, Chief Executive
+- [Brady Swenson](https://github.com/orgs/WatchNature/people/bradyswenson) - Cofounder, Chief Executive, Product Lead
 - [Sean Washington](https://github.com/orgs/WatchNature/people/seanwash) - Cofounder, Chief Technologist
 - [Nicholas Stahl](https://www.instagram.com/nicholasryanstahl/) - Cofounder, Chief Designer
 
