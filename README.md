@@ -60,8 +60,9 @@ Environment variables for the frontend are loading from `config/development.js`.
 
 ## Team
 
-- [Brady Swenson](https://github.com/orgs/WatchNature/people/bradyswenson)
-- [Sean Washington](https://github.com/orgs/WatchNature/people/seanwash)
+- [Brady Swenson](https://github.com/orgs/WatchNature/people/bradyswenson) - Cofounder, Chief Executive
+- [Sean Washington](https://github.com/orgs/WatchNature/people/seanwash) - Cofounder, Chief Technologist
+- [Nicholas Stahl](https://www.instagram.com/nicholasryanstahl/) - Cofounder, Chief Designer
 
 ## License
 Watch Nature is released under the [GNU Public License v3](https://opensource.org/licenses/GPL-3.0).
