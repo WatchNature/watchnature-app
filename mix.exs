@@ -32,6 +32,9 @@ defmodule Watchnature.Mixfile do
                     :postgrex,
                     :ex_aws,
                     :hackney,
+                    :poison,
+                    :httpoison,
+                    :timex,
                     :poison]]
   end
 
@@ -64,6 +67,11 @@ defmodule Watchnature.Mixfile do
      {:ex_aws, "~> 1.0"},
      {:poison, "~> 2.0"},
      {:hackney, "~> 1.6"},
+     {:arc, "~> 0.8.0"},
+     {:sweet_xml, "~> 0.6"},
+     {:httpoison, "~> 0.12"},
+     {:timex, "~> 3.1.0"},
+     { :uuid, "~> 1.1" },
      {:cowboy, "~> 1.0"}]
   end
 

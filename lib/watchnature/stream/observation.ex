@@ -26,13 +26,16 @@ defmodule Watchnature.Stream.Observation do
     struct
     |> cast(params, [:description, :location_name, :location])
     |> validate_required([:description])
+    |> cast_assoc(:images)
     |> put_assoc(:tags, parse_and_get_tags(params))
   end
 
   # If location map is empty (nothing sent by client) then remove
   # that map from the params altogether as Geo will throw when it
   # tries to parse an empty coordinates array
-  defp remove_location_if_empty(%{"location" => %{"coordinates" => [], "type" => "Point"}} = params) do
+  defp remove_location_if_empty(
+    %{"location" => %{"coordinates" => [], "type" => "Point"}} = params
+  ) do
     Map.delete(params, "location")
   end
   defp remove_location_if_empty(params), do: params

@@ -6,9 +6,10 @@ defmodule Watchnature.Media do
   import Ecto.Query, warn: false
 
   alias Watchnature.Repo
-  alias Watchnature.Media.ObservationImage
+  alias Watchnature.Media.{ObservationImage, ObservationImageAttachment}
 
-  @bucket_name System.get_env("AWS_BUCKET_NAME")
+  @aws_bucket_name System.get_env("AWS_BUCKET_NAME")
+  @aws_access_key System.get_env("AWS_ACCESS_KEY_ID")
 
   @doc """
   Returns the list of observation_images.
@@ -58,19 +59,30 @@ defmodule Watchnature.Media do
   end
 
   @doc """
-  Returns a presigned post url to be used by the client for
-  direct upload to S3.
+  Uploads an attachment file to S3
 
   ## Examples
 
-    iex> create_presigned_post_url
-    {:ok, "url"}
+    iex> upload_attachment(%Plug.Upload{}, %Observation{id: 1})
+    {:ok, "filename.type"}
 
   """
-  def create_presigned_post_url do
-    ExAws.Config.new(:s3)
-    |> ExAws.S3.presigned_url(:post, @bucket_name, "/")
-  end
+  def upload_attachment(%Plug.Upload{} = file), do: ObservationImageAttachment.store(file)
+  def upload_attachment(file, scope), do: ObservationImageAttachment.store({file, scope})
+
+  @doc """
+  Returns the URL corresponding to an attachment.
+
+  ## Examples
+
+    iex> get_attachment_url("some_image.png")
+    "https://someurl.com/some_image.png"
+    iex> get_attachment_url("some_image.png", %Observation{id: 1})
+    "https://someurl.com/1/some_image.png"
+
+  """
+  def get_attachment_url(path), do: ObservationImageAttachment.url(path)
+  def get_attachment_url(path, scope), do: ObservationImageAttachment.url({path, scope})
 
   @doc """
   Deletes a ObservationImage.
@@ -86,6 +98,24 @@ defmodule Watchnature.Media do
   """
   def delete_observation_image(%ObservationImage{} = observation_image) do
     Repo.delete(observation_image)
+  end
+
+  @doc """
+  Updates an ObservationImage.
+
+  ## Examples
+
+      iex> update_observation_image(observation_image, %{field: new_value})
+      {:ok, %ObservationImage{}}
+
+      iex> update_observation_image(observation_image, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_observation_image(%ObservationImage{} = observation_image, attrs) do
+    observation_image = observation_image
+    |> ObservationImage.changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """

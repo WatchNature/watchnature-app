@@ -30,6 +30,20 @@
 
     <router-link
       class="link mt3 db"
+      :to="{ name: 'postwizard-image' }"
+      title="Add/Edit Image"
+    >
+      <div v-if="imageUrl">
+        <img :src="imageUrl" />
+      </div>
+
+      <span v-else>
+        Add Image
+      </span>
+    </router-link>
+
+    <router-link
+      class="link mt3 db"
       :to="{ name: 'postwizard-tags' }"
       title="Add/Edit Tags"
     >
@@ -55,6 +69,7 @@ export default {
     ...mapGetters({
       description: 'postWizard/description',
       locationName: 'postWizard/locationName',
+      imageUrl: 'postWizard/imageUrl',
       tagIds: 'postWizard/tagIds',
       tags: 'tags/allTags'
     }),

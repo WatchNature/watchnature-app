@@ -5,6 +5,7 @@ defmodule Watchnature.Media.ObservationImage do
 
 
   schema "observation_images" do
+    # TODO: Remove public_id and secure_url
     field :public_id, :string
     field :secure_url, :string
     field :url, :string

@@ -19,6 +19,7 @@ defmodule Watchnature.Web.ObservationView do
       description: observation.description,
       post_id: observation.post_id,
       location_name: observation.location_name,
-      location: location}
+      location: location,
+      images: render_many(observation.images, Watchnature.Web.Observation.ObservationImageView, "observation_image.json")}
   end
 end
