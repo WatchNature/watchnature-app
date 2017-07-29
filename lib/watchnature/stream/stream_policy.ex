@@ -2,9 +2,11 @@ defmodule Watchnature.Stream.Policy do
   @moduledoc """
   """
 
-  alias Watchnature.{User, Stream.Post}
+  alias Watchnature.{Stream, User, Stream.Post, Stream.Observation}
 
   @behaviour Bodyguard.Policy
+
+  ### Posts
 
   def authorize(:create_post, user_id, _) when is_nil(user_id), do: {:error, :unauthorized}
   def authorize(:create_post, user_id, _), do: :ok
@@ -17,4 +19,19 @@ defmodule Watchnature.Stream.Policy do
   def authorize(:get_post, _user, post), do: :ok
 
   def authorize(_, _, _), do: {:error, :unauthorized}
+
+  ### Observations
+
+  def authorize?(action, %User{id: user_id}, %Observation{post_id: post_id}) do
+    post = Stream.get_post!(post_id)
+
+    case user_id == post.user_id do
+      true -> :ok
+      _    -> {:error, :unauthorized}
+    end
+  end
+
+  def authorize?(:list_observations, _user, _), do: true
+  def authorize?(:get_observation, _user, _observation), do: :ok
+  def authorize?(_, _, _), do: {:error, :unauthorized}
 end

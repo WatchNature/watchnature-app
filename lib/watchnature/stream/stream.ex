@@ -9,6 +9,8 @@ defmodule Watchnature.Stream do
 
   use Bodyguard.Policy, policy: Watchnature.Stream.Policy
 
+  @default_post_preloads [:user, [observations: [:images, :tags]]]
+
   @doc """
   Returns the list of posts.
 
@@ -22,7 +24,7 @@ defmodule Watchnature.Stream do
     Post
     |> Post.sorted
     |> Repo.all
-    |> Repo.preload([:user, :observations])
+    |> Repo.preload(@default_post_preloads)
   end
 
   @doc """
@@ -41,7 +43,7 @@ defmodule Watchnature.Stream do
   """
   def get_post!(id) do
     Repo.get!(Post, id)
-    |> Repo.preload([:user, :observations])
+    |> Repo.preload(@default_post_preloads)
   end
 
   @doc """
@@ -63,10 +65,25 @@ defmodule Watchnature.Stream do
 
     case post do
       {:ok, post} ->
-        post = post |> Repo.preload([:user, :observations])
+        post = post
+        |> Repo.preload(@default_post_preloads)
+        |> copy_images_with_scope()
+
         {:ok, post}
       {:error, changset} -> {:error, changset}
     end
+  end
+
+  defp copy_images_with_scope(post) do
+    observation = post.observations |> List.first()
+
+    for observation_image <- observation.images do
+      with {:ok, url} <- Watchnature.Media.upload_attachment(observation_image.url, observation) do
+        Watchnature.Media.update_observation_image(observation_image, %{url: url})
+      end
+    end
+
+    post |> Repo.preload(@default_post_preloads)
   end
 
   @doc """
@@ -88,7 +105,7 @@ defmodule Watchnature.Stream do
 
     case post do
       {:ok, post} ->
-        post = post |> Repo.preload([:user, :observations])
+        post = post |> Repo.preload(@default_post_preloads)
         {:ok, post}
       {:error, changset} -> {:error, changset}
     end

@@ -5,7 +5,9 @@
       <span v-text="observation.location_name"></span>
     </header>
 
-    <div class="observation_summary__image"></div>
+    <div class="observation_summary__image">
+      <img v-if="firstImageUrl" :src="firstImageUrl" />
+    </div>
 
     <div class="observation_summary__description">
       <p v-text="observation.description"></p>
@@ -22,6 +24,18 @@ export default {
       type: Object,
       required: true
     }
+  },
+
+  computed: {
+    firstImageUrl () {
+      const images = this.observation.images
+
+      if (images.length > 0) {
+        return images[0].url
+      } else {
+        return null
+      }
+    }
   }
 }
 </script>
@@ -31,8 +45,9 @@ export default {
 
 .observation_summary__image
   background $gray
-  height 400px
+  min-height 400px
   width 100%
+  text-align center
 
 .observation_summary__header
   padding $space-2

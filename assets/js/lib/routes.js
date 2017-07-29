@@ -16,6 +16,11 @@ export default [
         name: 'postwizard-location'
       },
       {
+        path: 'image',
+        component: require('../components/post-wizard/ImageForm.vue'),
+        name: 'postwizard-image'
+      },
+      {
         path: 'tags',
         component: require('../components/post-wizard/TagForm.vue'),
         name: 'postwizard-tags'

@@ -1,7 +1,7 @@
 defmodule Watchnature.Stream.Post do
   use Watchnature.Web, :model
 
-  alias Watchnature.{User, Observation, Comment}
+  alias Watchnature.{User, Stream.Observation, Comment}
 
   schema "posts" do
     field :description, :string
@@ -10,7 +10,7 @@ defmodule Watchnature.Stream.Post do
 
     belongs_to :user, User
 
-    has_many :observations, Observation
+    has_many :observations, Observation, on_delete: :delete_all
     has_many :comments, Comment
 
     timestamps()
@@ -26,6 +26,7 @@ defmodule Watchnature.Stream.Post do
     |> cast_assoc(:observations)
   end
 
+  @doc false
   def sorted(query \\ __MODULE__) do
     from p in query,
     order_by: [desc: p.inserted_at]
@@ -34,7 +35,9 @@ defmodule Watchnature.Stream.Post do
   # If location map is empty (nothing sent by client) then remove
   # that map from the params altogether as Geo will throw when it
   # tries to parse an empty coordinates array
-  defp remove_location_if_empty(%{"location" => %{"coordinates" => [], "type" => "Point"}} = params) do
+  defp remove_location_if_empty(
+    %{"location" => %{"coordinates" => [], "type" => "Point"}} = params
+  ) do
     Map.delete(params, "location")
   end
   defp remove_location_if_empty(params), do: params
