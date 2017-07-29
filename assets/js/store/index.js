@@ -77,6 +77,19 @@ const store = new Vuex.Store({
           })
           .catch((error) => reject(error))
       })
+    },
+
+    signUp (context, payload) {
+      return new Promise((resolve, reject) => {
+        // eslint-disable-next-line no-undef
+        axios.post(`${API_BASE_URL}/users`, payload)
+          .then((response) => {
+            context.commit('setCurrentUser', response.data.data)
+            context.commit('setAuthToken', response.data.meta.token)
+            resolve(response)
+          })
+          .catch((error) => reject(error))
+      })
     }
   }
 })
