@@ -1,3 +1,3 @@
 defmodule Watchnature.LayoutViewTest do
-  use Watchnature.Web.ConnCase, async: true
+  use WatchnatureWeb.ConnCase, async: true
 end

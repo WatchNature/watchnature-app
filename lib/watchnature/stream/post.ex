@@ -1,5 +1,5 @@
 defmodule Watchnature.Stream.Post do
-  use Watchnature.Web, :model
+  use WatchnatureWeb, :model
 
   alias Watchnature.{User, Stream.Observation, Comment}
 

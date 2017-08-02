@@ -1,4 +1,4 @@
-defmodule Watchnature.Web.IntegrationCase do
+defmodule WatchnatureWeb.IntegrationCase do
   @moduledoc """
   A case template for integration tests using Hound.
   """
@@ -11,12 +11,12 @@ defmodule Watchnature.Web.IntegrationCase do
 
       import Ecto
       import Ecto.Query, only: [from: 2]
-      import Watchnature.Web.Router.Helpers
+      import WatchnatureWeb.Router.Helpers
 
       alias Watchnature.Repo
 
       # The default endpoint for testing
-      @endpoint Watchnature.Web.Endpoint
+      @endpoint WatchnatureWeb.Endpoint
 
       @moduletag :integration
 

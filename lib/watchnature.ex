@@ -12,7 +12,7 @@ defmodule Watchnature do
       supervisor(Watchnature.Repo, []),
       # supervisor(SpeciesImporter.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Watchnature.Web.Endpoint, []),
+      supervisor(WatchnatureWeb.Endpoint, []),
       # Start your own worker by calling: Watchnature.Worker.start_link(arg1, arg2, arg3)
       # worker(Watchnature.Worker, [arg1, arg2, arg3]),
     ]

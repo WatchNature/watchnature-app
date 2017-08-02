@@ -1,5 +1,5 @@
 defmodule Watchnature.PageControllerTest do
-  use Watchnature.Web.ConnCase
+  use WatchnatureWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

@@ -1,5 +1,5 @@
 defmodule Watchnature.Stream.Observation do
-  use Watchnature.Web, :model
+  use WatchnatureWeb, :model
 
   alias Watchnature.{Stream.Observation, Tag, ObservationTag, User, Stream.Post, Repo}
 

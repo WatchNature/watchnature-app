@@ -1,5 +1,5 @@
 defmodule Watchnature.UserControllerTest do
-  use Watchnature.Web.ConnCase
+  use WatchnatureWeb.ConnCase
 
   alias Watchnature.User
   @valid_attrs %{email: "sean@watchnature.co", first_name: "sean", last_name: "washington", password: "secretsecret"}
