@@ -6,9 +6,9 @@ defmodule Watchnature.TaxonomiesTest do
   describe "species" do
     alias Watchnature.Taxonomies.Species
 
-    @valid_attrs %{name: "some name"}
-    @update_attrs %{name: "some updated name"}
-    @invalid_attrs %{name: nil}
+    @valid_attrs %{scientific_name: "some name", common_name: "common name", itis_tsn: 1}
+    @update_attrs %{scientific_name: "some updated name", common_name: "common updated_name", itis_tsn: 2}
+    @invalid_attrs %{scientific_name: nil}
 
     def species_fixture(attrs \\ %{}) do
       {:ok, species} =

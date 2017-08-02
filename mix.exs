@@ -35,6 +35,7 @@ defmodule Watchnature.Mixfile do
                     :poison,
                     :httpoison,
                     :timex,
+                    :hound,
                     :poison]]
   end
 
@@ -71,7 +72,6 @@ defmodule Watchnature.Mixfile do
      {:sweet_xml, "~> 0.6"},
      {:httpoison, "~> 0.12"},
      {:timex, "~> 3.1.0"},
-     { :uuid, "~> 1.1" },
      {:cowboy, "~> 1.0"}]
   end
 

@@ -3,9 +3,10 @@ defmodule Watchnature.Taxonomies.Species do
   import Ecto.Changeset
   alias Watchnature.Taxonomies.Species
 
-
-  schema "taxonomies_species" do
-    field :name, :string
+  schema "species" do
+    field :common_name, :string
+    field :scientific_name, :string
+    field :itis_tsn, :integer
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule Watchnature.Taxonomies.Species do
   @doc false
   def changeset(%Species{} = species, attrs) do
     species
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:common_name, :scientific_name, :itis_tsn])
+    |> validate_required([:common_name, :scientific_name, :itis_tsn])
   end
 end

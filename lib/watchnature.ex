@@ -10,6 +10,7 @@ defmodule Watchnature do
     children = [
       # Start the Ecto repository
       supervisor(Watchnature.Repo, []),
+      # supervisor(SpeciesImporter.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Watchnature.Web.Endpoint, []),
       # Start your own worker by calling: Watchnature.Worker.start_link(arg1, arg2, arg3)

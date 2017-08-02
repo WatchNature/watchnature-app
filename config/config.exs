@@ -13,6 +13,7 @@ end
 # General application configuration
 config :watchnature,
   ecto_repos: [Watchnature.Repo]
+  # ecto_repos: [Watchnature.Repo, SpeciesImporter.Repo]
 
 # Configures the endpoint
 config :watchnature, Watchnature.Web.Endpoint,
