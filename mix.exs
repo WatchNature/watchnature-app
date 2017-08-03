@@ -36,6 +36,8 @@ defmodule Watchnature.Mixfile do
                     :httpoison,
                     :timex,
                     :hound,
+                    :scrivener,
+                    :scrivener_ecto,
                     :poison]]
   end
 
@@ -72,6 +74,8 @@ defmodule Watchnature.Mixfile do
      {:sweet_xml, "~> 0.6"},
      {:httpoison, "~> 0.12"},
      {:timex, "~> 3.1.0"},
+     {:scrivener, "~> 2.0"},
+     {:scrivener_ecto, "~> 1.0"},
      {:cowboy, "~> 1.0"}]
   end
 

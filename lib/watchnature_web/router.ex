@@ -32,6 +32,8 @@ defmodule WatchnatureWeb.Router do
       end
       resources "/comments", CommentController, except: [:new, :edit]
     end
+
+    resources "/species", SpeciesController, only: [:index]
   end
 
   scope "/auth", WatchnatureWeb do

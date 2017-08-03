@@ -24,6 +24,11 @@ defmodule Watchnature.TaxonomiesTest do
       assert Taxonomies.list_species() == [species]
     end
 
+    test "find_species_by_name/1" do
+      species = species_fixture()
+      assert Taxonomies.search_species_by_name("common") == [species]
+    end
+
     test "get_species!/1 returns the species with given id" do
       species = species_fixture()
       assert Taxonomies.get_species!(species.id) == species

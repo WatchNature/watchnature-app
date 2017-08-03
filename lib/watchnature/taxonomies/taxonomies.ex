@@ -4,9 +4,9 @@ defmodule Watchnature.Taxonomies do
   """
 
   import Ecto.Query, warn: false
-  alias Watchnature.Repo
 
-  alias Watchnature.Taxonomies.Species
+  alias Watchnature.Repo
+  alias Watchnature.Taxonomies.{Species, Query}
 
   @doc """
   Returns the list of species.
@@ -19,6 +19,34 @@ defmodule Watchnature.Taxonomies do
   """
   def list_species do
     Repo.all(Species)
+  end
+
+  @doc """
+  Returns a Scrivener struct of species
+
+  ## Examples
+
+      iex> paginate_species()
+      [%Species{}, ...]
+
+  """
+  def paginate_species(params \\ []) do
+    Repo.paginate(Species, params)
+  end
+
+  @doc """
+  Returns a Scrivener struct with matching species
+
+  ## Examples
+
+      iex> search_species_by_name("wolf")
+      [%Species{}, ...]
+
+  """
+  def search_species_by_name(name, page_params \\ []) do
+    Species
+    |> Query.by_name(name)
+    |> Repo.paginate(page_params)
   end
 
   @doc """
