@@ -15,9 +15,7 @@
     "vue": "^2.3.2",
     "vue-router": "^2.5.3",
     "vue2-google-maps": "^0.7.9",
-    "vuex": "^2.3.1"
-  },
-  "devDependencies": {
+    "vuex": "^2.3.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
