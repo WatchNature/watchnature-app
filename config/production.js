@@ -3,7 +3,7 @@ module.exports = {
   ENV: JSON.stringify('production'),
   API_BASE_URL: JSON.stringify('https://wn-app-staging.herokuapp.com/api'),
   APP_BASE_URL: JSON.stringify('https://wn-app-staging.herokuapp.com'),
-  GOOGLE_MAPS_API_KEY: JSON.stringify('AIzaSyCVahUUvHx_ir4b0NE9_TiENsnJ4P8Ncz8'),
+  GOOGLE_MAPS_API_KEY: JSON.stringify('AIzaSyAYlMODQGL2WhtClu9vht6QmqZ5C6X51h8'),
   IMGIX_SOURCE: JSON.stringify(''),
   IMGIX_SOURCE_HOSTNAME: JSON.stringify(''),
   DOCUMENT_TITLE_BASE: JSON.stringify('[STAGE] Watch Nature'),
