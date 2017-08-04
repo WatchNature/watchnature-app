@@ -1,4 +1,4 @@
 cd $assets_dir
-ENV=production node_modules/.bin/webpack
+NODE_ENV=production node_modules/.bin/webpack -p
 cd $phoenix_dir
 mix phx.digest
