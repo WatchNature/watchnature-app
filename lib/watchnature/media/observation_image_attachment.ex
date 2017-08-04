@@ -26,7 +26,7 @@ defmodule Watchnature.Media.ObservationImageAttachment do
   # end
 
   def filename(version, {file, scope}) do
-    file_name = Path.basename(file.file_name, Path.extname(file.file_name))
+    file_name = Path.basename(file.file_name, Path.extname(file.file_name)) |> String.replace(" ", "_")
     "#{version}_#{file_name}"
   end
 

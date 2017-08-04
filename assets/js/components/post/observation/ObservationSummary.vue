@@ -1,7 +1,11 @@
 <template>
   <div>
     <header class="observation_summary__header">
-      <span>observation.common_name</span>
+      <span
+        v-if="observation.species"
+        v-text="startCase(observation.species.common_name)"
+      ></span>
+
       <span v-text="observation.location_name"></span>
     </header>
 
@@ -16,6 +20,8 @@
 </template>
 
 <script>
+import { startCase } from 'lodash'
+
 export default {
   name: 'ObservationSummary',
 
@@ -36,6 +42,12 @@ export default {
         return null
       }
     }
+  },
+
+  methods: {
+    startCase (str) {
+      return startCase(str)
+    }
   }
 }
 </script>
@@ -44,10 +56,12 @@ export default {
 @import '../../../../../assets/css/_vars'
 
 .observation_summary__image
-  background $gray
+  background $gray-1
   min-height 400px
   width 100%
-  text-align center
+  display flex
+  align-items center
+  justify-content center
 
 .observation_summary__header
   padding $space-2

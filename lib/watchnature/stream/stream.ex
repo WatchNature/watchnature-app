@@ -9,7 +9,7 @@ defmodule Watchnature.Stream do
 
   use Bodyguard.Policy, policy: Watchnature.Stream.Policy
 
-  @default_post_preloads [:user, [observations: [:images, :tags]]]
+  @default_post_preloads [:user, [observations: [:images, :tags, :species]]]
 
   @doc """
   Returns the list of posts.

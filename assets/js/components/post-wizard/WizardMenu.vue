@@ -20,7 +20,7 @@
       title="Add/Edit Location"
     >
       <div v-if="locationName">
-        <p class="ma0">{{ locationName }}</p>
+        <p class="ma0" v-text="locationName"></p>
       </div>
 
       <span v-else>
@@ -55,6 +55,20 @@
         Add Tags
       </span>
     </router-link>
+
+    <router-link
+      class="link mt3 db"
+      :to="{ name: 'postwizard-species' }"
+      title="Add/Edit Species"
+    >
+      <div v-if="species.common_name">
+        <p class="ma0" v-text="species.common_name"></p>
+      </div>
+
+      <span v-else>
+        Add Species
+      </span>
+    </router-link>
   </div>
 </template>
 
@@ -71,6 +85,7 @@ export default {
       locationName: 'postWizard/locationName',
       imageUrl: 'postWizard/imageUrl',
       tagIds: 'postWizard/tagIds',
+      species: 'postWizard/species',
       tags: 'tags/allTags'
     }),
 

@@ -24,6 +24,11 @@ export default [
         path: 'tags',
         component: require('../components/post-wizard/TagForm.vue'),
         name: 'postwizard-tags'
+      },
+      {
+        path: 'species',
+        component: require('../components/post-wizard/SpeciesForm.vue'),
+        name: 'postwizard-species'
       }
     ]
   },

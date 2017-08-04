@@ -4,8 +4,10 @@ defmodule WatchnatureWeb.SpeciesController do
   alias Watchnature.Taxonomies
 
   def index(conn, %{"term" => term} = params) do
-    page_number = Map.get(params, "page", 1)
-    page = Taxonomies.search_species_by_name(term, [page: page_number])
+    page_number = Map.get(params, "page_number", 1)
+    page_size = Map.get(params, "page_size", 10)
+    page = Taxonomies.search_species_by_name(term, [page: page_number, page_size: page_size])
+
     render(conn, "index.json", species: page.entries, meta: build_page_meta(page))
   end
   def index(conn, params) do

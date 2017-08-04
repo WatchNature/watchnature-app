@@ -5,6 +5,8 @@ import _ from 'lodash'
 // more than one observation to be created with a post.
 const blankPost = {
   observations: [{
+    species: {},
+    species_id: null,
     description: '',
     location_name: '',
     location: {
@@ -50,6 +52,10 @@ const postWizard = {
 
     tagIds (state) {
       return state.post.observations[0].tag_ids
+    },
+
+    species (state) {
+      return state.post.observations[0].species
     }
   },
 
@@ -69,6 +75,12 @@ const postWizard = {
 
     addTagIds (state, ids) {
       state.post.observations[0].tag_ids = ids
+    },
+
+    addSpecies (state, species) {
+      let observation = state.post.observations[0]
+      observation.species = species
+      observation.species_id = species.id
     },
 
     reset (state) {
@@ -101,6 +113,13 @@ const postWizard = {
     addTagids (context, ids) {
       return new Promise((resolve, reject) => {
         context.commit('addTagIds', ids)
+        resolve()
+      })
+    },
+
+    addSpecies (context, species) {
+      return new Promise((resolve, reject) => {
+        context.commit('addSpecies', species)
         resolve()
       })
     },

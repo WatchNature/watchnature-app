@@ -8,6 +8,8 @@ defmodule Watchnature.Taxonomies.Species do
     field :scientific_name, :string
     field :itis_tsn, :integer
 
+    has_many :observations, Watchnature.Stream.Observation
+
     timestamps()
   end
 

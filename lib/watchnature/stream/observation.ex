@@ -9,6 +9,7 @@ defmodule Watchnature.Stream.Observation do
     field :location, Geo.Point
 
     belongs_to :post, Post
+    belongs_to :species, Watchnature.Taxonomies.Species
 
     has_many :images, Watchnature.Media.ObservationImage
 
@@ -24,8 +25,8 @@ defmodule Watchnature.Stream.Observation do
     params = remove_location_if_empty(params)
 
     struct
-    |> cast(params, [:description, :location_name, :location])
-    |> validate_required([:description])
+    |> cast(params, [:description, :location_name, :location, :species_id])
+    |> validate_required([:description, :species_id])
     |> cast_assoc(:images)
     |> put_assoc(:tags, parse_and_get_tags(params))
   end
@@ -40,9 +41,7 @@ defmodule Watchnature.Stream.Observation do
   end
   defp remove_location_if_empty(params), do: params
 
-  @doc """
-  Extracts Tag ids from params and returns a list of structs
-  """
+  # Extracts Tag ids from params and returns a list of structs
   defp parse_and_get_tags(params) do
     ids = params["tags"] || []
     Repo.all(from t in Tag, where: t.id in ^ids)
