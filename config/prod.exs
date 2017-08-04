@@ -13,7 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :watchnature, WatchnatureWeb.Endpoint,
   http: [port: System.get_env("PORT")],
-  url: [scheme: "https", host: "wn-app-staging.herokuapp.com", port: 443],
+  url: [scheme: "https", host: "alpha.watchnature.co", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: System.get_env("SECRET_KEY_BASE")
