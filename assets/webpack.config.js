@@ -14,6 +14,10 @@ try {
   throw error
 }
 
+const extractStylus = new ExtractTextPlugin({
+  filename: 'css/app.css'
+})
+
 module.exports = {
   entry: [
     path.resolve(__dirname, 'css/app.styl'),
@@ -47,18 +51,21 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({ use: 'css-loader' })
-      },
+      // {
+      //   test: /\.css$/,
+      //   use: ExtractTextPlugin.extract({
+      //     use: 'css-loader',
+      //     fallback: 'vue-style-loader'
+      //   })
+      // },
       {
         test: /\.styl$/,
-        use: ExtractTextPlugin.extract({ use: [{ loader: 'css-loader' }, { loader: 'stylus-loader' }] })
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          use: [{ loader: 'css-loader' }, { loader: 'sass-loader' }],
+        use: extractStylus.extract({
+          use: [{
+            loader: 'css-loader'
+          }, {
+            loader: 'stylus-loader'
+          }],
           fallback: 'style-loader'
         })
       },
@@ -72,6 +79,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin(envConfig),
     new ExtractTextPlugin('css/app.css'),
-    new CopyWebpackPlugin([{ from: './static' }]) // Copy ./static to /priv/static
+    new CopyWebpackPlugin([{ from: './static' }]), // Copy ./static to /priv/static
+    extractStylus
   ]
 }
