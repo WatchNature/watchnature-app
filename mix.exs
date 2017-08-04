@@ -35,7 +35,6 @@ defmodule Watchnature.Mixfile do
                     :poison,
                     :httpoison,
                     :timex,
-                    :hound,
                     :scrivener,
                     :scrivener_ecto,
                     :poison]]
@@ -64,7 +63,6 @@ defmodule Watchnature.Mixfile do
      {:guardian, "~> 0.10"},
      {:bodyguard, "~> 2.0.0"},
      {:geo, "~> 1.4"},
-     {:hound, "~> 1.0", only: [:dev, :test]},
      {:ecto_enum, "~> 1.0"},
      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
      {:ex_aws, "~> 1.0"},
