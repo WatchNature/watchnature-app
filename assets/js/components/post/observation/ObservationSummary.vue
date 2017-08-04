@@ -70,6 +70,7 @@ export default {
 
 .observation_summary__description
   padding $space-2
+  overflow hidden
 
 .observation_summary__description > p
   margin 0
