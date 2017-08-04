@@ -49,15 +49,11 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          extractCSS: true
+        }
       },
-      // {
-      //   test: /\.css$/,
-      //   use: ExtractTextPlugin.extract({
-      //     use: 'css-loader',
-      //     fallback: 'vue-style-loader'
-      //   })
-      // },
       {
         test: /\.styl$/,
         use: extractStylus.extract({
@@ -65,8 +61,7 @@ module.exports = {
             loader: 'css-loader'
           }, {
             loader: 'stylus-loader'
-          }],
-          fallback: 'style-loader'
+          }]
         })
       },
       {
@@ -78,7 +73,6 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin(envConfig),
-    new ExtractTextPlugin('css/app.css'),
     new CopyWebpackPlugin([{ from: './static' }]), // Copy ./static to /priv/static
     extractStylus
   ]
