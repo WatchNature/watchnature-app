@@ -26,7 +26,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import router from './lib/router'
 import store from './store/index'
 import axios from 'axios'
-import _ from 'lodash'
+import { isEmpty } from 'lodash'
 import App from './components/App.vue'
 
 sync(store, router)
@@ -46,7 +46,7 @@ axios.defaults.baseURL = API_BASE_URL
 axios.defaults.headers['Content-Type'] = 'application/json'
 axios.defaults.headers['Accept'] = 'application/json'
 
-if (!_.isEmpty(store.state.authToken)) {
+if (!isEmpty(store.state.authToken)) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.authToken}`
 }
 

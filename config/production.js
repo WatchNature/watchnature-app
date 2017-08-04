@@ -1,5 +1,5 @@
 module.exports = {
-  URL: JSON.stringify('https://wn=app-staging.herokuapp.com'),
+  URL: JSON.stringify('https://wn-app-staging.herokuapp.com'),
   ENV: JSON.stringify('production'),
   API_BASE_URL: JSON.stringify('https://wn-app-staging.herokuapp.com/api'),
   APP_BASE_URL: JSON.stringify('https://wn-app-staging.herokuapp.com'),
