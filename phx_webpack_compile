@@ -1,4 +1,9 @@
 cd $assets_dir
-NODE_ENV=production node_modules/.bin/webpack -p
+npm run deploy
+
 cd $phoenix_dir
-mix phx.digest
+mix "${phoenix_ex}.digest"
+
+if mix help "${phoenix_ex}.digest.clean" 1>/dev/null 2>&1; then
+  mix "${phoenix_ex}.digest.clean"
+fi
