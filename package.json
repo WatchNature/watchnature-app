@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "postinstall": "cd assets && npm install && webpack -p"
+    "postinstall": "cd assets && npm install && ./node_modules/.bin/webpack -p"
   }
 }
