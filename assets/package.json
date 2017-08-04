@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "deploy": "webpack -p",
+    "deploy": "NODE_ENV=production webpack -p",
     "watch": "webpack --watch-stdin --progress --color"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "eslint": "^3.19.0",
