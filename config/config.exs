@@ -45,7 +45,7 @@ config :guardian, Guardian,
 
 config :arc,
   bucket: System.get_env("AWS_BUCKET_NAME"),
-  asset_host: "https://#{System.get_env("AWS_BUCKET_NAME")}.s3.amazonaws.com"
+  asset_host: System.get_env("IMGIX_HOST")
 
 config :ex_aws,
   access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],

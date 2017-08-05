@@ -37,7 +37,9 @@ export default {
       const images = this.observation.images
 
       if (images.length > 0) {
-        return images[0].url
+        let url = images[0].url
+
+        return `${url}?max-w=800&max-h=1200&crop=entropy&auto=format,compress`
       } else {
         return null
       }
