@@ -4,8 +4,10 @@ defmodule Watchnature.Taxonomies.Query do
   alias Watchnature.Taxonomies.Species
 
   def by_name(queryable \\ __MODULE__, term) do
+    term = String.downcase(term)
+
     from s in queryable,
-    where: ilike(s.common_name, ^"%#{term}%")
-           or ilike(s.scientific_name, ^"%#{term}%")
+    where: like(fragment("lower(?)", s.common_name), ^"%#{term}%")
+           or like(fragment("lower(?)", s.scientific_name), ^"%#{term}%")
   end
 end

@@ -10,8 +10,7 @@ config :watchnature, WatchnatureWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false,
-  watchers: [yarn: ["run", "watch", cd: Path.expand("../assets", __DIR__)]]
+  check_origin: false
 
 
 # Watch static and templates for browser reloading.

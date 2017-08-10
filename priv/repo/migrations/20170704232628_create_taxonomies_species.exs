@@ -10,5 +10,9 @@ defmodule Watchnature.Repo.Migrations.CreateWatchnature.Taxonomies.Species do
       timestamps()
     end
 
+    create index(:species, [fragment("lower(common_name)"])
+    create inded(:species, [fragment("lower(scientific_name)"])
+    create index(:species, [fragment("lower(common_name)"), fragment("lower(scientific_name)")])
+    create index(:species, [:itis_tsn])
   end
 end

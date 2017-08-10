@@ -41,11 +41,4 @@ defmodule WatchnatureWeb.Router do
 
     post "/identity/callback", AuthController, :indentity_callback
   end
-
-  # Setup browser pipe to catch all URLS and forward to the SPA page.
-  # Note: This should stay at the bottom so all api/auth routes are matched first
-  scope "/", WatchnatureWeb do
-    pipe_through :browser
-    get "/*path", PageController, :index
-  end
 end
