@@ -8,10 +8,10 @@ defmodule WatchnatureWeb.PostController do
   plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "post" when action in [:create, :update]
 
-  def index(conn, _params) do
-    with :ok <- Bodyguard.permit(Stream, :list_posts, conn) do
-      posts = Stream.list_posts()
-      render(conn, "index.json", posts: posts)
+  def index(conn, params) do
+    with :ok <- Bodyguard.permit(Stream, :paginate_posts, conn) do
+      page = Stream.paginate_posts(params)
+      render(conn, "index.json", posts: page.entries, page: page)
     end
   end
 

@@ -28,6 +28,24 @@ defmodule Watchnature.Stream do
   end
 
   @doc """
+  Returns a %Scrivener.Page{} struct with posts and page info.
+
+  ## Examples
+
+    iex> paginate_posts()
+    %Scrivener.Page{current_page: 1, entries: [%Post{}, ...]}
+    iex> paginate_posts(%{page: 2})
+    %Scrivener.Page{current_page: 2, entries: [%Post{}, ...]}
+
+  """
+  def paginate_posts(params) do
+    Post
+    |> Post.sorted
+    |> preload(^@default_post_preloads)
+    |> Repo.paginate(params)
+  end
+
+  @doc """
   Gets a single post.
 
   Raises `Ecto.NoResultsError` if the posts does not exist.

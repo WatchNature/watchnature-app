@@ -14,7 +14,6 @@ To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd ./assets && yarn install`
   * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
@@ -28,26 +27,11 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 Environment variables for the backend are loaded from `.env` located in the project root. The skeleton:
 
 ```
-export CLOUDEX_API_KEY="YOUR_KEY"
-export CLOUDEX_SECRET="YOUR_KEY"
-export CLOUDEX_CLOUD_NAME="YOUR_CLOUD_NAME"
-```
-
-Environment variables for the frontend are loading from `config/development.js`. The skeleton:
-
-```
-{
-  URL: JSON.stringify('http://localhost:4000'),
-  ENV: JSON.stringify('development'),
-  API_BASE_URL: JSON.stringify('http://localhost:4000/api'),
-  APP_BASE_URL: JSON.stringify('http://localhost:4000'),
-  GOOGLE_MAPS_API_KEY: JSON.stringify('YOUR_KEY_HERE'),
-  IMGIX_SOURCE: JSON.stringify(''),
-  IMGIX_SOURCE_HOSTNAME: JSON.stringify(''),
-  DOCUMENT_TITLE_BASE: JSON.stringify('[DEV] Watch Nature'),
-  DOCUMENT_TITLE_SEPARATOR: JSON.stringify('»'),
-  GA_ID: JSON.stringify('')
-}
+export AWS_ACCESS_KEY_ID="******"
+export AWS_SECRET_ACCESS_KEY="******"
+export AWS_BUCKET_NAME="******"
+export AWS_REGION="******"
+export IMGIX_HOST="******"
 ```
 
 ## Learn more

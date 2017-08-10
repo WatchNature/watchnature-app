@@ -1,6 +1,16 @@
 defmodule WatchnatureWeb.PostView do
   use WatchnatureWeb, :view
 
+  def render("index.json", %{posts: posts, page: page}) do
+    meta = %{
+      page_number: page.page_number,
+      page_size: page.page_size,
+      total_entries: page.total_entries,
+      total_pages: page.total_pages
+    }
+
+    %{data: render_many(posts, WatchnatureWeb.PostView, "post.json"), meta: meta}
+  end
   def render("index.json", %{posts: posts}) do
     %{data: render_many(posts, WatchnatureWeb.PostView, "post.json")}
   end
