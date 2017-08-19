@@ -1,14 +1,15 @@
 defmodule Watchnature.Stream.Post do
   use WatchnatureWeb, :model
 
-  alias Watchnature.{User, Stream.Observation, Comment}
+  alias Watchnature.{Stream.Observation, Comment}
+  alias Watchnature.Accounts
 
   schema "posts" do
     field :description, :string
     field :location, Geo.Point
     field :location_name, :string
 
-    belongs_to :user, User
+    belongs_to :user, Accounts.User
 
     has_many :observations, Observation, on_delete: :delete_all
     has_many :comments, Comment
