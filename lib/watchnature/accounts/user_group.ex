@@ -1,12 +1,14 @@
 defmodule Watchnature.Accounts.UserGroup do
   use Ecto.Schema
   import Ecto.Changeset
+
+  alias Watchnature.Accounts
   alias Watchnature.Accounts.UserGroup
 
 
   schema "accounts_users_groups" do
-    belongs_to :user, Dk.Accounts.User
-    belongs_to :group, Dk.Accounts.Group
+    belongs_to :user, Accounts.User
+    belongs_to :group, Accounts.Group
 
     timestamps()
   end
