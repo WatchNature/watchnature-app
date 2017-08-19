@@ -8,7 +8,7 @@ defmodule Watchnature.Accounts.Group do
   schema "accounts_groups" do
     field :name, :string
 
-    many_to_many :users, Accounts.User, join_through: Watchnature.Accounts.UserGroup
+    many_to_many :users, Accounts.User, join_through: Watchnature.Accounts.UserGroup, on_delete: :delete_all
 
     timestamps()
   end

@@ -15,7 +15,7 @@ defmodule Watchnature.Accounts.User do
     has_many :posts, Post
     has_many :comments, Comment
 
-    many_to_many :groups, Accounts.Group, join_through: Watchnature.Accounts.UserGroup
+    many_to_many :groups, Accounts.Group, join_through: Watchnature.Accounts.UserGroup, on_delete: :delete_all
 
     timestamps()
   end
