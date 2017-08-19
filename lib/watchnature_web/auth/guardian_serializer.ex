@@ -1,7 +1,7 @@
 defmodule WatchnatureWeb.GuardianSerializer do
   @behaviour Guardian.Serializer
 
-  alias Watchnature.{Repo, User}
+  alias Watchnature.{Repo, Accounts.User}
 
   def for_token(%User{id: id}), do: {:ok, "User:#{id}"}
   def for_token(_), do: {:error, "Unknown resource type"}

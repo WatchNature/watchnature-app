@@ -1,5 +1,5 @@
 defmodule Watchnature.Comment.Policy do
-  alias Watchnature.{User, Comment}
+  alias Watchnature.{Accounts.User, Comment}
 
   # A user can edit/remove their own post
   def can?(%User{id: user_id} = user, _action, %Comment{user_id: comment_user_id} = post) do

@@ -19,5 +19,3 @@ config :watchnature, Watchnature.Repo,
   port:     System.get_env("POSTGRES_PORT") || "5432",
   types: Watchnature.PostgresTypes,
   pool: Ecto.Adapters.SQL.Sandbox
-
-config :hound, driver: "phantomjs"
