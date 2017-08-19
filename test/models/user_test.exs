@@ -1,7 +1,7 @@
-defmodule Watchnature.UserTest do
+defmodule Watchnature.Accounts.UserTest do
   use WatchnatureWeb.ModelCase
 
-  alias Watchnature.User
+  alias Watchnature.Accounts.User
 
   @valid_attrs %{email: "some content", first_name: "sean", last_name: "washington", password_hash: "some content"}
   @invalid_attrs %{}

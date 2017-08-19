@@ -10,13 +10,17 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Watchnature.{Repo, User, Tag}
+alias Watchnature.{Repo, Tag}
+alias Watchnature.Accounts.{User, Group}
 
 if Mix.env == :dev do
   Repo.insert(User.registration_changeset(%User{}, %{email: "sean@watchnature.co", first_name: "Sean", last_name: "Washington", password: "secret"}))
   Repo.insert(User.registration_changeset(%User{}, %{email: "brady@watchnature.co", first_name: "Brady", last_name: "Swenson", password: "secret"}))
   Repo.insert(User.registration_changeset(%User{}, %{email: "nicholas@watchnature.co", first_name: "Nicholas", last_name: "Stahl", password: "secret"}))
   Repo.insert(User.registration_changeset(%User{}, %{email: "mikahil@bot.co", first_name: "Mikhail", last_name: "Bot", password: "secret"}))
+
+  Repo.insert(Group.changeset(%Group{name: "expert"}))
+  Repo.insert(Group.changeset(%Group{name: "admin"}))
 
   tags = [
     %{name: "bird", type: :general},

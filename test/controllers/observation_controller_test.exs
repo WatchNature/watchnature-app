@@ -1,7 +1,7 @@
 defmodule Watchnature.ObservationControllerTest do
   use WatchnatureWeb.ConnCase
 
-  alias Watchnature.{Observation, Stream.Post, User}
+  alias Watchnature.{Observation, Stream.Post, Accounts.User}
 
   @valid_attrs %{description: "some content", location_name: "some content"}
   @invalid_attrs %{}

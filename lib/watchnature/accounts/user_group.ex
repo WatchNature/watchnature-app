@@ -1,0 +1,20 @@
+defmodule Watchnature.Accounts.UserGroup do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias Watchnature.Accounts.UserGroup
+
+
+  schema "accounts_users_groups" do
+    belongs_to :user, Dk.Accounts.User
+    belongs_to :group, Dk.Accounts.Group
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(%UserGroup{} = user_group, attrs) do
+    user_group
+    |> cast(attrs, [])
+    |> validate_required([])
+  end
+end
