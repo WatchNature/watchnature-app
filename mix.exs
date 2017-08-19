@@ -37,6 +37,7 @@ defmodule Watchnature.Mixfile do
                     :timex,
                     :scrivener,
                     :scrivener_ecto,
+                    :ex_machina,
                     :poison]]
   end
 
@@ -74,6 +75,7 @@ defmodule Watchnature.Mixfile do
      {:timex, "~> 3.1.0"},
      {:scrivener, "~> 2.0"},
      {:scrivener_ecto, "~> 1.0"},
+     {:ex_machina, "~> 2.0", only: :test},
      {:cowboy, "~> 1.0"}]
   end
 
