@@ -1,10 +1,7 @@
 defmodule Watchnature.Stream.Policy do
-  @moduledoc """
-  """
+  @behaviour Bodyguard.Policy
 
   alias Watchnature.{Stream, Accounts.User, Stream.Post, Stream.Observation}
-
-  @behaviour Bodyguard.Policy
 
   ### Posts
 
