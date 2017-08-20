@@ -45,10 +45,11 @@ defmodule WatchnatureWeb.PostController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    post = Stream.get_post!(id)
+  def delete(conn, %{"id" => post_id}) do
+    current_user = conn.assigns.current_user
 
-    with :ok <- Bodyguard.permit(Stream, :delete_post, conn, post) do
+    with :ok <- Bodyguard.permit(Stream, :delete_post, current_user.id) do
+      post = Stream.get_post!(post_id)
       with {:ok, conn} <- Stream.delete_post(post),
        do: send_resp(conn, :no_content, "")
     end
