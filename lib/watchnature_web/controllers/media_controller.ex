@@ -5,7 +5,7 @@ defmodule WatchnatureWeb.MediaController do
 
   action_fallback WatchnatureWeb.FallbackController
 
-  plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create]
+  plug Guardian.Plug.EnsureAuthenticated, [handler: WatchnatureWeb.AuthController] when action in [:create]
 
   def create(conn, %{"file" => file}) do
     with {:ok, file} <- Media.upload_attachment(file) do

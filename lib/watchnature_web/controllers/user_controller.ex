@@ -4,7 +4,7 @@ defmodule WatchnatureWeb.UserController do
   alias Watchnature.Accounts
   alias Watchnature.Accounts.User
 
-  plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:update, :delete]
+  plug Guardian.Plug.EnsureAuthenticated, [handler: WatchnatureWeb.AuthController] when action in [:update, :delete]
   plug :scrub_params, "user" when action in [:create, :update]
 
   def index(conn, _params) do
