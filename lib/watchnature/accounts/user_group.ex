@@ -16,7 +16,7 @@ defmodule Watchnature.Accounts.UserGroup do
   @doc false
   def changeset(%UserGroup{} = user_group, attrs) do
     user_group
-    |> cast(attrs, [])
+    |> cast(attrs, [:user_id, :group_id])
     |> validate_required([])
   end
 end
