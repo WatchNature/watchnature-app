@@ -32,7 +32,7 @@ defmodule Watchnature.Stream.Policy do
   # Observations
   #
 
-  def authorize?(action, %User{id: user_id}, %Observation{post_id: post_id}) do
+  def authorize(action, %User{id: user_id}, %Observation{post_id: post_id}) do
     post = Stream.get_post!(post_id)
 
     case user_id == post.user_id do
@@ -41,9 +41,9 @@ defmodule Watchnature.Stream.Policy do
     end
   end
 
-  def authorize?(:list_observations, _user, _), do: true
-  def authorize?(:get_observation, _user, _observation), do: :ok
-  def authorize?(_, _, _), do: {:error, :unauthorized}
+  def authorize(:list_observations, _user, _), do: true
+  def authorize(:get_observation, _user, _observation), do: :ok
+  def authorize(_, _, _), do: {:error, :unauthorized}
 
   defp user_in_group(acting_user_id, group \\ "admin") do
     acting_user = Accounts.get_user!(acting_user_id)
