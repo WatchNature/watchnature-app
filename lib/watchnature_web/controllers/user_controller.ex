@@ -1,20 +1,19 @@
 defmodule WatchnatureWeb.UserController do
   use WatchnatureWeb, :controller
 
-  alias Watchnature.User
+  alias Watchnature.Accounts
+  alias Watchnature.Accounts.User
 
-  plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:update, :delete]
+  plug Guardian.Plug.EnsureAuthenticated, [handler: WatchnatureWeb.AuthController] when action in [:update, :delete]
   plug :scrub_params, "user" when action in [:create, :update]
 
   def index(conn, _params) do
-    users = Repo.all(User)
+    users = Accounts.list_users()
     render(conn, "index.json", users: users)
   end
 
   def create(conn, %{"user" => user_params}) do
-    changeset = User.registration_changeset(%User{}, user_params)
-
-    case Repo.insert(changeset) do
+    case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
         |> put_status(:created)
@@ -28,31 +27,32 @@ defmodule WatchnatureWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    render(conn, "show.json", user: user)
-  end
+    current_user = conn.assigns.current_user
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Repo.get!(User, id)
-    changeset = User.changeset(user, user_params)
-
-    case Repo.update(changeset) do
-      {:ok, user} ->
-        render(conn, "show.json", user: user)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(WatchnatureWeb.ChangesetView, "error.json", changeset: changeset)
+    with :ok <- Bodyguard.permit(Accounts, :get_user, current_user.id, id) do
+      user = Accounts.get_user!(id)
+      render(conn, "show.json", user: user)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+  def update(conn, %{"id" => user_id, "user" => user_params}) do
+    current_user = conn.assigns.current_user
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(user)
+    with :ok <- Bodyguard.permit(Accounts, :update_user, current_user.id, user_id) do
+      case Accounts.update_user(current_user, user_params) do
+        {:ok, user} -> render(conn, "show.json", user: user)
+      end
+    end
+  end
 
-    send_resp(conn, :no_content, "")
+  def delete(conn, %{"id" => user_id}) do
+    current_user = conn.assigns.current_user
+
+    with :ok <- Bodyguard.permit(Accounts, :delete_user, current_user.id, user_id) do
+      user = Accounts.get_user!(user_id)
+      Accounts.delete_user(user)
+
+      send_resp(conn, :no_content, "")
+    end
   end
 end

@@ -2,7 +2,7 @@ defmodule WatchnatureWeb.AuthController do
   use WatchnatureWeb, :controller
 
   alias WatchnatureWeb.{ErrorView, UserView}
-  alias Watchnature.{User, AuthController}
+  alias Watchnature.{Accounts.User, AuthController}
 
   plug Ueberauth
   plug Guardian.Plug.EnsureAuthenticated, [handler: AuthController] when action in [:delete, :me]

@@ -37,6 +37,7 @@ defmodule Watchnature.Mixfile do
                     :timex,
                     :scrivener,
                     :scrivener_ecto,
+                    :ex_machina,
                     :poison]]
   end
 
@@ -61,7 +62,7 @@ defmodule Watchnature.Mixfile do
      {:ueberauth, "~> 0.2"},
      {:ueberauth_identity, "~> 0.2"},
      {:guardian, "~> 0.10"},
-     {:bodyguard, "~> 2.0.0"},
+     {:bodyguard, "~> 2.1.2"},
      {:geo, "~> 1.4"},
      {:ecto_enum, "~> 1.0"},
      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
@@ -74,6 +75,7 @@ defmodule Watchnature.Mixfile do
      {:timex, "~> 3.1.0"},
      {:scrivener, "~> 2.0"},
      {:scrivener_ecto, "~> 1.0"},
+     {:ex_machina, "~> 2.0", only: :test},
      {:cowboy, "~> 1.0"}]
   end
 

@@ -9,7 +9,7 @@ defmodule WatchnatureWeb.FallbackController do
 
   def call(conn, {:error, :unauthorized}) do
     conn
-    |> put_status(:unauthorized)
-    |> render(WatchnatureWeb.ErrorView, "401.json")
+    |> put_status(:forbidden)
+    |> render(WatchnatureWeb.ErrorView, "403.json")
   end
 end

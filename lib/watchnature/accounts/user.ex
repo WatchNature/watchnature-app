@@ -1,9 +1,11 @@
-defmodule Watchnature.User do
+defmodule Watchnature.Accounts.User do
   use WatchnatureWeb, :model
 
-  alias Watchnature.{User, Stream.Post, Comment}
+  alias Watchnature.Accounts
+  alias Watchnature.Accounts.User
+  alias Watchnature.{Stream.Post, Comment}
 
-  schema "users" do
+  schema "accounts_users" do
     field :email, :string
     field :first_name, :string
     field :last_name, :string
@@ -12,6 +14,8 @@ defmodule Watchnature.User do
 
     has_many :posts, Post
     has_many :comments, Comment
+
+    many_to_many :groups, Accounts.Group, join_through: Watchnature.Accounts.UserGroup, on_delete: :delete_all
 
     timestamps()
   end

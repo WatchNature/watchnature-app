@@ -3,7 +3,7 @@ defmodule WatchnatureWeb.CommentController do
 
   alias Watchnature.{Comment, ErrorView}
 
-  plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
+  plug Guardian.Plug.EnsureAuthenticated, [handler: WatchnatureWeb.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "comment" when action in [:create, :update]
 
   # def index(conn, %{"post_id" => post_id}) do

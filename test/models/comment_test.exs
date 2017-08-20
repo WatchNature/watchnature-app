@@ -1,7 +1,7 @@
 defmodule Watchnature.CommentTest do
   use WatchnatureWeb.ModelCase
 
-  alias Watchnature.{User, Stream.Post, Comment}
+  alias Watchnature.{Accounts.User, Stream.Post, Comment}
 
   @valid_attrs %{body: "some content", flagged: true}
   @invalid_attrs %{}

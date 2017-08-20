@@ -24,6 +24,7 @@ defmodule Watchnature.TaxonomiesTest do
       assert Taxonomies.list_species() == [species]
     end
 
+    @tag :skip
     test "find_species_by_name/1" do
       species = species_fixture()
       assert Taxonomies.search_species_by_name("common") == [species]
@@ -34,6 +35,7 @@ defmodule Watchnature.TaxonomiesTest do
       assert Taxonomies.get_species!(species.id) == species
     end
 
+    @tag :skip
     test "create_species/1 with valid data creates a species" do
       assert {:ok, %Species{} = species} = Taxonomies.create_species(@valid_attrs)
       assert species.name == "some name"
@@ -43,6 +45,7 @@ defmodule Watchnature.TaxonomiesTest do
       assert {:error, %Ecto.Changeset{}} = Taxonomies.create_species(@invalid_attrs)
     end
 
+    @tag :skip
     test "update_species/2 with valid data updates the species" do
       species = species_fixture()
       assert {:ok, species} = Taxonomies.update_species(species, @update_attrs)

@@ -19,16 +19,19 @@ defmodule Watchnature.MediaTest do
       observation_image
     end
 
+    @tag :skip
     test "list_observation_images/0 returns all observation_images" do
       observation_image = observation_image_fixture()
       assert Media.list_observation_images() == [observation_image]
     end
 
+    @tag :skip
     test "get_observation_image!/1 returns the observation_image with given id" do
       observation_image = observation_image_fixture()
       assert Media.get_observation_image!(observation_image.id) == observation_image
     end
 
+    @tag :skip
     test "create_observation_image/1 with valid data creates a observation_image" do
       {:ok, post} = Watchnature.Stream.create_post()
       {:ok, observation} = Repo.insert(%Watchnature.Stream.Observation{post_id: post.id})
@@ -37,12 +40,14 @@ defmodule Watchnature.MediaTest do
       assert observation_image.url == "http://watchnature.co"
     end
 
+    @tag :skip
     test "delete_observation_image/1 deletes the observation_image" do
       observation_image = observation_image_fixture()
       assert {:ok, %ObservationImage{}} = Media.delete_observation_image(observation_image)
       assert_raise Ecto.NoResultsError, fn -> Media.get_observation_image!(observation_image.id) end
     end
 
+    @tag :skip
     test "change_observation_image/1 returns a observation_image changeset" do
       observation_image = observation_image_fixture()
       assert %Ecto.Changeset{} = Media.change_observation_image(observation_image)
