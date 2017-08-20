@@ -14,6 +14,8 @@ defmodule Watchnature.Accounts do
   # Users
   #
 
+  @default_user_preloads [:groups]
+
   @doc """
   Returns the list of users.
 
@@ -23,7 +25,7 @@ defmodule Watchnature.Accounts do
       [%User{}, ...]
 
   """
-  def list_users, do: Repo.all(User)
+  def list_users, do: Repo.all(User) |> Repo.preload(@default_user_preloads)
 
   @doc """
   Gets a single user.
@@ -39,7 +41,7 @@ defmodule Watchnature.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(@default_user_preloads)
 
   @doc """
   Registers a user.
@@ -54,9 +56,16 @@ defmodule Watchnature.Accounts do
 
   """
   def register_user(attrs \\ %{}) do
-    %User{}
+    user = %User{}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
+
+    case user do
+      {:ok, user} ->
+        user = user |> Repo.preload(@default_user_preloads)
+        {:ok, user}
+      {:error, changeset} -> {:error, changeset}
+    end
   end
 
   @doc """
