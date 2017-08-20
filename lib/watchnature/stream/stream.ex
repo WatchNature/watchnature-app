@@ -4,10 +4,11 @@ defmodule Watchnature.Stream do
   """
 
   import Ecto.Query, warn: false
+
   alias Watchnature.Repo
   alias Watchnature.Stream.Post
 
-  use Bodyguard.Policy, policy: Watchnature.Stream.Policy
+  defdelegate authorize(action, user, params), to: Watchnature.Stream.Policy
 
   @default_post_preloads [:user, [observations: [:images, :tags, :species]]]
 
