@@ -27,8 +27,12 @@ defmodule WatchnatureWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-    render(conn, "show.json", user: user)
+    current_user = conn.assigns.current_user
+
+    with :ok <- Bodyguard.permit(Accounts, :get_user, current_user.id, id) do
+      user = Accounts.get_user!(id)
+      render(conn, "show.json", user: user)
+    end
   end
 
   def update(conn, %{"id" => user_id, "user" => user_params}) do
@@ -41,10 +45,14 @@ defmodule WatchnatureWeb.UserController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-    Accounts.delete_user(user)
+  def delete(conn, %{"id" => user_id}) do
+    current_user = conn.assigns.current_user
 
-    send_resp(conn, :no_content, "")
+    with :ok <- Bodyguard.permit(Accounts, :delete_user, current_user.id, user_id) do
+      user = Accounts.get_user!(user_id)
+      Accounts.delete_user(user)
+
+      send_resp(conn, :no_content, "")
+    end
   end
 end
