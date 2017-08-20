@@ -3,6 +3,7 @@ defmodule WatchnatureWeb.AuthController do
 
   alias WatchnatureWeb.{ErrorView, UserView}
   alias Watchnature.{Accounts.User, AuthController}
+  alias Watchnature.Accounts
 
   plug Ueberauth
   plug Guardian.Plug.EnsureAuthenticated, [handler: AuthController] when action in [:delete, :me]
@@ -14,6 +15,10 @@ defmodule WatchnatureWeb.AuthController do
 
     case result do
       {:ok, user, token} ->
+        # Re-grab the user here from Accounts to make sure the proper
+        # preloads have been applied
+        user = Accounts.get_user!(user.id)
+
         conn
         |> put_status(:created)
         |> render(UserView, "authenticated.json", user: user, token: token)
