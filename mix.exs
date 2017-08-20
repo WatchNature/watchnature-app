@@ -37,7 +37,6 @@ defmodule Watchnature.Mixfile do
                     :timex,
                     :scrivener,
                     :scrivener_ecto,
-                    :ex_machina,
                     :poison]]
   end
 
