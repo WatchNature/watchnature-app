@@ -5,7 +5,7 @@ defmodule WatchnatureWeb.PostController do
 
   action_fallback WatchnatureWeb.FallbackController
 
-  plug Guardian.Plug.EnsureAuthenticated, [handler: Watchnature.AuthController] when action in [:create, :update, :delete]
+  plug Guardian.Plug.EnsureAuthenticated, [handler: WatchnatureWeb.AuthController] when action in [:create, :update, :delete]
   plug :scrub_params, "post" when action in [:create, :update]
 
   def index(conn, params) do
