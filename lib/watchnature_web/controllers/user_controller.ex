@@ -31,16 +31,13 @@ defmodule WatchnatureWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Accounts.get_user!(id)
+  def update(conn, %{"id" => user_id, "user" => user_params}) do
+    current_user = conn.assigns.current_user
 
-    case Accounts.update_user(user, user_params) do
-      {:ok, user} ->
-        render(conn, "show.json", user: user)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(WatchnatureWeb.ChangesetView, "error.json", changeset: changeset)
+    with :ok <- Bodyguard.permit(Accounts, :update_user, current_user.id, user_id) do
+      case Accounts.update_user(current_user, user_params) do
+        {:ok, user} -> render(conn, "show.json", user: user)
+      end
     end
   end
 

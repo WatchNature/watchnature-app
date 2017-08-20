@@ -87,6 +87,12 @@ defmodule Watchnature.AccountsTest do
       assert Accounts.get_group!(group.id) == group
     end
 
+    test "get_group_by_name!/1 returns the group with the given name" do
+      group = insert(:accounts_group, %{name: "admin"})
+
+      assert Accounts.get_group_by_name!("admin") == group
+    end
+
     test "create_group/1 with valid data creates a group" do
       assert {:ok, %Group{} = group} = Accounts.create_group(@valid_attrs)
       assert group.name == "some name"

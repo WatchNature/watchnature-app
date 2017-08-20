@@ -4,9 +4,11 @@ defmodule Watchnature.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Watchnature.Repo
 
+  alias Watchnature.Repo
   alias Watchnature.Accounts.{User, Group}
+
+  defdelegate authorize(action, user, params), to: Watchnature.Accounts.Policy
 
   #
   # Users
@@ -122,6 +124,23 @@ defmodule Watchnature.Accounts do
   end
 
   @doc """
+  Returns a list of group names the specified user belongs to.
+
+  ## Examples
+
+      iex> list_group_names_by_user(user)
+      ["admin", "expert"]
+      iex> list_group_names_by_user(user)
+      []
+  """
+  def list_group_names_by_user(%User{} = user)  do
+    group_names = get_user!(user.id)
+    |> Repo.preload(:groups)
+    |> Map.get(:groups, [])
+    |> Enum.map(&(&1.name))
+  end
+
+  @doc """
   Gets a single group.
 
   Raises `Ecto.NoResultsError` if the Group does not exist.
@@ -136,6 +155,11 @@ defmodule Watchnature.Accounts do
 
   """
   def get_group!(id), do: Repo.get!(Group, id)
+
+  @doc """
+  Returns a single group by the given name.
+  """
+  def get_group_by_name!(name), do: Repo.get_by!(Group, %{name: name})
 
   @doc """
   Creates a group.
