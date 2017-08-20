@@ -50,7 +50,7 @@ defmodule WatchnatureWeb.PostController do
 
     with :ok <- Bodyguard.permit(Stream, :delete_post, current_user.id) do
       post = Stream.get_post!(post_id)
-      with {:ok, conn} <- Stream.delete_post(post),
+      with {:ok, post} <- Stream.delete_post(post),
        do: send_resp(conn, :no_content, "")
     end
   end
