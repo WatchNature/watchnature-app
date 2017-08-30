@@ -3,4 +3,6 @@ defmodule Watchnature.Factory do
 
   use Watchnature.Accounts.UserFactory
   use Watchnature.Accounts.GroupFactory
+  use Watchnature.Stream.PostFactory
+  use Watchnature.Stream.ObservationFactory
 end
