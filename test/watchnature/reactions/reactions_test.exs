@@ -6,13 +6,13 @@ defmodule Watchnature.ReactionsTest do
 
   import Watchnature.Factory
 
-  describe "get_like!/2" do
+  describe "get_like/2" do
     test "it returns an ObservationLike when given one" do
       observation_like = insert(:reactions_observation_like)
       user = observation_like.user
       observation = observation_like.observation
 
-      assert observation_like = Reactions.get_like!(user, observation)
+      assert observation_like = Reactions.get_like(user, observation)
     end
   end
 

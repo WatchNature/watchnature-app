@@ -6,7 +6,7 @@ defmodule Watchnature.Stream do
   import Ecto.Query, warn: false
 
   alias Watchnature.Repo
-  alias Watchnature.Stream.Post
+  alias Watchnature.Stream.{Post, Observation}
 
   defdelegate authorize(action, user, params), to: Watchnature.Stream.Policy
 
@@ -157,5 +157,30 @@ defmodule Watchnature.Stream do
   """
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
+  end
+
+  #
+  # Observations
+  #
+
+  @default_observation_preloads [:images, :tags, :species]
+
+  @doc """
+  Gets a single observation.
+
+  Raises `Ecto.NoResultsError` if the observation does not exist.
+
+  ## Examples
+
+      iex> get_observation!(123)
+      %Post{}
+
+      iex> get_observation!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_observation!(id) do
+    Repo.get!(Observation, id)
+    |> Repo.preload(@default_observation_preloads)
   end
 end

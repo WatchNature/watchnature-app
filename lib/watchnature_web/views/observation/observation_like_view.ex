@@ -1,6 +1,6 @@
-defmodule WatchnatureWeb.ObservationLikeView do
+defmodule WatchnatureWeb.Observation.ObservationLikeView do
   use WatchnatureWeb, :view
-  alias WatchnatureWeb.ObservationLikeView
+  alias WatchnatureWeb.Observation.ObservationLikeView
 
   def render("index.json", %{observation_likes: observation_likes}) do
     %{data: render_many(observation_likes, ObservationLikeView, "observation_like.json")}

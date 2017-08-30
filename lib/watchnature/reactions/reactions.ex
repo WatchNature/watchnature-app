@@ -10,14 +10,16 @@ defmodule Watchnature.Reactions do
   alias Watchnature.Accounts
   alias Watchnature.Reactions.ObservationLike
 
+  defdelegate authorize(action, user, params), to: Watchnature.Reactions.Policy
+
   @doc """
   Returns a like between the given user and entity.
   """
-  def get_like!(%Accounts.User{} = user, %Stream.Observation{} = observation) do
+  def get_like(%Accounts.User{} = user, %Stream.Observation{} = observation) do
     query = from ol in ObservationLike,
               where: ol.user_id == ^user.id and ol.observation_id == ^observation.id
 
-    Repo.one!(query)
+    Repo.one(query)
   end
 
   @doc """
