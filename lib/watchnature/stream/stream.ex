@@ -6,11 +6,13 @@ defmodule Watchnature.Stream do
   import Ecto.Query, warn: false
 
   alias Watchnature.Repo
-  alias Watchnature.Stream.Post
+  alias Watchnature.Stream.{Post, Observation}
+  alias Watchnature.Accounts.User
+  alias Watchnature.Reactions.ObservationLike
 
   defdelegate authorize(action, user, params), to: Watchnature.Stream.Policy
 
-  @default_post_preloads [[user: [:groups]], [observations: [:images, :tags, :species]]]
+  @default_post_preloads [[user: [:groups]], [observations: [:images, :tags, :species, :likes]]]
 
   @doc """
   Returns the list of posts.
@@ -28,17 +30,40 @@ defmodule Watchnature.Stream do
     |> Repo.preload(@default_post_preloads)
   end
 
+  def list_posts(%User{} = user) do
+    list_posts_with_observation_likes_query(user.id)
+    |> Repo.all()
+    |> Repo.preload(@default_post_preloads)
+  end
+
+  defp list_posts_with_observation_likes_query(user_id) do
+    like_query =
+      from ol in ObservationLike,
+        where: ol.user_id == ^user_id
+
+    from p in Post,
+      join: o in assoc(p, :observations),
+      left_join: ol in assoc(o, :likes),
+      preload: [observations: {o, likes: ^like_query}]
+  end
+
   @doc """
   Returns a %Scrivener.Page{} struct with posts and page info.
 
   ## Examples
 
-    iex> paginate_posts()
-    %Scrivener.Page{current_page: 1, entries: [%Post{}, ...]}
-    iex> paginate_posts(%{page: 2})
-    %Scrivener.Page{current_page: 2, entries: [%Post{}, ...]}
+      iex> paginate_posts()
+      %Scrivener.Page{current_page: 1, entries: [%Post{}, ...]}
+      iex> paginate_posts(%{page: 2})
+      %Scrivener.Page{current_page: 2, entries: [%Post{}, ...]}
 
   """
+  def paginate_posts(params, user_id) do
+    list_posts_with_observation_likes_query(user_id)
+    |> Post.sorted
+    |> preload(^@default_post_preloads)
+    |> Repo.paginate(params)
+  end
   def paginate_posts(params) do
     Post
     |> Post.sorted
@@ -157,5 +182,30 @@ defmodule Watchnature.Stream do
   """
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
+  end
+
+  #
+  # Observations
+  #
+
+  @default_observation_preloads [:images, :tags, :species]
+
+  @doc """
+  Gets a single observation.
+
+  Raises `Ecto.NoResultsError` if the observation does not exist.
+
+  ## Examples
+
+      iex> get_observation!(123)
+      %Post{}
+
+      iex> get_observation!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_observation!(id) do
+    Repo.get!(Observation, id)
+    |> Repo.preload(@default_observation_preloads)
   end
 end

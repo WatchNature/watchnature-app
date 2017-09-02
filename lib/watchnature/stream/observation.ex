@@ -2,6 +2,7 @@ defmodule Watchnature.Stream.Observation do
   use WatchnatureWeb, :model
 
   alias Watchnature.{Stream.Observation, Tag, ObservationTag, Stream.Post, Repo}
+  alias Watchnature.Reactions.ObservationLike
 
   schema "observations" do
     field :description, :string
@@ -13,6 +14,7 @@ defmodule Watchnature.Stream.Observation do
 
     has_many :images, Watchnature.Media.ObservationImage
 
+    has_many :likes, ObservationLike
     many_to_many :tags, Tag, join_through: ObservationTag,  on_replace: :delete
 
     timestamps()
