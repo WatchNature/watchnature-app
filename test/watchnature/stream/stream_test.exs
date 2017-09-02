@@ -1,7 +1,37 @@
 defmodule Watchnature.StreamTest do
   use Watchnature.DataCase
 
+  import Watchnature.Factory
+
   alias Watchnature.Stream
+
+  describe "list_posts/1" do
+    test "given a user observation likes belonging to user are preloaded" do
+      user_with_likes = insert(:accounts_user)
+      user_without_likes = insert(:accounts_user)
+      post = insert(:stream_post)
+      observation = insert(:stream_observation, %{post: post})
+      observation_like = insert(:reactions_observation_like, %{observation: observation, user: user_with_likes})
+
+      likes_count = Stream.list_posts(user_with_likes)
+      |> List.first()
+      |> Map.get(:observations)
+      |> List.first()
+      |> Map.get(:likes)
+      |> Enum.count()
+
+      assert likes_count == 1
+
+      no_likes_count = Stream.list_posts(user_without_likes)
+      |> List.first()
+      |> Map.get(:observations)
+      |> List.first()
+      |> Map.get(:likes)
+      |> Enum.count()
+
+      assert no_likes_count == 0
+    end
+  end
 
   # describe "post" do
   #   alias Watchnature.Stream.Post

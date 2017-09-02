@@ -15,12 +15,20 @@ defmodule WatchnatureWeb.ObservationView do
       nil -> %{lat: nil, lng: nil}
     end
 
-    %{id: observation.id,
+    data = %{id: observation.id,
       description: observation.description,
       post_id: observation.post_id,
       location_name: observation.location_name,
       location: location,
       images: render_many(observation.images, WatchnatureWeb.Observation.ObservationImageView, "observation_image.json"),
-      species: render_one(observation.species, WatchnatureWeb.SpeciesView, "species.json")}
+      species: render_one(observation.species, WatchnatureWeb.SpeciesView, "species.json"),
+      current_user: %{
+        like_id: nil
+      }}
+
+    like = case observation.likes do
+      [] -> data
+      likes -> Map.put(data, :current_user, %{like_id: List.first(likes).id})
+    end
   end
 end

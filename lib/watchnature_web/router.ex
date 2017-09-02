@@ -28,6 +28,8 @@ defmodule WatchnatureWeb.Router do
 
     resources "/posts", PostController, except: [:new, :edit] do
       resources "/observations", ObservationController, except: [:new, :edit] do
+        post "/like", Observation.ObservationLikeController, :create
+        delete "/like", Observation.ObservationLikeController, :delete
         resources "/images", Observation.ObservationImageController, only: [:index, :create, :delete]
       end
       resources "/comments", CommentController, except: [:new, :edit]
