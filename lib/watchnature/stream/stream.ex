@@ -42,6 +42,7 @@ defmodule Watchnature.Stream do
         where: ol.user_id == ^user_id
 
     from p in Post,
+      distinct: true,
       join: o in assoc(p, :observations),
       left_join: ol in assoc(o, :likes),
       preload: [observations: {o, likes: ^like_query}]
