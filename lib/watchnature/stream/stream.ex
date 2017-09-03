@@ -12,7 +12,7 @@ defmodule Watchnature.Stream do
 
   defdelegate authorize(action, user, params), to: Watchnature.Stream.Policy
 
-  @default_post_preloads [[user: [:groups]], [observations: [:images, :tags, :species, :likes]]]
+  @default_post_preloads [[user: [:groups]], [observations: [:images, :tags, :species]]]
 
   @doc """
   Returns the list of posts.
