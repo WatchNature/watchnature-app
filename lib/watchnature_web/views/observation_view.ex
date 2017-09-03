@@ -16,6 +16,7 @@ defmodule WatchnatureWeb.ObservationView do
     end
 
     data = %{id: observation.id,
+      inserted_at: observation.inserted_at,
       description: observation.description,
       post_id: observation.post_id,
       location_name: observation.location_name,
