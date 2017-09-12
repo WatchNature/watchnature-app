@@ -29,7 +29,6 @@ defmodule Watchnature.Stream do
     |> Repo.all
     |> Repo.preload(@default_post_preloads)
   end
-
   def list_posts(%User{} = user) do
     list_posts_with_observation_likes_query(user.id)
     |> Repo.all()
