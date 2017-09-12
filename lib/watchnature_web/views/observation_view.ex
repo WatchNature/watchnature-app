@@ -28,12 +28,13 @@ defmodule WatchnatureWeb.ObservationView do
         like_id: nil
       }}
 
-    like = case observation.likes do
+    case observation.likes do
       %Ecto.Association.NotLoaded{} -> data
       [] -> data
       likes ->
-        Map.put(data, :current_user, %{like_id: List.first(likes).id})
-        Map.put(data, :likes_count, Enum.count(likes))
+        data
+        |> Map.put(:current_user, %{like_id: List.first(likes).id})
+        |> Map.put(:likes_count, Enum.count(likes))
     end
   end
 end
