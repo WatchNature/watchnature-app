@@ -23,6 +23,7 @@ defmodule WatchnatureWeb.ObservationView do
       location: location,
       images: render_many(observation.images, WatchnatureWeb.Observation.ObservationImageView, "observation_image.json"),
       species: render_one(observation.species, WatchnatureWeb.SpeciesView, "species.json"),
+      likes_count: 0,
       current_user: %{
         like_id: nil
       }}
@@ -30,8 +31,9 @@ defmodule WatchnatureWeb.ObservationView do
     like = case observation.likes do
       %Ecto.Association.NotLoaded{} -> data
       [] -> data
-      likes -> Map.put(data, :current_user, %{like_id: List.first(likes).id})
-      _ -> data
+      likes ->
+        Map.put(data, :current_user, %{like_id: List.first(likes).id})
+        Map.put(data, :likes_count, Enum.count(likes))
     end
   end
 end
