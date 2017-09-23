@@ -17,9 +17,9 @@ defmodule Watchnature.Reactions.ObservationLike do
     |> validate_required([])
     |> put_assoc(:user, attrs.user)
     |> assoc_constraint(:user)
+    |> unique_constraint(:user, name: :observation_likes_user_id_observation_id_index)
     |> put_assoc(:observation, attrs.observation)
     |> assoc_constraint(:observation)
-    |> foreign_key_constraint(:observation_id)
-    |> foreign_key_constraint(:user_id)
+    |> unique_constraint(:observation, name: :observation_likes_user_id_observation_id_index)
   end
 end
