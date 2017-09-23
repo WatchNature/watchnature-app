@@ -23,10 +23,14 @@ defmodule WatchnatureWeb.ObservationView do
       location: location,
       images: render_many(observation.images, WatchnatureWeb.Observation.ObservationImageView, "observation_image.json"),
       species: render_one(observation.species, WatchnatureWeb.SpeciesView, "species.json"),
-      likes_count: 0,
+
       current_user: %{
         like_id: nil
-      }}
+      },
+
+      reactions: Watchnature.Reactions.get_stats(observation)
+    }
+
 
     case observation.likes do
       %Ecto.Association.NotLoaded{} -> data

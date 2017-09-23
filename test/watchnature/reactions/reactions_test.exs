@@ -35,4 +35,14 @@ defmodule Watchnature.ReactionsTest do
       # assert_raise Ecto.NoResultsError, fn -> Reactions.get_observation_like!(observation_like.id) end
     end
   end
+
+  describe "get_stats/1" do
+    test "it returns a stat struct" do
+      user = insert(:accounts_user)
+      observation = insert(:stream_observation)
+      observation_like = insert(:reactions_observation_like, %{observation: observation})
+
+      assert %Reactions.Stat{likes: 1} = Reactions.get_stats(observation)
+    end
+  end
 end
