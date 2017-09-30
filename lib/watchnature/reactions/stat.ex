@@ -11,8 +11,10 @@ defmodule Watchnature.Reactions.Stat do
   alias Watchnature.Reactions.Stat
   alias Watchnature.Reactions.ObservationLike
 
+  @doc """
+  Returns a Stat struct with reaction data.
+  """
   def from_observation(observation) do
-
     %Stat{
       likes: likes_count(observation.id),
       recent_likers: recent_likers(observation.id)
