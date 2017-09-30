@@ -10,15 +10,14 @@ defmodule WatchnatureWeb.PostController do
 
   def index(conn, params) do
     with :ok <- Bodyguard.permit(Stream, :paginate_posts, conn) do
-      case Map.fetch(conn.assigns, :current_user) do
-        {:ok, current_user} ->
-          user_id = Map.fetch!(current_user, :id)
-          page = Stream.paginate_posts(params, user_id)
-        :error ->
-           page = Stream.paginate_posts(params)
-      end
+      page = Stream.paginate_posts(params)
 
-      render(conn, "index.json", posts: page.entries, page: page)
+      case conn.assigns[:current_user] do
+        nil ->
+          render(conn, "index.json", posts: page.entries, page: page)
+        current_user ->
+          render(conn, "index.json", posts: page.entries, page: page, user: current_user)
+      end
     end
   end
 
@@ -39,7 +38,12 @@ defmodule WatchnatureWeb.PostController do
     post = Stream.get_post!(id)
 
     with :ok <- Bodyguard.permit(Stream, :get_post, conn, post: post) do
-      render(conn, "show.json", post: post)
+      case conn.assigns[:current_user] do
+        nil ->
+          render(conn, "show.json", post: post)
+        current_user ->
+          render(conn, "show.json", post: post, user: current_user)
+      end
     end
   end
 

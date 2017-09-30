@@ -29,23 +29,6 @@ defmodule Watchnature.Stream do
     |> Repo.all
     |> Repo.preload(@default_post_preloads)
   end
-  def list_posts(%User{} = user) do
-    list_posts_with_observation_likes_query(user.id)
-    |> Repo.all()
-    |> Repo.preload(@default_post_preloads)
-  end
-
-  defp list_posts_with_observation_likes_query(user_id) do
-    like_query =
-      from ol in ObservationLike,
-        where: ol.user_id == ^user_id
-
-    from p in Post,
-      distinct: true,
-      join: o in assoc(p, :observations),
-      left_join: ol in assoc(o, :likes),
-      preload: [observations: {o, likes: ^like_query}]
-  end
 
   @doc """
   Returns a %Scrivener.Page{} struct with posts and page info.
@@ -58,12 +41,6 @@ defmodule Watchnature.Stream do
       %Scrivener.Page{current_page: 2, entries: [%Post{}, ...]}
 
   """
-  def paginate_posts(params, user_id) do
-    list_posts_with_observation_likes_query(user_id)
-    |> Post.sorted
-    |> preload(^@default_post_preloads)
-    |> Repo.paginate(params)
-  end
   def paginate_posts(params) do
     Post
     |> Post.sorted

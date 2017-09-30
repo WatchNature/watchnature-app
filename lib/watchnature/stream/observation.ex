@@ -28,7 +28,7 @@ defmodule Watchnature.Stream.Observation do
 
     struct
     |> cast(params, [:description, :location_name, :location, :species_id])
-    |> validate_required([:description, :species_id])
+    |> validate_required([])
     |> cast_assoc(:images)
     |> put_assoc(:tags, parse_and_get_tags(params))
   end
