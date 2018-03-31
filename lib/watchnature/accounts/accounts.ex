@@ -56,15 +56,18 @@ defmodule Watchnature.Accounts do
 
   """
   def register_user(attrs \\ %{}) do
-    user = %User{}
-    |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    user =
+      %User{}
+      |> User.registration_changeset(attrs)
+      |> Repo.insert()
 
     case user do
       {:ok, user} ->
         user = user |> Repo.preload(@default_user_preloads)
         {:ok, user}
-      {:error, changeset} -> {:error, changeset}
+
+      {:error, changeset} ->
+        {:error, changeset}
     end
   end
 
@@ -142,11 +145,12 @@ defmodule Watchnature.Accounts do
       iex> list_group_names_by_user(user)
       []
   """
-  def list_group_names_by_user(%User{} = user)  do
-    group_names = get_user!(user.id)
-    |> Repo.preload(:groups)
-    |> Map.get(:groups, [])
-    |> Enum.map(&(&1.name))
+  def list_group_names_by_user(%User{} = user) do
+    group_names =
+      get_user!(user.id)
+      |> Repo.preload(:groups)
+      |> Map.get(:groups, [])
+      |> Enum.map(& &1.name)
   end
 
   @doc """

@@ -4,16 +4,15 @@ defmodule Watchnature.Taxonomies.Species do
   alias Watchnature.Taxonomies.Species
 
   schema "species" do
-    field :common_name, :string
-    field :scientific_name, :string
-    field :itis_tsn, :integer
+    field(:common_name, :string)
+    field(:scientific_name, :string)
+    field(:itis_tsn, :integer)
 
-    has_many :observations, Watchnature.Stream.Observation
+    has_many(:observations, Watchnature.Stream.Observation)
 
     timestamps()
   end
 
-  @doc false
   def changeset(%Species{} = species, attrs) do
     species
     |> cast(attrs, [:common_name, :scientific_name, :itis_tsn])
