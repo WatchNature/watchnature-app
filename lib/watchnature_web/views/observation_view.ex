@@ -1,34 +1,49 @@
 defmodule WatchnatureWeb.ObservationView do
   use WatchnatureWeb, :view
 
+  alias __MODULE__
+  alias Watchnature.Reactions
+  alias WatchnatureWeb.{Observation.ObservationImageView, Observation.ObservationLikeView, SpeciesView}
+
   def render("index.json", %{observations: observations}) do
-    %{data: render_many(observations, WatchnatureWeb.ObservationView, "observation.json")}
+    %{data: render_many(observations, ObservationView, "observation.json")}
   end
 
   def render("show.json", %{observation: observation}) do
-    %{data: render_one(observation, WatchnatureWeb.ObservationView, "observation.json")}
+    %{data: render_one(observation, ObservationView, "observation.json")}
+  end
+
+  def render("observation.json", %{observation: observation, user: requesting_user}) do
+
+    observation
+    |> observation_data()
+    |> Map.put_new(:reactions, Reactions.get_stats(observation))
+    |> Map.put_new(:current_user, %{})
+    |> put_in([:current_user, :like], observation_like_data(observation, requesting_user))
   end
 
   def render("observation.json", %{observation: observation}) do
-    location = case observation.location do
-      %Geo.Point{coordinates: {lat, lng}} -> %{lat: lat, lng: lng}
-      nil -> %{lat: nil, lng: nil}
-    end
+    observation
+    |> observation_data()
+    |> Map.put_new(:reactions, Reactions.get_stats(observation))
+  end
 
-    data = %{id: observation.id,
+  defp observation_like_data(observation, user) do
+    observation_like = Reactions.get_like(user, observation)
+    render_one(observation_like, ObservationLikeView, "observation_like.json")
+  end
+
+  defp observation_data(observation) do
+    %{id: observation.id,
+      inserted_at: observation.inserted_at,
       description: observation.description,
       post_id: observation.post_id,
       location_name: observation.location_name,
-      location: location,
-      images: render_many(observation.images, WatchnatureWeb.Observation.ObservationImageView, "observation_image.json"),
-      species: render_one(observation.species, WatchnatureWeb.SpeciesView, "species.json"),
-      current_user: %{
-        like_id: nil
-      }}
-
-    like = case observation.likes do
-      [] -> data
-      likes -> Map.put(data, :current_user, %{like_id: List.first(likes).id})
-    end
+      location: observation_location(observation.location),
+      images: render_many(observation.images, ObservationImageView, "observation_image.json"),
+      species: render_one(observation.species, SpeciesView, "species.json")}
   end
+
+  defp observation_location(%Geo.Point{coordinates: {lat, lng}}), do: %{lat: lat, lng: lng}
+  defp observation_location(nil), do: %{lat: nil, lng: nil}
 end

@@ -15,9 +15,4 @@ defmodule Watchnature.Stream.ObservationTest do
 
     assert changeset.valid?
   end
-
-  test "changeset with invalid attributes" do
-    changeset = Observation.changeset(%Observation{}, @invalid_attrs)
-    refute changeset.valid?
-  end
 end

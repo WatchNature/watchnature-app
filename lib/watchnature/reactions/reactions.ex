@@ -7,8 +7,10 @@ defmodule Watchnature.Reactions do
   alias Watchnature.Repo
 
   alias Watchnature.Stream
+  alias Watchnature.Stream.Observation
   alias Watchnature.Accounts
   alias Watchnature.Reactions.ObservationLike
+  alias Watchnature.Reactions.Stat
 
   defdelegate authorize(action, user, params), to: Watchnature.Reactions.Policy
 
@@ -49,4 +51,9 @@ defmodule Watchnature.Reactions do
   defp delete_observation_like(%ObservationLike{} = observation_like) do
     Repo.delete(observation_like)
   end
+
+  @doc """
+  Returns a Reaction.Stat struct with tallied results for  the given resource.
+  """
+  def get_stats(%Observation{} = observation), do: Stat.from_observation(observation)
 end
